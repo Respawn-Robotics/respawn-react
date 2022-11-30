@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar {
+  height: 10vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #e96824;
+  width: 100%;
+  border: 2px solid #fff;
+}
+
+.navbar-section {
+
+}
+
+#navbar-logo {
+  height: 10vh;
+  margin-right: auto;
+}
+
+#navbar-about, #navbar-first, #navbar-sponsors, #navbar-contact {
+  padding: 1rem;
+  text-align: center;
+}
+
+
