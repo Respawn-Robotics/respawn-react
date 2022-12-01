@@ -1,24 +1,26 @@
 import '../App.css';
 import logo from "../media/respawn_logo.png";
-
+import paths from "../paths.json";
 
 function Navbar() {
     return (
         <nav className="navbar">
             <div id='navbar-logo'>
-                <img src={logo} id="nav-image"/>
+                <a href={paths['home']}>
+                    <img src={logo} id="nav-image" alt='Home' />
+                </a>
             </div>
             <div className="navbar-section">
-                <a href="/" className="nav-link">ABOUT</a>
+                <a href={paths['about']} className="nav-link">ABOUT</a>
             </div>
             <div className="navbar-section">
-                <a href="/" className="nav-link"><i>FIRST</i></a>
+                <a href={paths['first']} className="nav-link"><i>FIRST</i></a>
             </div>
             <div className="navbar-section">
-                <a href="/" className="nav-link">SPONSORS</a>
+                <a href={paths['sponsors']} className="nav-link">SPONSORS</a>
             </div>
             <div className="navbar-section">
-                <a href="/" className="nav-link">CONTACT</a>
+                <a href='/' className="nav-link">Pillars of Respawn</a>
             </div>
         </nav>
     );

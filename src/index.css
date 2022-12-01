@@ -23,9 +23,10 @@ body {
 }
 
 .navbar-section {
+  display: flex;
+  align-items: center;
   padding-left: 1em;
   padding-right: 1em;
-  padding-top: 4vh;
   text-align: center;
   font-size: 2vh;
 }
@@ -36,7 +37,7 @@ body {
 }
 
 #nav-image {
-  object-fit: contain;
+  height: 100%;
 }
 
 

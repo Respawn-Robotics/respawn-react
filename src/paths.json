@@ -1,0 +1,17 @@
+{
+    "main" : {
+        "home": "/",
+        "about": "/about",
+        "first": "/first",
+        "sponsors": "/sponsors",
+        "pillars": {
+            "recon": "/pillars/recon",
+            "repository": "/pillars/repository",
+            "reach": "/pillars/reach",
+            "reflect": "/pillars/reflect"
+        }
+    },
+    "recon" : {
+        "dashboard" : "/"
+    }
+}
