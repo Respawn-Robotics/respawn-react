@@ -1,28 +1,28 @@
 import '../App.css';
-import {ReactComponent as Logo} from "../media/respawn_logo.svg"
+import logo from "../media/respawn_logo.png";
+
 
 function Navbar() {
     return (
         <nav className="navbar">
-            <div className="navbar-section" id="navbar-logo">
-                <a href="/">
-                    <Logo />
-                </a>
+            <div id='navbar-logo'>
+                <img src={logo} id="nav-image"/>
             </div>
-            <div className="navbar-section" id="navbar-about">
+            <div className="navbar-section">
                 <a href="/" className="nav-link">ABOUT</a>
             </div>
-            <div className="navbar-section" id="navbar-first">
+            <div className="navbar-section">
                 <a href="/" className="nav-link"><i>FIRST</i></a>
             </div>
-            <div className="navbar-section" id="navbar-sponsors">
+            <div className="navbar-section">
                 <a href="/" className="nav-link">SPONSORS</a>
             </div>
-            <div className="navbar-section" id="navbar-contact">
+            <div className="navbar-section">
                 <a href="/" className="nav-link">CONTACT</a>
             </div>
         </nav>
     );
 }
+
 
 export default Navbar;
