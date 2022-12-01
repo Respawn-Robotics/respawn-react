@@ -1,9 +1,11 @@
 * {
   box-sizing: border-box;
+  font-size: 2vh;
 }
 
 body {
   background-color: black;
+  margin: 0px;
 }
 
 .nav-link {
@@ -15,24 +17,27 @@ body {
   height: 10vh;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: stretch;
   background-color: #e96824;
   width: 100%;
-  border: 2px solid #fff;
 }
 
 .navbar-section {
-
+  display: flex;
+  align-items: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align: center;
+  font-size: 2vh;
 }
 
 #navbar-logo {
-  height: 10vh;
   margin-right: auto;
+  color:#e96824;
 }
 
-#navbar-about, #navbar-first, #navbar-sponsors, #navbar-contact {
-  padding: 1rem;
-  text-align: center;
+#nav-image {
+  height: 100%;
 }
 
 
