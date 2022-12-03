@@ -1,4 +1,4 @@
-import '../Navbar.css';
+import './Navbar.css';
 import logo from "../media/respawn_logo.png";
 import paths from "../paths.json";
 
