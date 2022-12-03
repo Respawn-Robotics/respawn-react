@@ -1,4 +1,4 @@
-import '../App.css';
+import './Navbar.css';
 import {ReactComponent as Logo} from "../media/respawn_logo.svg"
 
 function Navbar() {

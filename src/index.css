@@ -6,34 +6,3 @@ body {
   background-color: black;
 }
 
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-}
-
-.navbar {
-  height: 10vh;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background-color: #e96824;
-  width: 100%;
-  border: 2px solid #fff;
-}
-
-.navbar-section {
-
-}
-
-#navbar-logo {
-  /* height: 100%;
-  min-width: 10rem;
-  margin-right: auto; */
-}
-
-#navbar-about, #navbar-first, #navbar-sponsors, #navbar-contact {
-  flex-basis: 12.5%;
-  text-align: center;
-}
-
-
