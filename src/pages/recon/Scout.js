@@ -20,13 +20,13 @@ function ScoutForm() {
     }
 
     let widgets = [
-        <input type='number' name='team' value={inputs.team || ""} onChange={change} className='form-control forminput' id='in1'/>,
-        <select name='alliance' value={inputs.alliance || ""} onChange={change} className='form-control forminput' id='in2'>
+        <input type='number' name='team' value={inputs.team || ""} onChange={change} className='form-input'/>,
+        <select name='alliance' value={inputs.alliance || ""} onChange={change} className='form-input'>
                         <option value='Red'>Red</option>
                         <option value='Blue'>Blue</option>
                     </select>,
-        <input type='number' name='match' value={inputs.match || ""} onChange={change} className='form-control forminput' id='in3'/>,
-        <select name='Starting_Position' value={inputs.Starting_Position || ""} onChange={change} className='form-control forminput' id='in4'>
+        <input type='number' name='match' value={inputs.match || ""} onChange={change} className='form-input'/>,
+        <select name='Starting_Position' value={inputs.Starting_Position || ""} onChange={change} className='form-input'>
                                 <option value='1'>1</option>
                                 <option value='2'>2</option>
                                 <option value='3'>3</option>
@@ -36,19 +36,19 @@ function ScoutForm() {
                                 <option value='7'>7</option>
                                 <option value='8'>8</option>
                             </select>,
-        <input type='checkbox' name='Exited_Tarmac' value={inputs.Exited_Tarmac || ""} onChange={change} className='form-control forminput' id='in5'/>,
-        <input type='number' name='Auton_Upper_Score' value={inputs.Auton_Upper_Score || ""} onChange={change} className='form-control forminput' id='in6'/>,
-        <input type='number' name='Auton_Lower_Score' value={inputs.Auton_Lower_Score || ""} onChange={change} className='form-control forminput' id='in7'/>,
-        <input type='number' name='Auton_Missed_Shots' value={inputs.Auton_Missed_Shots || ""} onChange={change} className='form-control forminput' id='in8'/>,
-        <select name='Climb_Level' value={inputs.Climb_Level || ""} onChange={change} className='form-control forminput' id='in9'>
+        <input type='checkbox' name='Exited_Tarmac' value={inputs.Exited_Tarmac || ""} onChange={change} className='form-input'/>,
+        <input type='number' name='Auton_Upper_Score' value={inputs.Auton_Upper_Score || ""} onChange={change} className='form-input'/>,
+        <input type='number' name='Auton_Lower_Score' value={inputs.Auton_Lower_Score || ""} onChange={change} className='form-input'/>,
+        <input type='number' name='Auton_Missed_Shots' value={inputs.Auton_Missed_Shots || ""} onChange={change} className='form-input'/>,
+        <select name='Climb_Level' value={inputs.Climb_Level || ""} onChange={change} className='form-input'>
                             <option value='Did_Not_Climb'>Did Not Climb</option>
                             <option value='Low Rung'>Low Rung</option>
                             <option value='Mid Rung'>Mid Rung</option>
                             <option value='High Rung'>High Rung</option>
                             <option value='Traversal Rung'>Traversal Rung</option>
                         </select>,
-        <input type='number' name='Time_To_Climb' value={inputs.Time_To_Climb || ""} onChange={change} className='form-control forminput' id='in10'/>,
-        <textarea name='Additional_Comments' value={inputs.Additional_Comments || ""} onChange={change} className='form-control forminput' id='in11'/>,
+        <input type='number' name='Time_To_Climb' value={inputs.Time_To_Climb || ""} onChange={change} className='form-input'/>,
+        <textarea name='Additional_Comments' value={inputs.Additional_Comments || ""} onChange={change} className='form-input'/>,
     ];
 
     return (<>
