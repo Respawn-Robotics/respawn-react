@@ -8,25 +8,25 @@
   height: 10vh;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: stretch;
   background-color: #e96824;
   width: 100%;
-  border: 2px solid #fff;
 }
 
 .navbar-section {
-
+  display: flex;
+  align-items: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align: center;
+  font-size: 2vh;
 }
 
 #navbar-logo {
-  /* height: 100%;
-  min-width: 10rem;
-  margin-right: auto; */
+  margin-right: auto;
+  color:#e96824;
 }
 
-#navbar-about, #navbar-first, #navbar-sponsors, #navbar-contact {
-  flex-basis: 12.5%;
-  text-align: center;
+#nav-image {
+  height: 100%;
 }
-
-
