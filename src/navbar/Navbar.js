@@ -1,28 +1,31 @@
-import './Navbar.css';
-import {ReactComponent as Logo} from "../media/respawn_logo.svg"
+import '../Navbar.css';
+import logo from "../media/respawn_logo.png";
+import paths from "../paths.json";
+
 
 function Navbar() {
     return (
-        <nav class="navbar">
-            <div class="navbar-section" id="navbar-logo">
-                <a href="/">
-                    <Logo />
+        <nav className="navbar">
+            <div id='navbar-logo'>
+                <a href={paths['home']}>
+                    <img src={logo} id="nav-image" alt='Home' />
                 </a>
             </div>
-            <div class="navbar-section" id="navbar-about">
-                <a href="/" class="nav-link">ABOUT</a>
+            <div className="navbar-section">
+                <a href={paths['about']} className="nav-link">ABOUT</a>
             </div>
-            <div class="navbar-section" id="navbar-first">
-                <a href="/" class="nav-link"><i>FIRST</i></a>
+            <div className="navbar-section">
+                <a href={paths['first']} className="nav-link"><i>FIRST</i></a>
             </div>
-            <div class="navbar-section" id="navbar-sponsors">
-                <a href="/" class="nav-link">SPONSORS</a>
+            <div className="navbar-section">
+                <a href={paths['sponsors']} className="nav-link">SPONSORS</a>
             </div>
-            <div class="navbar-section" id="navbar-contact">
-                <a href="/" class="nav-link">CONTACT</a>
+            <div className="navbar-section">
+                <a href='/' className="nav-link">Pillars of Respawn</a>
             </div>
         </nav>
     );
 }
+
 
 export default Navbar;

@@ -1,8 +1,9 @@
 * {
   box-sizing: border-box;
+  font-size: 2vh;
 }
 
 body {
   background-color: black;
+  margin: 0px;
 }
-

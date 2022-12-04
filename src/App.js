@@ -1,6 +1,10 @@
-import logo from './logo.svg';
-import Navbar from './navbar/Navbar';
-import './App.css';
+import { React } from 'react';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+//Main Page
+import Home from './pages/main/Home';
+
+//Recon
+import Dashboard from './pages/recon/Dashboard';
 
 const firebaseConfig = {
   apiKey:            process.env.apiKey,
@@ -13,25 +17,25 @@ const firebaseConfig = {
 }
 
 function App() {
-  return (
-    <div className="App">
-      <Navbar />
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-    </div>
-  );
+  const domains = window.location.hostname.split(".");
+  switch (domains[1]) {
+    case 'recon':
+      return (
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Dashboard />} />
+          </Routes>
+        </BrowserRouter>
+      );
+    default:
+      return (
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      );
+  }
 }
 
 export default App;
