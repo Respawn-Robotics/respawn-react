@@ -1,7 +1,6 @@
-import './Navbar.css';
+import '../App.css';
 import logo from "../media/respawn_logo.png";
 import paths from "../paths.json";
-
 
 function Navbar() {
     return (

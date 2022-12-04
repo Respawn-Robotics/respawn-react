@@ -7,3 +7,37 @@ body {
   background-color: black;
   margin: 0px;
 }
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar {
+  height: 10vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  background-color: #e96824;
+  width: 100%;
+}
+
+.navbar-section {
+  display: flex;
+  align-items: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align: center;
+  font-size: 2vh;
+}
+
+#navbar-logo {
+  margin-right: auto;
+  color:#e96824;
+}
+
+#nav-image {
+  height: 100%;
+}
+
+
