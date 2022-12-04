@@ -1,4 +1,4 @@
-import '../App.css';
+import './Navbar.css';
 import logo from "../media/respawn_logo.png";
 import paths from "../paths.json";
 
@@ -11,13 +11,13 @@ function Navbar() {
                 </a>
             </div>
             <div className="navbar-section">
-                <a href={paths['about']} className="nav-link">ABOUT</a>
+                <a href={paths.main['about']} className="nav-link">ABOUT</a>
             </div>
             <div className="navbar-section">
-                <a href={paths['first']} className="nav-link"><i>FIRST</i></a>
+                <a href={paths.main['first']} className="nav-link"><i>FIRST</i></a>
             </div>
             <div className="navbar-section">
-                <a href={paths['sponsors']} className="nav-link">SPONSORS</a>
+                <a href={paths.main['sponsors']} className="nav-link">SPONSORS</a>
             </div>
             <div className="navbar-section">
                 <a href='/' className="nav-link">Pillars of Respawn</a>
