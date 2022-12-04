@@ -6,6 +6,16 @@ import Home from './pages/main/Home';
 //Recon
 import Dashboard from './pages/recon/Dashboard';
 
+const firebaseConfig = {
+  apiKey:            process.env.apiKey,
+  authDomain:        process.env.authDomain,
+  projectId:         process.env.projectId,
+  storageBucket:     process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId,
+  appId:             process.env.appId,
+  measurementId:     process.env.measurementId
+}
+
 function App() {
   const domains = window.location.hostname.split(".");
   switch (domains[1]) {
