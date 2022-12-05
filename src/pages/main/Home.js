@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../../logo.svg';
-import Navbar from '../../navbar/Navbar';
+import Navbar from '../../components/navbar/Navbar';
 import '../../App.css';
 
 function Home() {
@@ -8,7 +8,7 @@ function Home() {
     <div className="App">
       <Navbar />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo"/>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>

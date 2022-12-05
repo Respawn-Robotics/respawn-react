@@ -4,30 +4,23 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Home from './pages/main/Home';
 
 //Recon
-import Dashboard from './pages/recon/Dashboard';
-import Scout from './pages/recon/Scout';
+import Dashboard from './pages/recon/dashboard/Dashboard';
+import Scout from './pages/recon/scout/Scout';
 
 function App() {
-  const domains = window.location.hostname.split(".");
-  switch (domains[1]) {
-    case 'recon':
-      return (
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<Dashboard/>}/>
-            <Route path='/scout' element={<Scout/>}/>
-          </Routes>
-        </BrowserRouter>
-      );
-    default:
-      return (
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<Home/>} />
-          </Routes>
-        </BrowserRouter>
-      );
-  }
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Main Page */}
+        <Route index element={<Home />} />
+
+        {/* Recon */}
+        <Route path='/recon/' element={<Dashboard />} />
+        <Route path='/recon/scout' element={<Scout />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
+
 
 export default App;

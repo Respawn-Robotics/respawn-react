@@ -1,6 +1,6 @@
 import './Navbar.css';
-import logo from "../media/respawn_logo.png";
-import paths from "../paths.json";
+import logo from "../../media/respawn_logo.png";
+import paths from "../../paths.json";
 
 function Navbar() {
     return (
@@ -20,7 +20,7 @@ function Navbar() {
                 <a href={paths.main['sponsors']} className="nav-link">SPONSORS</a>
             </div>
             <div className="navbar-section">
-                <a href='/' className="nav-link">Pillars of Respawn</a>
+                <a href={paths.recon['dashboard']} className="nav-link">Pillars of Respawn</a>
             </div>
         </nav>
     );
