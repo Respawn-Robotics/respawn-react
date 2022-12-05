@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { onSnapshot, collection, addDoc } from 'firebase/firestore';
 import './scout.css';
 import db from '../../../firebase.config';
+import { type } from '@testing-library/user-event/dist/type';
 
 function ScoutForm() {
     const [inputs, setInputs] = useState({});
@@ -14,8 +15,24 @@ function ScoutForm() {
     }
 
     const change = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
+        const target = event.target;
+
+        const name = target.name;
+        let value = null;
+        
+        switch (target.type) {
+            case "number":
+                value = parseInt(target.value);
+                break;
+            case "checkbox":
+                value = target.checked;
+                break;
+            default:
+                value = target.value;
+            
+        }
+
+        console.log(value + ", " + typeof value);
         setInputs(values => ({ ...values, [name]: value }))
     }
 
