@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { onSnapshot, collection, addDoc } from 'firebase/firestore';
-import '../../App.css';
-import db from '../../firebase.config';
+import './scout.css';
+import db from '../../../firebase.config';
 
 function ScoutForm() {
     const [inputs, setInputs] = useState({});
@@ -72,14 +72,12 @@ function Scout() {
     const [data, setData] = useState([]);
 
     useEffect(() => onSnapshot(collection(db, "recon"), (snapshot) =>
-        setData(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-    )
-        , []);
+        setData(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))), []);
 
 
     return (
         <>
-            <ScoutForm />
+            <ScoutForm/>
         </>
     );
 }

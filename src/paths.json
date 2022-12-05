@@ -12,6 +12,7 @@
         }
     },
     "recon" : {
-        "dashboard" : "/"
+        "dashboard" : "/recon",
+        "scout" : "/recon/scout"
     }
 }
