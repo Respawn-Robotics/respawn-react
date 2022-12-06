@@ -1,0 +1,9 @@
+.our-mission-container {
+    display: flex;
+}
+
+.our-mission {
+    font-family: "roboto-sans";
+    color: white;
+    padding: 5vw;
+}

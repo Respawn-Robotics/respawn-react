@@ -8,7 +8,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: stretch;
-  background-color: #e96824;
+  background-color: #1E2837;
   width: 100%;
 }
 
@@ -23,7 +23,7 @@
 
 #navbar-logo {
   margin-right: auto;
-  color:#e96824;
+  color: #e96824;
 }
 
 #nav-image {

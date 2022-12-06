@@ -1,0 +1,14 @@
+.input-container {
+    display: flex;
+}
+
+.form-input {
+    background-color: #2f6074;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.form-label {
+    color: white
+}
