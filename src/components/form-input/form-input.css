@@ -3,7 +3,7 @@
 }
 
 .form-input {
-    background-color: #2f6074;
+    background-color: var(--respawn-blue);
     color: white;
     border-radius: 10px;
     border: 2px solid black;

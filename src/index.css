@@ -1,3 +1,9 @@
+:root {
+  --respawn-dark-blue: #1e2837;
+  --respawn-blue: #2f6074;
+  --respawn-orange: #e96824;
+}
+
 @font-face {
   font-family: "roboto-sans";
   src: url("./media/fonts/roboto-sans/RobotoSlab-Regular.ttf") format("truetype");
@@ -9,7 +15,7 @@
 }
 
 body {
-  background-color: #1e2837;
+  background-color: var(--respawn-dark-blue);
   margin: 0px;
 }
 
