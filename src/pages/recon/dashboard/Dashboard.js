@@ -6,7 +6,7 @@ import { onSnapshot, collection } from 'firebase/firestore';
 
 function Dashboard() {
   const [data, setData] = useState([]);
-  useEffect(() => 
+  useEffect(() =>
     onSnapshot(collection(db, "recon"), (snapshot) =>
       setData(snapshot.docs.map(doc => doc.data()))), []);
 
@@ -15,7 +15,7 @@ function Dashboard() {
       <Navbar />
       <table>
         {
-          console.log(data[0])
+          console.log(data)
         }
       </table>
     </>
