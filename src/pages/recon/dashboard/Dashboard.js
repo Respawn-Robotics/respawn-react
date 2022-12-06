@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../../components/navbar/Navbar';
 import './dashboard.css';
 import db from '../../../firebase.config';
 import { onSnapshot, collection } from 'firebase/firestore';
@@ -12,7 +11,6 @@ function Dashboard() {
 
   return (
     <>
-      <Navbar />
       <table>
         {
           console.log(data)
