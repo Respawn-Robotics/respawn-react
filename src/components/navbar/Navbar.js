@@ -1,4 +1,4 @@
-import './Navbar.css';
+import './navbar.css';
 import logo from "../../media/respawn_logo.png";
 import paths from "../../paths.json";
 
@@ -6,7 +6,7 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div id='navbar-logo'>
-                <a href={paths['home']}>
+                <a href={paths.main['home']}>
                     <img src={logo} id="nav-image" alt='Home' />
                 </a>
             </div>

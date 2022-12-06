@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "roboto-sans";
+  src: url("./media/fonts/roboto-sans/RobotoSlab-Regular.ttf") format("truetype");
+}
+
 * {
   box-sizing: border-box;
   font-size: 2vh;
