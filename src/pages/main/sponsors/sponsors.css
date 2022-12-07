@@ -1,0 +1,29 @@
+.sponsors-container{
+    background: fixed;
+    background-color: var(--respawn-dark-blue); /*change to team photo*/
+}
+
+#container {
+    height: 5vw;
+    width: 100%;
+    background-color: black;
+    margin: auto;
+}
+.sponsors-section1{
+    padding-top: 5vw;
+}
+.sponsors-text{
+    font-family: "roboto-sans";
+    text-align: center;
+    font-size: 2vw;
+    color: white;
+}
+
+.sponsors-section2{
+    padding-top: 10vw;
+}
+
+.sponsors-section3{
+    padding-top: 15vw;
+    padding-bottom: 10vw;
+}
