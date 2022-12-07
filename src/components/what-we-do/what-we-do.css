@@ -1,0 +1,10 @@
+.what-we-do {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: var(--respawn-blue);
+}
+
+.what-we-do-square {
+    flex-basis: calc(100%/3);
+}

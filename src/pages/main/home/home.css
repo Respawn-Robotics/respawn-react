@@ -1,9 +1,21 @@
-.our-mission-container {
+.container {
     display: flex;
 }
 
-.our-mission {
-    font-family: "roboto-sans";
+.our-mission-container {
+    flex-basis: 50%;
+}
+
+
+p.our-mission {
+    font-family: "roboto-slab";
     color: white;
-    padding: 5vw;
+    padding: 0px 5vw;
+}
+
+h1.our-mission {
+    font-family: "bank-gothic";
+    font-size: 3rem;
+    text-align: center;
+    color: var(--respawn-orange);
 }
