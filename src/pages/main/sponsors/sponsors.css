@@ -1,29 +1,54 @@
-.sponsors-container{
+body{
+    padding: none;
     background: fixed;
-    background-color: var(--respawn-dark-blue); /*change to team photo*/
+    background-image: 
+    linear-gradient(
+        rgba(0,0,0,0.5),
+        rgba(0,0,0,.5)
+    ),
+    url(https://pbs.twimg.com/media/FOJ6ed4VUAAeQAb?format=jpg&name=large);
 }
 
-#container {
-    height: 5vw;
-    width: 100%;
-    background-color: black;
-    margin: auto;
+#container1 {
+    background-color: transparent;
 }
-.sponsors-section1{
-    padding-top: 5vw;
+#container2 {
+    background-color: var(--respawn-dark-blue);
+
 }
-.sponsors-text{
-    font-family: "roboto-sans";
-    text-align: center;
-    font-size: 2vw;
+.smaller-text{
+    font-size: 25px;
+    font-family:'roboto-sans';
     color: white;
+    text-align:center;
+    display:block;
+    width: 25em;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
 }
-
-.sponsors-section2{
-    padding-top: 10vw;
+.larger-text{
+    font-size: 2.5vw;
+    padding-top: 6.5vw;
+    font-family: 'roboto-sans';
+    color: white;
+    text-align:center;
+    display: block;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
+.sponsors-section {
+    display: table;
+    min-width: 100%;
+    min-height: 20vw;
+    max-width:100%;
+    max-height: 20vw;
+}
+.why-sponsor{
+    font-size: 2.5vw;
+    font-family: 'roboto-sans';
+    color: white;
+    text-align:center;
+    display: block;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 
-.sponsors-section3{
-    padding-top: 15vw;
-    padding-bottom: 10vw;
 }
