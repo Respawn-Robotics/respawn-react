@@ -1,3 +1,7 @@
+body{
+    background: var(--respawn-dark-blue);
+    background-image: none; 
+}
 .our-mission-container {
     display: flex;
 }

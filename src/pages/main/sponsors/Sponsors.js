@@ -1,15 +1,16 @@
 import './sponsors.css';
 import React from 'react';
 
+
 function Sponsors() {
     return (
     <>
         <head>
         </head>
-        <body>
+        <body className = 'sponsors-body'>
             <div className='sponsors-section' id='container1'>
                 <p className='larger-text'>
-                Our Sponsors
+                Respawn Robotics Sponsors
                 </p>
             </div>
             <div className='sponsors-section' id='container2'>
@@ -44,7 +45,7 @@ function Sponsors() {
             </div>
             <div className='sponsors-section' id='container1'>
                 <p className='larger-text'>
-                    Stinkers (Below $999)
+                    Base (Below $999)
                 </p>
             </div>
             <div className='sponsors-section' id='container2'>
