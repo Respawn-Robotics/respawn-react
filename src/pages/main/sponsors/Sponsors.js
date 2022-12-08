@@ -24,28 +24,28 @@ function Sponsors() {
             </div>
             <div className ='sponsors-section' id='container1'>
                 <h2 className='larger-text'>
-                    Platinum (10,000+)
+                    Platinum ($10,000+)
                 </h2>
             </div>
             <div className='sponsors-section' id='container2'>
             </div>
             <div className='sponsors-section' id='container1'>
                 <p className='larger-text'>
-                    Silver ($2500 - $4999)
+                    Silver ($5000+)
                 </p>
             </div>
             <div className='sponsors-section' id='container2'>
             </div>
             <div className='sponsors-section' id='container1'>
                 <p className='larger-text'>
-                    Bronze and Gold (NONE)
+                    Bronze ($2500+)
                 </p>
             </div>
             <div className='sponsors-section' id='container2'>
             </div>
             <div className='sponsors-section' id='container1'>
                 <p className='larger-text'>
-                    Base (Below $999)
+                    Base (Any Amount)
                 </p>
             </div>
             <div className='sponsors-section' id='container2'>
