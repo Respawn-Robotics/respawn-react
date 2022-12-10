@@ -1,0 +1,31 @@
+.what-we-do {
+    display: grid;
+    margin: 0% 25%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    grid-template-columns: auto auto auto;
+}
+
+.what-we-do-square {
+    background-color: var(--respawn-blue);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.square-image {
+    height: 40%;
+}
+
+.square-heading {
+    font-family: 'roboto-slab';
+    color: white;
+    flex-basis: 10%;
+}
+
+.square-text {
+    font-family: 'roboto-slab';
+    color: white;
+    padding: 0% 20%;
+}

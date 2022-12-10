@@ -12,9 +12,9 @@ function Navbar() {
             <a href={paths.main['first']} className='navbar-section nav-link'><i>FIRST</i></a>
             <a href={paths.main['sponsors']} className='navbar-section nav-link'>SPONSORS</a>
             <div className='navbar-section dropdown'>
-                <p href={paths.recon['dashboard']} className='nav-link'>Pillars of Respawn</p>
+                <p href={paths.recon['dashboard']} className='nav-link'>PILLARS OF RESPAWN</p>
                 <div className='dropdown-content'>
-                    <a href={paths.recon['dashboard']} className='dropdown-link'>REACT</a>
+                    <a href={paths.recon['dashboard']} className='dropdown-link'>REWIND</a>
                     <a href={paths.recon['dashboard']} className='dropdown-link'>RECON</a>
                     <a href={paths.recon['dashboard']} className='dropdown-link'>REFLECT</a>
                     <a href={paths.recon['dashboard']} className='dropdown-link'>REPOSITORY</a>
