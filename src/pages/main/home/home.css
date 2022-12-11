@@ -1,3 +1,7 @@
+.center {
+    text-align: center;
+}
+
 .container {
     display: flex;
 }
@@ -10,7 +14,7 @@
 p.our-mission {
     font-family: "roboto-slab";
     color: white;
-    padding: 0px 5vw;
+    padding: 0px 10vw;
 }
 
 h1.our-mission {
