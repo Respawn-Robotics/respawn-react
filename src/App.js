@@ -2,6 +2,7 @@ import { React } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
 import Navbar from './components/navbar/Navbar';
+import Footer from './components/footer/Footer';
 
 //Main Page
 import Home from './pages/main/home/Home';
@@ -26,6 +27,7 @@ function App() {
           <Route path='/recon/scout' element={<Scout />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
     </>
   );
 }

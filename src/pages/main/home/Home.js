@@ -5,7 +5,9 @@ import './home.css';
 function Home() {
   return (
     <>
-      <WhatWeDo />
+      <div className='center'>
+        <WhatWeDo />
+      </div>
       <div className='container'>
         <div className='our-mission-container'>
           <h1 className='our-mission'>Our Mission</h1>
