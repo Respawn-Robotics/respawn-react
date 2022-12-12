@@ -6,6 +6,7 @@ import Navbar from './components/navbar/Navbar';
 //Main Page
 import Home from './pages/main/home/Home';
 import Sponsors from './pages/main/sponsors/Sponsors';
+import About from './pages/main/about/About';
 
 //Recon
 import Dashboard from './pages/recon/dashboard/Dashboard';
@@ -21,6 +22,7 @@ function App() {
           {/* Main Page */}
           <Route index element={<Home />} />
           <Route path='/Sponsors' element={<Sponsors />} />
+          <Route path='/About' element={<About />} />
           {/* Recon */}
           <Route path='/recon/' element={<Dashboard />} />
           <Route path='/recon/scout' element={<Scout />} />

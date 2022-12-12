@@ -1,0 +1,144 @@
+.about-body{
+    background-color: var(--respawn-dark-blue);
+    background: fixed;
+
+}
+
+#container{
+    min-width: 100%;
+    max-width: 100%;
+    Display: table;
+}
+
+#mini-container{
+    min-width: 50%;
+    max-width: 50%;
+    display: table;
+    background: black;
+}
+
+#micro-container{
+    min-width: 10%;
+    max-width: 10%;
+    display: block;
+    background: white;
+}
+
+.photo-container1{
+    background-color: black;
+    min-height: 20vw;
+    max-height: 20vw;
+}
+
+.replacement-text{
+    font-family: 'RobotoSlab-Regular';
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    align-items: center;
+    display: block;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+}
+
+#regular-text{
+    font-family: 'RobotoSlab-Regular';
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    align-items: center;
+    display: block;
+    width: 25em;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+}
+
+#larger-text{
+    font-family: 'RobotoSlab-Bold';
+    color: white;
+    font-size: 2.5vw;
+    display: block;
+    width: 25em;
+}
+
+.initial-text{
+    font-family: 'RobotoSlab-Bold';
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    align-items: center;
+    display: block;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    max-width: 100%;
+    padding-top: 15vw;
+}
+
+.container1{
+    background: transparent;
+    max-width: 20vw;
+    min-width: 20vw;
+}
+
+.container2{
+    background: transparent;
+    max-width: 20vw;
+    min-width: 20vw;
+}
+
+.container3{
+    background: darkorange;
+    max-height: 2vw;
+    min-height: 2vw;
+    margin-top: 5%;
+}
+
+.container4{
+    background: transparent;
+    max-height: 20vw;
+    min-height: 20vw;
+    margin: auto;
+}
+
+.container5{
+    background: transparent;
+    max-height: 20vw;
+    min-height: 20vw;
+    margin: auto;
+}
+
+.secondary-text{
+    max-width: 90%;
+    padding-top: none;
+    min-width: 90%;
+    margin: auto;
+    text-align: center;
+}
+
+.leader-text{
+    vertical-align: middle;
+    max-width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    text-align: center;
+}
+
+.core-text{
+    margin-top: 20vw;
+    margin-bottom: 20vw;
+    margin-left: 10vw;
+    margin-right: 70vw;
+    vertical-align: middle;
+}
+
+.subteam-text{
+    margin-top: 20vw;
+    margin-bottom: 20vw;
+    margin-left: 70vw;
+    margin-right: 10vw;
+    vertical-align: middle;
+}
+
+.ceo-text{
+    margin: auto;
+}
