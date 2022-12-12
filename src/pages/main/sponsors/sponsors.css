@@ -7,6 +7,7 @@
         rgba(0,0,0,.5)
     ),
     url(https://pbs.twimg.com/media/FOJ6ed4VUAAeQAb?format=jpg&name=large);
+    background-repeat: no-repeat;
 }
 
 #container1 {
@@ -51,5 +52,37 @@
     text-align:center;
     display: block;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+}
+
+#hydrotech{
+    overflow: hidden;
+    height: 50%;
+    width: 50%;
+    background-size: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#logoContainer{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+#logo{
+    flex-shrink: 0;
+    width: 450px;
+    height: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
 
 }
