@@ -1,10 +1,14 @@
 import React from 'react';
+import ImageSlider from '../../../components/image-slider/ImageSlider';
 import WhatWeDo from '../../../components/what-we-do/WhatWeDo';
 import './home.css';
 
 function Home() {
   return (
     <>
+      <div className='image-slider-container'>
+        {/* <ImageSlider /> */}
+      </div>
       <div className='center'>
         <WhatWeDo />
       </div>

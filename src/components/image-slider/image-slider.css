@@ -1,0 +1,39 @@
+.image-slider {
+    display: flex;
+    background: black;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.media-nav {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 4rem;
+    transition: 0.25s;
+}
+
+.media-nav:hover {
+    background-color: #fffa;
+    color: black;
+}
+
+#image-container {
+    background-color: black;
+}
+
+#image-slider-img {
+    height: 100%;
+    animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0.1;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
