@@ -1,14 +1,18 @@
 import React from 'react';
 import './about.css';
+import logo from './media/respawnR_logo.png';
 
 function About() {
   return (
     <>
         <body className='about-body'>
-            <div className='photo-container1' id='container'>
+            <div className='photo-container' id='container'>
                 <p className='replacement-text'>
                     (Team Photo)
                 </p>
+            </div>
+            <div className="logo-container" id='logo-container'>
+                <img src={logo} alt="Respawn Robotics Logo" id='logo'></img>
             </div>
             <div className='container1' id='container'>
                 <p className='initial-text'>
@@ -26,14 +30,59 @@ function About() {
                 </p>
             </div>
             <div className='container4' id='container'>
-                <p className='core-text' id='larger-text'>
-                    Core 7 Officers
-                </p>
+                    <div className='core-text-container' id='core-display'>
+                        <p className='larger-text' id='core-text'>
+                            Core 7 Officers
+                        </p>
+                    </div>
+                    <div className='core-container' id='core-display'>
+                        <div className='ceo-picture' id='picture-container'>
+
+                        </div>
+                        <div className='coo-container' id='picture-container'>
+
+                        </div>
+                        <div className='cio-container' id='picture-container'>
+
+                        </div>
+                        <div className='cto-container' id='picture-container'>
+
+                        </div>
+                        <div className='cfo-container' id='picture-container'>
+
+                        </div>
+                        <div className='cmo-container' id='picture-container'>
+
+                        </div>
+                        <div className='cro-container' id='picture-container'>
+
+                        </div>
+                    </div>
             </div>
             <div className='container5' id='container'>
                 <p className='subteam-text' id='larger-text'>
                     Sub-Team Leads
                 </p>
+                <div className='subteamLead-container' id='secondaryContainer'>
+                    <div className='projectManager-picture' id='picture-container'>
+
+                    </div>
+                    <div className='controlsAndWiring-container' id='picture-container'>
+
+                    </div>
+                    <div className='programming-container' id='picture-container'>
+
+                    </div>
+                    <div className='cad-container1' id='picture-container'>
+
+                    </div>
+                    <div className='machining-container' id='picture-container'>
+
+                    </div>
+                    <div className='cad-container2' id='picture-container'>
+
+                    </div>
+                </div>
             </div>
         </body>
     </>

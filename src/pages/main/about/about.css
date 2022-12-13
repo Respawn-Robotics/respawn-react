@@ -3,10 +3,10 @@
     background: fixed;
 
 }
+/*initial container setup*/
 
 #container{
     min-width: 100%;
-    max-width: 100%;
     Display: table;
 }
 
@@ -24,11 +24,13 @@
     background: white;
 }
 
-.photo-container1{
+.photo-container{
     background-color: black;
     min-height: 20vw;
     max-height: 20vw;
+
 }
+/*text placement*/
 
 .replacement-text{
     font-family: 'RobotoSlab-Regular';
@@ -70,9 +72,39 @@
     display: block;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     max-width: 100%;
-    padding-top: 15vw;
+    padding-top: none;
+}
+/*logo placement*/
+
+#logo-container{
+    display: table;
 }
 
+.logo-container{
+    background: transparent;
+    margin: auto;
+    min-width: 100%;
+    max-height: 15vw;
+    min-height: 15vw;
+    margin-bottom: -7.5%;
+    margin-top: -5%;
+}
+
+#logo{
+    overflow: hidden;
+    height: auto;;
+    width: 15%;
+    background-repeat: none;
+    background-position: center;
+    margin-left: 42.5%;
+    margin-right: 42.5%;
+    display: block;
+    padding: none;
+    margin-top: none;
+    margin-bottom: none;
+
+}
+/* other containers */
 .container1{
     background: transparent;
     max-width: 20vw;
@@ -93,10 +125,36 @@
 }
 
 .container4{
-    background: transparent;
+    background: black;
     max-height: 20vw;
     min-height: 20vw;
     margin: auto;
+    justify-content: left;
+
+
+}
+.core-text-container{
+    margin-top: 25%;
+    margin-bottom: 0.5%;
+    margin-left: 0.5%;
+    margin-right: 50%;
+    background-color: red;
+    width: 48%;
+    padding-top: 12.375%;
+    padding-bottom: 12.375%;
+    display: block;
+
+}
+.core-container{
+    margin-top: -25%;
+    margin-bottom: 0.5%;
+    margin-left: 50%;
+    margin-right: 0.5%;
+    background-color: blue;
+    width: 48%;
+    padding-top: 12.375%;
+    padding-bottom: 12.375%;
+    display: block;
 }
 
 .container5{
@@ -106,6 +164,7 @@
     margin: auto;
 }
 
+/*text setup*/
 .secondary-text{
     max-width: 90%;
     padding-top: none;
@@ -121,24 +180,4 @@
     margin-right: auto;
     font-weight: bold;
     text-align: center;
-}
-
-.core-text{
-    margin-top: 20vw;
-    margin-bottom: 20vw;
-    margin-left: 10vw;
-    margin-right: 70vw;
-    vertical-align: middle;
-}
-
-.subteam-text{
-    margin-top: 20vw;
-    margin-bottom: 20vw;
-    margin-left: 70vw;
-    margin-right: 10vw;
-    vertical-align: middle;
-}
-
-.ceo-text{
-    margin: auto;
 }
