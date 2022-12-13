@@ -1,0 +1,10 @@
+.image-slider {
+    display: flex;
+}
+
+.media-nav {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 4rem;
+}

@@ -3,11 +3,11 @@
 }
 
 #studentLeaders{
-    background-color: #E96824;
+    background-color: var(--respawn-orange);
 }
 
 #leadColor{
-    background-color: #2F6074;
+    background-color: var(--respawn-blue);
 }
 
 .smaller-text{
