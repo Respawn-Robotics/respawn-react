@@ -7,7 +7,6 @@
         rgba(0,0,0,.5)
     ),
     url(https://pbs.twimg.com/media/FOJ6ed4VUAAeQAb?format=jpg&name=large);
-    background-repeat: no-repeat;
 }
 
 #container1 {
@@ -22,13 +21,15 @@
     font-family:'RobotoSlab-Regular';
     color: white;
     text-align:center;
-    display:block;
+    display: block;
     width: 25em;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 5%;
+    padding: none;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
 }
-.larger-text{
+.title-text{
     font-weight: bold; 
     font-size: 2.5vw;
     padding-top: 6.5vw;
@@ -51,38 +52,46 @@
     color: white;
     text-align:center;
     display: block;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    padding: none;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 
 }
 
 #hydrotech{
     overflow: hidden;
-    height: 50%;
-    width: 50%;
-    background-size: contain;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    height: auto;
+    width: 33.3%;
+    background-repeat: none;
+    background-position: center;
+    margin-left: 33.3%;
+    margin-right: 33.3%;
+    margin-top: 5.5%;
+    margin-bottom: 5.5%;
 }
 
 #logoContainer{
-    display: inline-flex;
-    justify-content: space-between;
+    display:inline-flex;
+    justify-content:space-between;
     align-items: center;
     overflow: hidden;
+    min-width: 100%;
 }
+
 
 #logo{
     flex-shrink: 0;
     width: 450px;
     height: auto;
-    background-repeat: no-repeat;
+    background-repeat: none;
     background-position: center;
-    margin-bottom: 5%;
-    margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 5.5%;
+    padding-bottom: 5.5%;
+
+   
 
 }
