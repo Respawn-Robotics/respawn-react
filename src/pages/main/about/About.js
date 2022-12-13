@@ -12,7 +12,7 @@ function About() {
   return (
     <>
       <div className='image-slider-container'>
-        <ImageSlider delay={1000}
+        <ImageSlider delay={4000}
           images={[
             <img src={one} alt="one" />,
             <img src={two} alt="two" />,

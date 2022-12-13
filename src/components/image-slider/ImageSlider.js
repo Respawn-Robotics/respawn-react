@@ -9,7 +9,7 @@ function ImageSlider(props) {
     const images = props.images;
 
     const incIndex = (num) => {
-        setIndex((index) => (index + num) % images.length);
+        setIndex((index) => (((index + num) % images.length) + images.length) % images.length);
     };
 
     const startInc = () => {
@@ -22,7 +22,7 @@ function ImageSlider(props) {
 
     const pauseInc = () => {
         clearInterval(incId);
-        setTimeout(() => startInc(), props.delay);
+        startInc();
     };
 
     useEffect(() => {
@@ -32,9 +32,14 @@ function ImageSlider(props) {
     return (
         <>
             <div className='image-slider'>
-                <button className='media-nav' id='back-arrow' onClick={(event) => {incIndex(-1); pauseInc();}}>&#x2B9C;</button>
-                {images[index]}
-                <button className='media-nav' id='front-arrow' onClick={(event) => {incIndex(1); pauseInc();}}>&#x2B9E;</button>
+                <button className='media-nav' onClick={() => { incIndex(-1); pauseInc(); }}>&#x276E;</button>
+                <div id='image-container'>
+                    {images.map((image, x) => {
+                        console.log(x);
+                        return(<img src={image.props.src} alt={image.props.alt} style={{display : x === index ? 'block' : 'none'}} className={image.props.className} id='image-slider-img' />)
+                    })}
+                </div>
+                <button className='media-nav' onClick={() => { incIndex(1); pauseInc(); }}>&#x276F;</button>
             </div>
         </>
     );
