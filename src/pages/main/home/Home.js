@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageSlider from '../../../components/image-slider/ImageSlider';
 import WhatWeDo from '../../../components/what-we-do/WhatWeDo';
+import { Modal, ModalContent } from '../../../components/modal/Modal';
 
 //Images
 import img1 from './media/img1.jpg';

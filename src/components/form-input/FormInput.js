@@ -1,31 +1,31 @@
 import './form-input.css';
 
-function Input(props) {
-    switch (props.type) {
+function Input({name, type, onChange, options}) {
+    switch (type) {
         case "checkbox":
-            return (<input type='checkbox' name={props.name} onChange={props.onChange} className='form-input' />);
+            return (<input type='checkbox' name={name} onChange={onChange} className='form-input' />);
         case "select":
             return (
-                <select name={props.name} className='form-input' onChange={props.onChange}>
-                    {props.options.map((option, index) => {
+                <select name={name} className='form-input' onChange={onChange}>
+                    {options.map((option, index) => {
                         return (
-                            <option className={props.name + "-option"} id={props.name + "-option" + index} value={option}>{option}</option>
+                            <option className={name + "-option"} id={name + "-option" + index} value={option}>{option}</option>
                         );
                     })}
                 </select>
             );
         case "textarea":
-            return (<textarea name={props.name} className='form-input' onChange={props.onChange} />);
+            return (<textarea name={name} className='form-input' onChange={onChange} />);
         default:
-            return (<input type={props.type} name={props.name} className='form-input' onChange={props.onChange} />);
+            return (<input type={type} name={name} className='form-input' onChange={onChange} />);
     }
 }
 
-function FormInput(props) {
+function FormInput({name, type, onChange, options}) {
     return (
         <div className='input-container'>
-            <label className='form-label'>{props.name.replace(/(-|_)+/g, " ") + ": "}</label>
-            <Input type={props.type} name={props.name} options={props.options} className='form-input' onChange={props.onChange} />
+            <label className='form-label'>{name.replace(/(-|_)+/g, " ") + ": "}</label>
+            <Input type={type} name={name} options={options} className='form-input' onChange={onChange} />
         </div>
     )
 }
