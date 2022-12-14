@@ -59,16 +59,18 @@
 
 }
 
-#hydrotech{
-    overflow: hidden;
-    height: auto;
+#soloLogo{
+    flex-shrink: 0;
     width: 33.3%;
+    height: auto;
     background-repeat: none;
     background-position: center;
+    background-color: transparent;
     margin-left: 33.3%;
     margin-right: 33.3%;
-    margin-top: 5.5%;
-    margin-bottom: 5.5%;
+    padding-top: 5.5%;
+    padding-bottom: 5.5%;
+    background-size: contain;
 }
 
 #logoContainer{
@@ -78,13 +80,14 @@
     align-items: center;
     overflow: visible;
     margin: none;
+    max-height: 30vw;
 
 }
 
 
 #logo{
     flex-shrink: 0;
-    width: 350px;
+    width: 300px;
     height: auto;
     background-repeat: none;
     background-position: center;
