@@ -73,11 +73,13 @@
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     max-width: 100%;
     padding-top: none;
+    margin-top: 8%;
 }
 /*logo placement*/
 
 #logo-container{
     display: table;
+    margin-top: 1%;
 }
 
 .logo-container{
@@ -90,7 +92,7 @@
     margin-top: -5%;
 }
 
-#logo{
+#logos{
     overflow: hidden;
     height: auto;;
     width: 15%;
@@ -102,6 +104,7 @@
     padding: none;
     margin-top: none;
     margin-bottom: none;
+    background: transparent;
 
 }
 /* other containers */

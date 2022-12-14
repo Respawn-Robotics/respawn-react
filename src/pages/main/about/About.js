@@ -22,20 +22,8 @@ function About() {
                   <img src={four} alt="four" />
                 ]} />
             </div>
-            <div className='teamPhoto'>
-              <p className='larger-text centered'>
-                Team Photo
-              </p>
-            </div>
-            <div className='respawnInfo'>
-            </div>
-            <div className='photo-container' id='container'>
-                <p className='replacement-text'>
-                    (Team Photo)
-                </p>
-            </div>
             <div className="logo-container" id='logo-container'>
-                <img src={logo} alt="Respawn Robotics Logo" id='logo'></img>
+                <img src={logo} alt="Respawn Robotics Logo" id='logos'></img>
             </div>
             <div className='container1' id='container'>
                 <p className='initial-text'>

@@ -40,7 +40,7 @@
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .sponsors-section {
-    display: table;
+    display:inline-table;
     min-width: 100%;
     min-height: 20vw;
     max-width:100%;
@@ -72,24 +72,25 @@
 }
 
 #logoContainer{
-    display:inline-flex;
+    display:flex;
     justify-content:space-between;
     align-items: center;
-    overflow: hidden;
-    min-width: 100%;
+    overflow: visible;
+    margin: none;
+
 }
 
 
 #logo{
     flex-shrink: 0;
-    width: 450px;
+    width: 350px;
     height: auto;
     background-repeat: none;
     background-position: center;
+    background-color: transparent;
     margin: auto;
-    padding-left: 1%;
-    padding-right: 1%;
     padding-top: 5.5%;
     padding-bottom: 5.5%;
+
 
 }

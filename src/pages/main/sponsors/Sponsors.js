@@ -31,6 +31,14 @@ function Sponsors() {
                 travel costs, and much more.
                 </p>
             </div>
+            <div className='sponsors-section' id='container1'>
+                <h2 className='larger-text'>
+                    Diamond ($20,000+)
+                </h2>
+            </div>
+            <div className='sponsors-section' id='container2'>
+
+            </div>
             <div className ='sponsors-section' id='container1'>
                 <h2 className='larger-text'>
                     Platinum ($10,000+)
@@ -40,9 +48,9 @@ function Sponsors() {
                 <img src={hydrotech_logo} alt='Hydrotech' id='hydrotech'></img>
             </div>
             <div className='sponsors-section' id='container1'>
-                <p className='larger-text'>
-                    Silver ($5000+)
-                </p>
+                <h2 className='larger-text'>
+                    Gold ($5000+)
+                </h2>
             </div>
             <div className='sponsors-section' id='container2'>
                 <div id="logoContainer">
@@ -53,16 +61,16 @@ function Sponsors() {
 
             </div>
             <div className='sponsors-section' id='container1'>
-                <p className='larger-text'>
-                    Bronze ($2500+)
-                </p>
+                <h2 className='larger-text'>
+                    Silver ($2500+)
+                </h2>
             </div>
             <div className='sponsors-section' id='container2'>
             </div>
             <div className='sponsors-section' id='container1'>
-                <p className='larger-text'>
-                    Base (Any Amount)
-                </p>
+                <h2 className='larger-text'>
+                    Bronze (Any Amount)
+                </h2>
             </div>
             <div className='sponsors-section' id='container2'>
                 <div id="logoContainer">
