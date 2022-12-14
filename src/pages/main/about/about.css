@@ -10,6 +10,10 @@
     background-color: var(--respawn-blue);
 }
 
+.image-slider-container {
+    height: 74vh;
+}
+
 .smaller-text{
     font-size: 20px;
     font-family:'roboto-slab';
