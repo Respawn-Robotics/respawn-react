@@ -72,24 +72,14 @@
 }
 
 #logoContainer{
-    display:inline-flex;
+    display:flex;
     justify-content:space-between;
     align-items: center;
-    overflow: hidden;
-    min-width: 100%;
+    height: auto;
+    width: 100px;
 }
 
 
 #logo{
-    flex-shrink: 0;
-    width: 450px;
-    height: auto;
-    background-repeat: none;
-    background-position: center;
-    margin: auto;
-    padding-left: 1%;
-    padding-right: 1%;
-    padding-top: 5.5%;
-    padding-bottom: 5.5%;
-
+    display: inline-block;
 }

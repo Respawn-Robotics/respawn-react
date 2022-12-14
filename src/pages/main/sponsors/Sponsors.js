@@ -32,7 +32,7 @@ function Sponsors() {
                 </p>
             </div>
             <div className ='sponsors-section' id='container1'>
-                <h2 className='larger-text'>
+                <h2 className='title-text'>
                     Platinum ($10,000+)
                 </h2>
             </div>
@@ -40,7 +40,7 @@ function Sponsors() {
                 <img src={hydrotech_logo} alt='Hydrotech' id='hydrotech'></img>
             </div>
             <div className='sponsors-section' id='container1'>
-                <p className='larger-text'>
+                <p className='title-text'>
                     Silver ($5000+)
                 </p>
             </div>
@@ -49,18 +49,19 @@ function Sponsors() {
                     <img src={alliance_logo} alt="Alliance Robotics" id='logo'></img>
                     <img src={polezero_logo} alt="Pole Zero" id='logo'></img>
                     <img src={belcan_logo} alt="Belcan Engineering" id='logo'></img>
+                    <span class='stretch'></span>
                 </div>
 
             </div>
             <div className='sponsors-section' id='container1'>
-                <p className='larger-text'>
+                <p className='title-text'>
                     Bronze ($2500+)
                 </p>
             </div>
             <div className='sponsors-section' id='container2'>
             </div>
             <div className='sponsors-section' id='container1'>
-                <p className='larger-text'>
+                <p className='title-text'>
                     Base (Any Amount)
                 </p>
             </div>
@@ -69,6 +70,7 @@ function Sponsors() {
                     <img src={pg_logo} alt='P&G CORE' id='logo'></img>
                     <img src={yaskawa_logo} alt="Yaskawa" id='logo'></img>
                     <img src={eightyacres_logo} alt="80 Acres Farms" id='logo'></img>
+                    <span class='stretch'></span>
                 </div>
             </div>
         </body>

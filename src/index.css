@@ -5,8 +5,13 @@
 }
 
 @font-face {
-  font-family: "roboto-sans";
-  src: url("./media/fonts/roboto-sans/RobotoSlab-Regular.ttf") format("truetype");
+  font-family: "roboto-slab";
+  src: url("./media/fonts/roboto-slab/roboto-slab-regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "roboto-slab-bold";
+  src: url("./media/fonts/roboto-slab/roboto-slab-bold.ttf") format("truetype");
 }
 
 * {
@@ -18,6 +23,5 @@ body {
   background-color: var(--respawn-dark-blue);
   margin: 0px;
 }
-
 
 
