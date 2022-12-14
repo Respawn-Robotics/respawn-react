@@ -9,7 +9,6 @@ import Home from './pages/main/home/Home';
 import Sponsors from './pages/main/sponsors/Sponsors';
 import About from './pages/main/about/About';
 import Outreach from './pages/main/outreach/Outreach';
-
 //Recon
 import Dashboard from './pages/recon/dashboard/Dashboard';
 import Scout from './pages/recon/scout/Scout';
