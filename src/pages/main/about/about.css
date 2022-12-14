@@ -33,7 +33,7 @@
 /*text placement*/
 
 .replacement-text{
-    font-family: 'RobotoSlab-Regular';
+    font-family: 'roboto-slab-regular';
     color: white;
     font-size: 25px;
     text-align: center;
@@ -44,7 +44,7 @@
 }
 
 #regular-text{
-    font-family: 'RobotoSlab-Regular';
+    font-family: 'roboto-slab-regular';
     color: white;
     font-size: 25px;
     text-align: center;
@@ -56,7 +56,7 @@
 }
 
 #larger-text{
-    font-family: 'RobotoSlab-Bold';
+    font-family: 'roboto-slab-bold';
     color: white;
     font-size: 2.5vw;
     display: block;
@@ -64,7 +64,7 @@
 }
 
 .initial-text{
-    font-family: 'RobotoSlab-Bold';
+    font-family: 'roboto-slab-bold';
     color: white;
     font-size: 50px;
     text-align: center;
@@ -89,12 +89,12 @@
     max-height: 15vw;
     min-height: 15vw;
     margin-bottom: -7.5%;
-    margin-top: -5%;
+    margin-top: -2%;
 }
 
 #logos{
     overflow: hidden;
-    height: auto;;
+    height: auto;
     width: 15%;
     background-repeat: none;
     background-position: center;
