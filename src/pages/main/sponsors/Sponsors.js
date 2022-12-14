@@ -1,5 +1,14 @@
 import './sponsors.css';
 import React from 'react';
+import alliance_logo from './media/alliance_robotics_logo.png';
+import hydrotech_logo from './media/hydrotech_logo.png';
+import belcan_logo from './media/belcan_logo.svg';
+import eightyacres_logo from './media/eightyacres_logo.png';
+import polezero_logo from './media/polezero_logo.png';
+import yaskawa_logo from './media/yaskawa_logo.png';
+import pg_logo from './media/pg_logo.png';
+
+
 
 
 function Sponsors() {
@@ -9,7 +18,7 @@ function Sponsors() {
         </head>
         <body className = 'sponsors-body'>
             <div className='sponsors-section' id='container1'>
-                <p className='larger-text'>
+                <p className='title-text'>
                 Respawn Robotics Sponsors
                 </p>
             </div>
@@ -28,6 +37,7 @@ function Sponsors() {
                 </h2>
             </div>
             <div className='sponsors-section' id='container2'>
+                <img src={hydrotech_logo} alt='Hydrotech' id='hydrotech'></img>
             </div>
             <div className='sponsors-section' id='container1'>
                 <p className='larger-text'>
@@ -35,6 +45,12 @@ function Sponsors() {
                 </p>
             </div>
             <div className='sponsors-section' id='container2'>
+                <div id="logoContainer">
+                    <img src={alliance_logo} alt="Alliance Robotics" id='logo'></img>
+                    <img src={polezero_logo} alt="Pole Zero" id='logo'></img>
+                    <img src={belcan_logo} alt="Belcan Engineering" id='logo'></img>
+                </div>
+
             </div>
             <div className='sponsors-section' id='container1'>
                 <p className='larger-text'>
@@ -49,6 +65,11 @@ function Sponsors() {
                 </p>
             </div>
             <div className='sponsors-section' id='container2'>
+                <div id="logoContainer">
+                    <img src={pg_logo} alt='P&G CORE' id='logo'></img>
+                    <img src={yaskawa_logo} alt="Yaskawa" id='logo'></img>
+                    <img src={eightyacres_logo} alt="80 Acres Farms" id='logo'></img>
+                </div>
             </div>
         </body>
     </>
