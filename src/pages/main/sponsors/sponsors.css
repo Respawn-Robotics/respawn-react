@@ -59,17 +59,34 @@
 
 }
 
-#soloLogo{
+#bilstein{
     flex-shrink: 0;
-    width: 33.3%;
+    width: 350px;
     height: auto;
     background-repeat: none;
     background-position: center;
     background-color: transparent;
-    margin-left: 33.3%;
-    margin-right: 33.3%;
-    padding-top: 5.5%;
-    padding-bottom: 5.5%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-size: contain;
+}
+
+
+#solo-logo{
+    flex-shrink: 0;
+    width: 500px;
+    height: auto;
+    background-repeat: none;
+    background-position: center;
+    background-color: transparent;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    margin-top: 6%;
+    margin-bottom: 5%;
     background-size: contain;
 }
 
@@ -87,7 +104,7 @@
 
 #logo{
     flex-shrink: 0;
-    width: 300px;
+    width: 250px;
     height: auto;
     background-repeat: none;
     background-position: center;

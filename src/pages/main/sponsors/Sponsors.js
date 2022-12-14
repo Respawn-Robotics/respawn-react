@@ -40,7 +40,7 @@ function Sponsors() {
                 </h2>
             </div>
             <div className='sponsors-section' id='container2'>
-                <img src={hydrotech_logo} alt='Hydrotech' id='soloLogo'></img>
+                <img src={hydrotech_logo} alt='Hydrotech' id='solo-logo'></img>
             </div>
             <div className='sponsors-section' id='container1'>
                 <h2 className='title-text'>
@@ -48,7 +48,7 @@ function Sponsors() {
                 </h2>
             </div>
             <div className='sponsors-section' id='container2'>
-                <img src={bilstein_logo} alt='Bilstein' id='soloLogo'></img>
+                <img src={bilstein_logo} alt='Bilstein' id='bilstein'></img>
             </div>
             <div className='sponsors-section' id='container1'>
                 <h2 className='title-text'>
@@ -70,7 +70,7 @@ function Sponsors() {
             </div>
             <div className='sponsors-section' id='container2'>
                 <div id='logoContainer'>
-                    <img src={baxter_logo} alt='Baxter International' id='soloLogo'></img>
+                    <img src={baxter_logo} alt='Baxter International' id='solo-logo'></img>
                 </div>
             </div>
 
