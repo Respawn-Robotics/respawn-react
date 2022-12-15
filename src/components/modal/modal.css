@@ -1,0 +1,38 @@
+#modal {
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#modal-button {
+    position: relative;
+    height: 100%;
+}
+
+#close-modal {
+    position: absolute;
+    top: 10px;
+    right: 35px;
+    font-size: 4rem;
+    color: white;
+    cursor: pointer
+}
+
+#modal-content {
+    display: flex;
+    justify-content: center;
+    width: 85%;
+    height: 65%;
+    margin: 10vh auto;
+}
+
+#modal-content > img {
+    max-height: 100%;
+    max-width: 100%;
+}
