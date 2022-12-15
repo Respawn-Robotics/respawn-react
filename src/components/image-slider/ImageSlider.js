@@ -1,25 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Modal, ModalContent } from '../modal/Modal';
+import React, { useEffect, useState } from 'react';
+import Modal from '../modal/Modal';
 import './image-slider.css'
 
-function ImageSlider(props) {
+function ImageSlider({delay, images}) {
 
     const [index, setIndex] = useState(0);
     const [incId, setIncId] = useState(0);
 
     const [openModal, setOpenModal] = useState(false);
+    const [modalPicNum, setModalPicNum] = useState(0);
 
-    const images = props.images;
+    const slides = images;
 
     const incIndex = (num) => {
-        setIndex((index) => (((index + num) % images.length) + images.length) % images.length);
+        setIndex((index) => (((index + num) % slides.length) + slides.length) % slides.length);
     };
 
     const startInc = () => {
         setIncId(
             setInterval(() => {
                 incIndex(1);
-            }, props.delay)
+            }, delay)
         );
     };
 
@@ -32,33 +33,22 @@ function ImageSlider(props) {
         startInc();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const popupModal = () => {
-        setOpenModal((prev) => !prev);
-    }
-
     return (
         <>
-            <div className='image-slider' style={{background : images[index]}}>
+            <div className='image-slider' style={{background : slides[index]}}>
                 <button className='media-nav' onClick={() => { incIndex(-1); pauseInc(); }}>&#x276E;</button>
                 <div id='image-container'>
-                        {images.map((image, x) => {
+                        {slides.map((slide, x) => {
                             return(
-                                <>
-                                    <Modal style={{display : x === index ? 'block' : 'none'}} onOpen={() => popupModal()}>
-                                        <img src={image.props.src} alt={image.props.alt} style={{display : x === index ? 'block' : 'none'}} className={image.props.className} id='image-slider-img' />
-                                    </Modal>
-                                    {openModal && (
-                                        <ModalContent onClose={() => popupModal()}>
-                                                <img src={image.props.src} style={{display : x === index ? 'block' : 'none'}} alt={image.props.alt} id='image-popup' />
-                                        </ModalContent>
-                                    )}
-                                
-                                </>
+                                <img src={slide.props.src} alt={slide.props.alt} style={{display : x === index ? 'block' : 'none'}} onClick={() => {setModalPicNum(index); setOpenModal(true);}} className={slide.props.className} id='image-slider-img' />
                             )
                         })}
                 </div>
                 <button className='media-nav' onClick={() => { incIndex(1); pauseInc(); }}>&#x276F;</button>
             </div>
+            <Modal state={openModal} onClose={() => setOpenModal(false)}>
+                {slides[modalPicNum]}
+            </Modal>
         </>
     );
 }

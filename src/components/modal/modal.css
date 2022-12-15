@@ -1,4 +1,5 @@
 #modal {
+    display: flex;
     position: fixed;
     left: 0;
     top: 0;
@@ -10,22 +11,28 @@
 }
 
 #modal-button {
-    position: absolute;
+    position: relative;
     height: 100%;
 }
 
 #close-modal {
     position: absolute;
-    top: 15;
-    right: 35;
-    color: #f1f1f1;
+    top: 10px;
+    right: 35px;
+    font-size: 4rem;
+    color: white;
     cursor: pointer
 }
 
 #modal-content {
     display: flex;
-    align-items: center;
+    justify-content: center;
     width: 85%;
-    height: 100%;
-    margin: auto
+    height: 65%;
+    margin: 10vh auto;
+}
+
+#modal-content > img {
+    max-height: 100%;
+    max-width: 100%;
 }
