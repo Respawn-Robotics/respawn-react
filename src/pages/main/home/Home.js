@@ -34,7 +34,7 @@ function Home() {
   return (
     <>
       <div className='image-slider-container'>
-        <ImageSlider delay={4000} images={[
+        <ImageSlider imageStyle='cover' delay={4000} images={[
           <img src={img1} alt='img1' />,
           <img src={img2} alt='img2' />,
           <img src={img3} alt='img3' />,
@@ -64,7 +64,7 @@ function Home() {
                 </h2>
       </div>
       <div className='school-slider-container'>
-      <ImageSlider delay={6000}
+      <ImageSlider imageStyle='contain' delay={6000}
                 images={[
                  <img src={butlertech_logo} alt="Butler Tech" className='school-logo' />,
                  <img src={colerain_logo} alt="Colerain High School" className='school-logo' />,

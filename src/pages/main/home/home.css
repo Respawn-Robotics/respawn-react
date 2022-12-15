@@ -39,25 +39,16 @@ h1.our-mission {
 }
 
 .image-slider-container{
-    max-height: 250px;
-    min-height: 250px;
-    max-width: 100%;
-    display: table;
-    min-width: 100%;
+    height: 250px;
+    width: 100%;
     background: black;
 }
 
 .school-slider-container{
-    max-height: 150px;
-    min-height: 150px;
-    display: table;
+    height: 150px;
     width: 500px;
     margin: auto;
-    object-fit: contain;
     background: transparent;
-    flex-shrink: 50%;
-
-
 }
 
 .school-logo{
