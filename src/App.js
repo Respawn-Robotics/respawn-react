@@ -8,7 +8,7 @@ import Footer from './components/footer/Footer';
 import Home from './pages/main/home/Home';
 import Sponsors from './pages/main/sponsors/Sponsors';
 import About from './pages/main/about/About';
-
+import Outreach from './pages/main/outreach/Outreach';
 //Recon
 import Dashboard from './pages/recon/dashboard/Dashboard';
 import Scout from './pages/recon/scout/Scout';
@@ -24,6 +24,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='/Sponsors' element={<Sponsors />} />
           <Route path='/About' element={<About/>}/>
+          <Route path='/Outreach' element={<Outreach/>}/>
           {/* Recon */}
           <Route path='/recon/' element={<Dashboard />} />
           <Route path='/recon/scout' element={<Scout />} />

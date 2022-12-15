@@ -11,6 +11,7 @@ function Navbar() {
             <a href={paths.main['about']} className='navbar-section nav-link'>ABOUT</a>
             <a href={paths.main['first']} className='navbar-section nav-link'><i>FIRST</i></a>
             <a href={paths.main['sponsors']} className='navbar-section nav-link'>SPONSORS</a>
+            <a href={paths.main['outreach']} className='navbar-section nav-link'>OUTREACH</a>
             <div className='navbar-section dropdown'>
                 <p href={paths.recon['dashboard']} className='nav-link'>PILLARS OF RESPAWN</p>
                 <div className='dropdown-content'>

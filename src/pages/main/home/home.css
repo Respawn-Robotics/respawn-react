@@ -1,5 +1,6 @@
 .center {
     text-align: center;
+    margin-top: none;
 }
 
 .container {
@@ -8,6 +9,10 @@
 
 .our-mission-container {
     flex-basis: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background: transparent;
+    height: 30vw;
 }
 
 
@@ -15,11 +20,174 @@ p.our-mission {
     font-family: "roboto-slab";
     color: white;
     padding: 0px 10vw;
+    font-size: 25px;
+    text-indent: 5%;
+    width: 120%;
+    margin-left: -7%;
+    display: flex;
+    background: transparent;
 }
+
 
 h1.our-mission {
     font-family: "bank-gothic";
     font-size: 3rem;
     text-align: center;
     color: var(--respawn-orange);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+}
+
+.image-slider-container{
+    max-height: 250px;
+    min-height: 250px;
+    max-width: 100%;
+    display: table;
+    min-width: 100%;
+    background: black;
+}
+
+.school-slider-container{
+    max-height: 150px;
+    min-height: 150px;
+    display: table;
+    width: 500px;
+    margin: auto;
+    object-fit: contain;
+    background: transparent;
+    flex-shrink: 50%;
+
+
+}
+
+.school-logo{
+    background-color: transparent;
+    max-width: 300px;
+    min-width: 300px;
+    max-height: 400px;
+    height: auto;
+    max-height: 250px;
+    margin: auto;
+    overflow: hidden;
+    object-fit: contain;
+    display: flex;
+    vertical-align: middle;
+    margin-top: 40%;
+}
+
+#image-slider{
+    background: transparent;
+    width: 500px;
+}
+.join-program{
+    height: 200px;
+    background-color: transparent;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 1%;
+    background: transparent;
+}
+
+.joinUs-text{
+    color: white;
+    background: transparent;
+    display: table;
+    text-align: center;
+    margin: auto;
+    margin-top: 1%;
+}
+
+#joinUs-title{
+    font-size: 2em;
+    font-family: roboto-slab-bold;
+    margin-top: 1.5%;
+}
+
+#joinUs-sentence{
+    font-size: 1em;
+    margin-top: 1.5%;
+    font-family: roboto-slab;
+}
+
+.moreinfo-button{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2.25%;
+    margin-bottom: 0.5%;
+    display: table;
+    background-color: var(--respawn-dark-blue);
+    height: auto;
+    padding: none;
+    border-style: solid;
+    border-width: 2.5px;
+    border-color: white;
+    height: auto;
+    width: 200px;
+}
+
+.moreinfo-text{
+    font-family: 'roboto-slab-bold';
+    color: white;
+    font-size: 1.25em;
+    text-decoration: none;
+}
+
+.associate-schools{
+    width: 100%;
+    height: 8vw;
+    background-color: transparent;
+    text-align: center;
+    display: flex;
+    background: transparent;
+    margin-top: -5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.associateText{
+    font-family: "roboto-slab-bold";
+    color: white;
+    font-size: 2.5em;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sponsorpacket-container{
+    flex-basis: 50%;
+    background-color: transparent;
+    align-self: right;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    height: 30vw;
+    align-items: center;
+    display: table;
+
+}
+
+.sponsorpacket-linkimage{
+    text-align: center;
+    margin: auto;
+    margin-top: none;
+    margin-bottom: none;
+}
+
+.sponsor-text{
+    text-align: center;
+    font-family: "bank-gothic";
+    color: var(--respawn-orange);
+    margin-bottom: none;
+    margin-top: 4%;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    font-size: 2.5rem;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+}
+
+#packet-image{
+    height: auto;
+    width: 250px;
 }
