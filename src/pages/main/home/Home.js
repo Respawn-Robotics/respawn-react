@@ -1,22 +1,19 @@
 import React from 'react';
+import './home.css';
 import ImageSlider from '../../../components/image-slider/ImageSlider';
 import WhatWeDo from '../../../components/what-we-do/WhatWeDo';
 
-//Images
-import img1 from './media/img1.jpg';
-import img2 from './media/img2.jpg';
-import img3 from './media/img3.jpg';
-import img4 from './media/img4.jpg';
-import img5 from './media/img5.jpg';
-import img6 from './media/img6.jpg';
-import img7 from './media/img7.jpg';
+//Pictures
+import img1 from './media/picture1.jpg';
+import img2 from './media/picture2.jpg';
+import img3 from './media/picture3.jpg';
+import img4 from './media/picture4.jpg';
+import img5 from './media/picture5.jpg';
+import img6 from './media/picture6.jpg';
+import img7 from './media/picture7.jpg';
 
-import './home.css';
-import one from '../../../pages/main/about/media/one.png';
-import two from '../../../pages/main/about/media/two.png';
-import three from '../../../pages/main/about/media/three.png';
-import four from '../../../pages/main/about/media/four.png';
-import logo from '../../../pages/main/about/media/respawnR_logo.png';
+//Logos
+import logo from '../../../media/respawnr_logo.png';
 import butlertech_logo from './media/butlertech_logo.png';
 import colerain_logo from './media/colerain_logo.png';
 import edgewood_logo from './media/edgewood_logo.png';
@@ -83,7 +80,7 @@ function Home() {
                  <img src={northwest_logo} alt="Northwest High School" className='school-logo'/>,
                  <img src={ross_logo} alt="Ross High School" className='school-logo'/>,
                  <img src={talawanda_logo} alt="Talawanda High School" className='school-logo'/>
-                ]} id='image-slider'/>
+                ]} />
       </div>
       <div className='container'>
         <div className='our-mission-container'>
