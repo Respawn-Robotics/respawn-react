@@ -1,10 +1,12 @@
 .navbar {
   height: 10vh;
   display: flex;
+  position: fixed;
+  z-index: 2;
   font-family: "roboto-slab";
   justify-content: flex-end;
   align-items: stretch;
-  background-color: var(--respawn-dark-blue);
+  background-image: linear-gradient(var(--respawn-dark-blue) 15%, transparent);
   width: 100%;
 }
 
