@@ -65,4 +65,9 @@
 
 #nav-image {
   height: 100%;
+  opacity: 85%;
+}
+
+#nav-image:hover{
+  opacity: 100%;
 }
