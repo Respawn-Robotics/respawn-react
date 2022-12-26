@@ -1,0 +1,45 @@
+.reflect-header {
+    font-family: 'roboto-slab';
+    text-align: center;
+    font-size: 4em;
+    color: white;
+}
+
+.reflect-buttons {
+    display: flex;
+    justify-content: center;
+    height: 12em;
+}
+  
+.reflect-buttons a {
+    width: 30%;
+    margin: 0;
+    background-color: #2F6074;
+    color: white;
+    font-family: 'roboto-slab';
+    font-size: 2em;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+    padding: 2em;
+}
+
+.reflect-buttons a:first-child {
+    border-radius: 25px 0px 0px 25px;
+}
+
+.reflect-buttons a:last-child {
+    border-radius: 0px 25px 25px 0px;
+}
+
+.reflect-buttons a:hover {
+    background-color: #E96824;
+    font-size: 2.2em;
+}
+
+@media (max-width: 500px) {
+    .button-group a {
+      width: 40%;
+      margin: 0;
+    }
+}
