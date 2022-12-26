@@ -1,5 +1,5 @@
 {
-    "main" : {
+    "main": {
         "outreach": "/outreach",
         "home": "/",
         "about": "/about",
@@ -12,8 +12,14 @@
             "reflect": "/pillars/reflect"
         }
     },
-    "recon" : {
-        "dashboard" : "/recon",
-        "scout" : "/recon/scout"
+    "recon": {
+        "dashboard": "/recon",
+        "scout": "/recon/scout"
+    },
+    "reflect": {
+        "home": "/reflect",
+        "record": "/reflect/record",
+        "legacy": "/reflect/legacy",
+        "daily": "/reflect/daily"
     }
 }
