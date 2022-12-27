@@ -11,11 +11,14 @@
             "reflect": "/pillars/reflect"
         }
     },
-    "recon" : {
-        "dashboard" : "/recon",
-        "scout" : "/recon/scout"
+    "recon": {
+        "dashboard": "/recon",
+        "scout": "/recon/scout"
     },
-    "reflect" : {
-        "" : ""
+    "reflect": {
+        "home": "/reflect",
+        "record": "/reflect/record",
+        "legacy": "/reflect/legacy",
+        "daily": "/reflect/daily"
     }
 }
