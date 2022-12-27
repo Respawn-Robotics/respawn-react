@@ -29,62 +29,69 @@ import ross_logo from './media/ross_logo.png';
 import talawanda_logo from './media/talawanda_logo.png';
 import northwest_logo from './media/northwest_logo.png';
 
+//Misc
+import sponsorship_packet from '../../../media/respawn-robotics-sponsorship.pdf';
+
 
 function Home() {
   return (
     <>
       <div className='image-slider-container'>
-        <ImageSlider delay={4000} images={[
-          <img src={img1} alt='img1' />,
-          <img src={img2} alt='img2' />,
-          <img src={img3} alt='img3' />,
-          <img src={img4} alt='img4' />,
-          <img src={img5} alt='img5' />,
-          <img src={img6} alt='img6' />,
-          <img src={img7} alt='img7' />
-        ]} />
+        <ImageSlider imageStyle='cover' delay={4000}>
+          <img src={img1} alt='Respawn Robotics at 2022 Rocket City Regional' />
+          <img src={img2} alt='Tempest' />
+          <img src={img3} alt='Our Human Player After Sinking a Shot' />
+          <img src={img4} alt='Respawn Robotics Showcasing Tempest at Wildwood Elementary' />
+          <img src={img5} alt='Talking to the Kids About Mechatronics as a Career Field' />
+          <img src={img6} alt="Team 325's Pit at 2022 Greater Pittsburgh Regional" />
+          <img src={img7} alt='Students Learning from Mentor' />
+        </ImageSlider>
       </div>
       <div className='join-program'>
-              <h2 className='joinUs-text' id='joinUs-title'>
-                Join Our Program
-              </h2>
-              <p className='joinUs-text' id='joinUs-sentence'>
-                Learn new skills about Machining, Programming, CAD & Design, and more!
-              </p>
-              <div className='moreinfo-button'>
-                <a href={"https://www.butlertech.org/program/mechatronics/"} className='moreinfo-text'><h2 className='moreinfo-text'>More Info</h2></a>
-              </div>
+        <h2 className='joinUs-text' id='joinUs-title'>
+          Join Our Program
+        </h2>
+        <p className='joinUs-text' id='joinUs-sentence'>
+          Learn new skills like machining, programming, CAD & design, and more!
+        </p>
+        <div className='center-horizontal'>
+          <div className='moreinfo-button'>
+            <a href={"https://www.butlertech.org/program/mechatronics/"} className='moreinfo-text'>More Info</a>
+          </div>
+        </div>
       </div>
-      <div className='center'>
+      <div className='center-horizontal'>
         <WhatWeDo />
       </div>
       <div className='associate-schools'>
-                <h2 className='associateText'>
-                  Associate School Districts
-                </h2>
+        <h2 className='associateText'>
+          Associate School Districts
+        </h2>
       </div>
-      <div className='school-slider-container'>
-      <ImageSlider delay={6000}
-                images={[
-                 <img src={butlertech_logo} alt="Butler Tech" className='school-logo' />,
-                 <img src={colerain_logo} alt="Colerain High School" className='school-logo' />,
-                 <img src={edgewood_logo} alt="Edgewood High School" className='school-logo'/>,
-                 <img src={fairfield_logo} alt="Fairfield High School" className='school-logo' />,
-                 <img src={hamilton_logo} alt="Hamilton High School" className='school-logo' />,
-                 <img src={lakotaeast_logo} alt="Lakota East High School" className='school-logo' />,
-                 <img src={lakotawest_logo} alt="Lakota West High School" className='school-logo' />,
-                 <img src={madison_logo} alt="Madison High School" className='school-logo'/>,
-                 <img src={middletown_logo} alt="Middletown High School" className='school-logo'/>,
-                 <img src={monroe_logo} alt="Monroe High School" className='school-logo' />,
-                 <img src={newmiami_logo} alt="New Miami High School" className='school-logo'/>,
-                 <img src={northwest_logo} alt="Northwest High School" className='school-logo'/>,
-                 <img src={ross_logo} alt="Ross High School" className='school-logo'/>,
-                 <img src={talawanda_logo} alt="Talawanda High School" className='school-logo'/>
-                ]} />
+      <div className='center-horizontal'>
+        <div className='school-slider-container'>
+          <ImageSlider imageStyle='contain' delay={6000}>
+            <img src={butlertech_logo} alt="Butler Tech" />
+            <img src={colerain_logo} alt="Colerain High School" />
+            <img src={edgewood_logo} alt="Edgewood High School" />
+            <img src={fairfield_logo} alt="Fairfield High School" />
+            <img src={hamilton_logo} alt="Hamilton High School" />
+            <img src={lakotaeast_logo} alt="Lakota East High School" />
+            <img src={lakotawest_logo} alt="Lakota West High School" />
+            <img src={madison_logo} alt="Madison High School" />
+            <img src={middletown_logo} alt="Middletown High School" />
+            <img src={monroe_logo} alt="Monroe High School" />
+            <img src={newmiami_logo} alt="New Miami High School" />
+            <img src={northwest_logo} alt="Northwest High School" />
+            <img src={ross_logo} alt="Ross High School" />
+            <img src={talawanda_logo} alt="Talawanda High School" />
+          </ImageSlider>
+        </div>
       </div>
-      <div className='container'>
+      <div className='column'>
         <div className='our-mission-container'>
           <h1 className='our-mission'>Our Mission</h1>
+          <hr className='heading-underline' />
           <p className='our-mission'>
             To inspire young students to be science and technology leaders by
             getting them excited about engineering and technology skills. We
@@ -96,12 +103,8 @@ function Home() {
           </p>
         </div>
         <div className='sponsorpacket-container'>
-                <h2 className='sponsor-text'>
-                  Click For Our<br></br>Sponsorship Packet
-                </h2>
-                <div className='sponsorpacket-linkimage'>
-                  <img src={logo} alt="Sponsorship Packet" id='packet-image' />
-                </div>
+          <p className='sponsorship-text'>Download our <a className='sponsorship-text' target='blank' href={sponsorship_packet}>Sponsorship Packet</a></p>
+          <embed type="application/pdf" id='sponsorship-packet' title='Sponsorship Packet' src={sponsorship_packet} />
         </div>
       </div>
     </>

@@ -1,5 +1,6 @@
 import { React } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import paths from './paths.json';
 
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
@@ -28,17 +29,17 @@ function App() {
         <Routes>
           {/* Main Page */}
           <Route index element={<Home />} />
-          <Route path='/Sponsors' element={<Sponsors />} />
-          <Route path='/About' element={<About/>}/>
-          <Route path='/Outreach' element={<Outreach/>}/>
+          <Route path={paths.main['sponsors']} element={<Sponsors />} />
+          <Route path={paths.main['about']} element={<About />} />
+          <Route path={paths.main['outreach']} element={<Outreach />} />
           {/* Recon */}
-          <Route path='/recon/' element={<Dashboard />} />
-          <Route path='/recon/scout' element={<Scout />} />
+          <Route path={paths.recon['dashboard']} element={<Dashboard />} />
+          <Route path={paths.recon['scout']} element={<Scout />} />
           {/* Reflect */}
-          <Route path='/reflect' element={<Reflect />} />
-          <Route path='/reflect/record' element={<Record />} />
-          <Route path='/reflect/legacy' element={<Legacy />} />
-          <Route path='/reflect/daily' element={<Daily />} />
+          <Route path={paths.reflect['home']} element={<Reflect />} />
+          <Route path={paths.reflect['record']} element={<Record />} />
+          <Route path={paths.reflect['legacy']} element={<Legacy />} />
+          <Route path={paths.reflect['daily']} element={<Daily />} />
         </Routes>
       </BrowserRouter>
       <Footer />

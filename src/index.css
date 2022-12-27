@@ -15,6 +15,11 @@
 }
 
 @font-face {
+  font-family: "roboto-slab-extrabold";
+  src: url("./media/fonts/roboto-slab/roboto-slab-extrabold.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "bank-gothic";
   src: url("./media/fonts/bank-gothic/bank-gothic-medium.ttf") format("truetype");
 }

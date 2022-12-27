@@ -3,7 +3,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 1;
+    z-index: 3;
     width: 100vw;
     height: 100vh;
     overflow: auto;
@@ -26,6 +26,8 @@
 
 #modal-content {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     width: 85%;
     height: 65%;
@@ -33,6 +35,14 @@
 }
 
 #modal-content > img {
+    object-fit: contain;
     max-height: 100%;
     max-width: 100%;
+}
+
+#modal-caption {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'roboto-slab-bold';
 }

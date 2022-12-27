@@ -1,6 +1,5 @@
 {
-    "main": {
-        "outreach": "/outreach",
+    "main" : {
         "home": "/",
         "about": "/about",
         "first": "/first",

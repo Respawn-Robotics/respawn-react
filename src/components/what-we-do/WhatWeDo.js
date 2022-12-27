@@ -19,7 +19,7 @@ function WhatWeDo() {
                 <div className='what-we-do-square'>
                     <img className='square-image' src={Machining} alt='machining' />
                     <h1 className='square-heading'>Machining</h1>
-                    <p className='square-text'>Machine and build parts of a robot using top of the line equipment using top-of-the-line like ProtoTrak CNC mills.</p>
+                    <p className='square-text'>Machine and build parts of a robot using top of the line equipment like ProtoTrak CNC mills.</p>
                 </div>
                 <div className='what-we-do-square'>
                     <img className='square-image' src={Cad} alt='cad' />
@@ -29,7 +29,7 @@ function WhatWeDo() {
                 <div className='what-we-do-square'>
                     <img className='square-image' src={Outreach} alt='outreach' />
                     <h1 className='square-heading'>Outreach</h1>
-                    <p className='square-text'>Reach out to local companies and schools to recruit students and fundraise money.</p>
+                    <p className='square-text'>Reach out to local companies and schools to fundraise money and inspire STEM.</p>
                 </div>
                 <div className='what-we-do-square'>
                     <img className='square-image' src={Degree} alt='degree' />

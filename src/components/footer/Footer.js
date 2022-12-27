@@ -12,6 +12,7 @@ function Footer() {
                 <img src={logo} alt='respawn_icon' id='foot-logo' />
                 <div className='info-text'>
                     <h3 className='info-heading'>Respawn Robotics</h3>
+                    <hr id='info-underline' />
                     <a href='mailto:Info@respawnrobotics.com' className='info-email'>Info@respawnrobotics.com</a>
                     <address className='info-address'>
                         3603 Hamilton Middletown Rd. <br />
@@ -21,6 +22,7 @@ function Footer() {
             </div>
             <div className='footer-socials'>
                 <h3 className='socials-heading'>Follow Us</h3>
+                <hr id='socials-underline' />
                 <div className='socials-links'>
                     <a href='https://www.thebluealliance.com/team/325' target='_blank' rel="noreferrer">
                         <img src={BlueAlliance} alt='blue_alliance' id='socials-blue-alliance' />
