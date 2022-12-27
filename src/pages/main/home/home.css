@@ -1,41 +1,56 @@
-.center {
-    text-align: center;
-    margin-top: none;
+.center-horizontal {
+    display: flex;
+    justify-content: center;
 }
 
-.container {
+.center-vertical {
     display: flex;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    
+}
+
+.column > * {
+    flex: 1 1 0px;
 }
 
 .our-mission-container {
-    flex-basis: 50%;
-    margin-top: 5%;
-    margin-bottom: 5%;
     background: transparent;
-    height: 30vw;
+    height: auto;
 }
-
 
 p.our-mission {
     font-family: "roboto-slab";
     color: white;
-    padding: 0px 10vw;
+    text-align: center;
+    padding: 0px 3%;
     font-size: 25px;
-    text-indent: 5%;
-    width: 120%;
-    margin-left: -7%;
     display: flex;
     background: transparent;
 }
 
-
 h1.our-mission {
-    font-family: "bank-gothic";
+    font-family: "roboto-slab-extrabold";
+    margin-bottom: 0;
     font-size: 3rem;
     text-align: center;
     color: var(--respawn-orange);
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 
+}
+
+.heading-underline {
+    height: 0.3rem;
+    width: 70%;
+    margin: 1rem auto 3rem;
+    border-width: 0;
+    background-color: var(--respawn-orange);
 }
 
 .image-slider-container{
@@ -45,34 +60,21 @@ h1.our-mission {
 }
 
 .school-slider-container{
-    height: 150px;
-    width: 500px;
-    margin: auto;
-    background: transparent;
-}
-
-.school-logo{
-    background-color: transparent;
-    max-width: 300px;
-    min-width: 300px;
-    max-height: 400px;
-    height: auto;
-    max-height: 250px;
-    margin: auto;
-    overflow: hidden;
-    object-fit: contain;
-    display: flex;
-    vertical-align: middle;
-    margin-top: 40%;
+    margin: 5rem 0;
+    width: min(500px, 100%);
+    aspect-ratio: 3.5/1;
 }
 
 .join-program{
-    height: 200px;
-    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
     width: 100%;
-    margin: auto;
-    margin-bottom: 1%;
-    background: transparent;
+    margin: 2rem 0 5rem;
+    padding: 0 2rem 1.5rem;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, var(--respawn-dark-blue) 100%), url("./media/picture8.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 .joinUs-text{
@@ -85,32 +87,29 @@ h1.our-mission {
 }
 
 #joinUs-title{
-    font-size: 2em;
+    font-size: 2.5rem;
     font-family: roboto-slab-bold;
     margin-top: 1.5%;
 }
 
 #joinUs-sentence{
-    font-size: 1em;
-    margin-top: 1.5%;
+    font-size: 1.5rem;
     font-family: roboto-slab;
 }
 
 .moreinfo-button{
+    position: relative;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2.25%;
-    margin-bottom: 0.5%;
-    display: table;
-    background-color: var(--respawn-dark-blue);
-    height: auto;
-    padding: none;
+    background-color: var(--respawn-blue);
     border-style: solid;
     border-width: 2.5px;
     border-color: white;
-    height: auto;
-    width: 200px;
+    padding: 1rem 1.5rem;
+    transition: 0.25s;
+}
+
+.moreinfo-button:hover {
+    background-color: var(--respawn-orange);
 }
 
 .moreinfo-text{
@@ -142,39 +141,63 @@ h1.our-mission {
 }
 
 .sponsorpacket-container{
-    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
     background-color: transparent;
-    align-self: right;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    height: 30vw;
-    align-items: center;
-    display: table;
-
+    height: 60vh;
+    width: 100%;
 }
 
-.sponsorpacket-linkimage{
-    text-align: center;
-    margin: auto;
-    margin-top: none;
-    margin-bottom: none;
+#sponsorship-packet {
+    height: 100%;
+    width: 100%;
+    border: none;
+    padding: 0 10%;
 }
 
-.sponsor-text{
+.sponsorship-text {
     text-align: center;
-    font-family: "bank-gothic";
+    font-family: "roboto-slab-bold";
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+a.sponsorship-text {
     color: var(--respawn-orange);
-    margin-bottom: none;
-    margin-top: 4%;
-    margin-left: auto;
-    margin-right: auto;
-    display: table;
-    font-size: 2.5rem;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-
+    text-decoration: underline;
 }
 
 #packet-image{
     height: auto;
     width: 250px;
+}
+
+
+@media screen and (min-aspect-ratio: 1/1) {
+    p.our-mission {
+        padding: 0 15%;
+    }
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+    .column {
+        flex-direction: column;
+    }
+
+    .column > * {
+        padding: 5%;
+    }
+
+    h1.our-mission {
+        font-size: 3rem;
+    }
+
+    p.our-mission {
+        font-size: 1.25rem;
+    }
+
+    .school-slider-container{
+        margin: 10rem 0;
+    }
 }

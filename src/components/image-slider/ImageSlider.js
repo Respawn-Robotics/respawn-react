@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from '../modal/Modal';
 import './image-slider.css'
 
-function ImageSlider({delay, imageStyle, images}) {
+function ImageSlider({delay, imageStyle, children}) {
 
     const [index, setIndex] = useState(0);
     const [incId, setIncId] = useState(0);
@@ -10,7 +10,7 @@ function ImageSlider({delay, imageStyle, images}) {
     const [openModal, setOpenModal] = useState(false);
     const [modalPicNum, setModalPicNum] = useState(0);
 
-    const slides = images;
+    const slides = children;
 
     const incIndex = (num) => {
         setIndex((index) => (((index + num) % slides.length) + slides.length) % slides.length);

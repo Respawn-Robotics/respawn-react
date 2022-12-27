@@ -6,23 +6,48 @@
   font-family: "roboto-slab";
   justify-content: flex-end;
   align-items: stretch;
-  background-image: linear-gradient(var(--respawn-dark-blue) 15%, transparent);
+  background-image: linear-gradient(var(--respawn-dark-blue), transparent);
   width: 100%;
+  animation: rebuild 0.5s ease;
+  animation-fill-mode: forwards;
+}
+
+.navbar.scrolled {
+  animation: collapse 0.5s ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes collapse {
+  from {
+    top: 0;
+  }
+
+  to {
+    top: -10vh;
+  }
+}
+
+@keyframes rebuild {
+  from {
+    top: -10vh;
+  }
+
+  to {
+    top: 0;
+  }
 }
 
 .nav-link {
   color: white;
+  margin: 0;
   text-decoration: none;
+  overflow: visible;
 }
 
 .dropdown {
   position: relative;
   cursor: pointer;
   display: inline-block;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
 }
 
 .dropdown-content {
@@ -61,10 +86,79 @@
   background-color: var(--respawn-orange);
 }
 
+.hamburger-icon-bar {
+  width: 2.5rem;
+  height: 0.25rem;
+  background-color: white;
+  margin: 0.5rem 0;
+  transition: 0.5s;
+}
+
+.change #icon-bar-1 {
+  transform: translate(0, 0.72rem) rotate(-45deg);
+}
+
+.change #icon-bar-2 {
+  opacity: 0;
+}
+
+.change #icon-bar-3 {
+  transform: translate(0, -0.72rem) rotate(45deg);
+}
+
+.hamburger-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 10vh;
+  padding: 1rem;
+  width: 100%;
+  background-color: var(--respawn-dark-blue);
+}
+
+.hamburger-link {
+  font-family: "roboto-slab";
+  color: white;
+  text-decoration: none;
+  padding: 1rem;
+  margin: 0;
+  width: 100%;
+  border-bottom: 2px solid white;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--respawn-blue);
+}
+
+.menu-link {
+  padding: 1rem 1.5rem;
+  color: powderblue;
+  text-decoration: none;
+}
+
 #navbar-logo {
   margin-right: auto;
 }
 
 #nav-image {
+  position: absolute;
+  left: 0;
   height: 100%;
+}
+
+#navbar-hamburger {
+  top: 0;
+  right: 0;
+  padding: 2vh 1rem;
+  display: block;
+  cursor: pointer;
+  border: none;
+}
+
+@media screen and (min-aspect-ratio: 1/1) {  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
 }

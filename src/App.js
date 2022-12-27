@@ -1,5 +1,6 @@
 import { React } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import paths from './paths.json';
 
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
@@ -23,12 +24,12 @@ function App() {
         <Routes>
           {/* Main Page */}
           <Route index element={<Home />} />
-          <Route path='/sponsors' element={<Sponsors />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/outreach' element={<Outreach />} />
+          <Route path={paths.main['sponsors']} element={<Sponsors />} />
+          <Route path={paths.main['about']} element={<About />} />
+          <Route path={paths.main['outreach']} element={<Outreach />} />
           {/* Recon */}
-          <Route path='/recon/' element={<Dashboard />} />
-          <Route path='/recon/scout' element={<Scout />} />
+          <Route path={paths.recon['dashboard']} element={<Dashboard />} />
+          <Route path={paths.recon['scout']} element={<Scout />} />
         </Routes>
       </BrowserRouter>
       <Footer />

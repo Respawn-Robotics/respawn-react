@@ -26,6 +26,8 @@
 
 #modal-content {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     width: 85%;
     height: 65%;
@@ -33,6 +35,14 @@
 }
 
 #modal-content > img {
+    object-fit: contain;
     max-height: 100%;
     max-width: 100%;
+}
+
+#modal-caption {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'roboto-slab-bold';
 }
