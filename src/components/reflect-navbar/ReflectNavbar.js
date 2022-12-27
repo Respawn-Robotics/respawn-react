@@ -1,4 +1,4 @@
-import './navbar.css';
+import '../navbar/navbar.css';
 import React, { useState, useEffect, useRef } from 'react';
 import logo from '../../media/respawn_logo.png';
 import paths from '../../paths.json';
@@ -45,7 +45,7 @@ function NavItem({ type, className, id, label, link, children }) {
     }
 }
 
-function Navbar() {
+function ReflectNavbar() {
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
 
@@ -79,28 +79,14 @@ function Navbar() {
             </NavItem>
 
             {width / height > 1 ? <>
-                <NavItem type='link' link={paths.main['about']}>ABOUT</NavItem>
-                <NavItem type='link' link={paths.main['first']}><i>FIRST</i></NavItem>
-                <NavItem type='link' link={paths.main['sponsors']}>SPONSORS</NavItem>
-                <NavItem type='dropdown' label='PILLARS OF RESPAWN'>
-                    <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REWIND</NavItem>
-                    <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
-                    <NavItem type='link' className='dropdown-link' link={paths.reflect['home']}>REFLECT</NavItem>
-                    <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
-                    <NavItem type='link' className='dropdown-link' link={paths.main.pillars['reach']}>REACH</NavItem>
-                </NavItem>
+                <NavItem type='link' link={paths.reflect['record']}>RECORD</NavItem>
+                <NavItem type='link' link={paths.reflect['daily']}>DAILY</NavItem>
+                <NavItem type='link' link={paths.reflect['legacy']}>LEGACY</NavItem>
             </> : <>
                 <NavItem type='hamburger'>
-                    <NavItem type='link' className='hamburger-link' link={paths.main['about']}>ABOUT</NavItem>
-                    <NavItem type='link' className='hamburger-link' link={paths.main['first']}><i>FIRST</i></NavItem>
-                    <NavItem type='link' className='hamburger-link' link={paths.main['sponsors']}>SPONSORS</NavItem>
-                    <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
-                        <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REWIND</NavItem>
-                        <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>
-                        <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REFLECT</NavItem>
-                        <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
-                        <NavItem type='link' className='menu-link' link={paths.main.pillars['reach']}>REACH</NavItem>
-                    </NavItem>
+                    <NavItem type='link' className='hamburger-link' link={paths.reflect['record']}>RECORD</NavItem>
+                    <NavItem type='link' className='hamburger-link' link={paths.reflect['daily']}>DAILY</NavItem>
+                    <NavItem type='link' className='hamburger-link' link={paths.reflect['legacy']}>LEGACY</NavItem>
                 </NavItem>
             </>}
 
@@ -115,4 +101,4 @@ function Navbar() {
 }
 
 
-export default Navbar;
+export default ReflectNavbar;
