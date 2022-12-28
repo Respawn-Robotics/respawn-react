@@ -20,11 +20,12 @@ import Reflect from './pages/reflect/home/Reflect'
 import Record from './pages/reflect/record/Record'
 import Legacy from './pages/reflect/legacy/Legacy'
 import Daily from './pages/reflect/daily/Daily'
+import ReflectNavbar from './components/reflect-navbar/ReflectNavbar'
 
 function App() {
   return (
     <>
-      <Navbar />
+      {window.location.pathname.includes("/reflect") ? <ReflectNavbar /> : <Navbar />}
       <BrowserRouter>
         <Routes>
           {/* Main Page */}
