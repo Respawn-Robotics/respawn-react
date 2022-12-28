@@ -46,7 +46,7 @@ function ImageSlider({delay, imageStyle, children}) {
                         })}
                 </div>
             </div>
-            <Modal state={openModal} onClose={() => setOpenModal(false)}>
+            <Modal caption={slides[modalPicNum].props.alt} state={openModal} onClose={() => setOpenModal(false)}>
                 {slides[modalPicNum]}
             </Modal>
         </>

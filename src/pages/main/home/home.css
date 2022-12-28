@@ -54,7 +54,7 @@ h1.our-mission {
 }
 
 .image-slider-container{
-    height: 250px;
+    height: 75vh;
     width: 100%;
     background: black;
 }
@@ -115,7 +115,7 @@ h1.our-mission {
 .moreinfo-text{
     font-family: 'roboto-slab-bold';
     color: white;
-    font-size: 1.25em;
+    font-size: 1.25rem;
     text-decoration: none;
 }
 
