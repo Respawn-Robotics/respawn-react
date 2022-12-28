@@ -26,12 +26,26 @@
 
 * {
   box-sizing: border-box;
-  font-size: 2vh;
+  font-size: 1vw;
 }
 
 body {
+  position: absolute;
+  width: 100vw;
+  min-height: 100vh;
+  padding-bottom: 20vh;
   background-color: var(--respawn-dark-blue);
   margin: 0px;
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+  * {
+    font-size: 2vh;
+  }
+
+  body {
+    padding-bottom: 40vh;
+  }
 }
 
 

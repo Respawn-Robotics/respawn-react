@@ -85,7 +85,7 @@ function Navbar() {
                 <NavItem type='dropdown' label='PILLARS OF RESPAWN'>
                     <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REWIND</NavItem>
                     <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
-                    <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REFLECT</NavItem>
+                    <NavItem type='link' className='dropdown-link' link={paths.reflect['home']}>REFLECT</NavItem>
                     <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
                     <NavItem type='link' className='dropdown-link' link={paths.main.pillars['reach']}>REACH</NavItem>
                 </NavItem>
@@ -97,19 +97,12 @@ function Navbar() {
                     <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
                         <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REWIND</NavItem>
                         <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>
-                        <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REFLECT</NavItem>
+                        <NavItem type='link' className='menu-link' link={paths.reflect['home']}>REFLECT</NavItem>
                         <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
                         <NavItem type='link' className='menu-link' link={paths.main.pillars['reach']}>REACH</NavItem>
                     </NavItem>
                 </NavItem>
             </>}
-
-
-            {/* <button id='navbar-hamburger' style={{ backgroundColor: hamburger ? 'var(--respawn-blue)' : 'transparent' }} onClick={() => { setHamburger((prev) => !prev); }}>
-                <div className='hamburger-icon-bar' id='icon-bar-1' />
-                <div className='hamburger-icon-bar' id='icon-bar-2' />
-                <div className='hamburger-icon-bar' id='icon-bar-3' />
-            </button> */}
         </nav>
     );
 }

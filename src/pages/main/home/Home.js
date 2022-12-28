@@ -13,7 +13,6 @@ import img6 from './media/picture6.jpg';
 import img7 from './media/picture7.jpg';
 
 //Logos
-import logo from '../../../media/respawnr_logo.png';
 import butlertech_logo from './media/butlertech_logo.png';
 import colerain_logo from './media/colerain_logo.png';
 import edgewood_logo from './media/edgewood_logo.png';

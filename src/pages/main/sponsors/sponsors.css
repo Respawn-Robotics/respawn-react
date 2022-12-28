@@ -7,6 +7,8 @@
         rgba(0,0,0,.5)
     ),
     url(https://pbs.twimg.com/media/FOJ6ed4VUAAeQAb?format=jpg&name=large);
+    background-size: cover;
+    background-position: 0% 70%;
 }
 
 #container1 {
