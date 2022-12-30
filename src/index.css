@@ -30,12 +30,11 @@
 }
 
 body {
-  position: absolute;
-  width: 100vw;
-  min-height: 100vh;
-  padding-bottom: 20vh;
+  position: relative;
   background-color: var(--respawn-dark-blue);
-  margin: 0px;
+  min-height: 99vh;
+  margin: 0;
+  padding-bottom: 20vh;
 }
 
 @media screen and (max-aspect-ratio: 1/1) {
@@ -44,7 +43,7 @@ body {
   }
 
   body {
-    padding-bottom: 40vh;
+    padding-bottom: 35vh;
   }
 }
 

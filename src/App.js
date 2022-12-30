@@ -16,16 +16,16 @@ import Dashboard from './pages/recon/dashboard/Dashboard';
 import Scout from './pages/recon/scout/Scout';
 
 // Reflect
-import Reflect from './pages/reflect/home/Reflect'
-import Record from './pages/reflect/record/Record'
-import Legacy from './pages/reflect/legacy/Legacy'
-import Daily from './pages/reflect/daily/Daily'
-import ReflectNavbar from './components/reflect-navbar/ReflectNavbar'
+import Reflect from './pages/reflect/home/Reflect';
+import Record from './pages/reflect/record/Record';
+import Legacy from './pages/reflect/legacy/Legacy';
+import Daily from './pages/reflect/daily/Daily';
 
 function App() {
   return (
     <>
-      {window.location.pathname.includes("/reflect") ? <ReflectNavbar /> : <Navbar />}
+      {window.location.pathname.includes("/reflect") ? <Navbar type='reflect' /> : 
+      window.location.pathname.includes("recon") ? <Navbar type='recon' /> : <Navbar />}
       <BrowserRouter>
         <Routes>
           {/* Main Page */}

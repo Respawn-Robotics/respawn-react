@@ -13,7 +13,8 @@
     },
     "recon": {
         "dashboard": "/recon",
-        "scout": "/recon/scout"
+        "scout": "/recon/scout",
+        "rankings" : "recon/rankings"
     },
     "reflect": {
         "home": "/reflect",
