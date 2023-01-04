@@ -21,6 +21,8 @@ import Record from './pages/reflect/record/Record'
 import Legacy from './pages/reflect/legacy/Legacy'
 import Daily from './pages/reflect/daily/Daily'
 import ReflectNavbar from './components/reflect-navbar/ReflectNavbar'
+import DailyEntry from './pages/reflect/daily/dailyEntry/DailyEntry';
+import DailyEntryForm from './pages/reflect/daily/dailyEntryForm/DailyEntryForm';
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
           <Route path={paths.reflect['record']} element={<Record />} />
           <Route path={paths.reflect['legacy']} element={<Legacy />} />
           <Route path={paths.reflect['daily']} element={<Daily />} />
+          <Route path='/reflect/daily/:date' element={<DailyEntry />} />
+          <Route path='/reflect/daily/entry/:date' element={<DailyEntryForm />} />
         </Routes>
       </BrowserRouter>
       <Footer />
