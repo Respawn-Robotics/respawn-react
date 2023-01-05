@@ -1,0 +1,30 @@
+#quote-container {
+    display: flex;
+    height: min(65vh, 80%);
+    width: min(90%, 60rem);
+    margin: 0 auto;
+    padding: 0;
+    background-color: var(--respawn-blue);
+}
+
+#dean-kamen-pic {
+    flex-basis: 50%;
+    height: 100%;
+    width: 500px;
+    background-image: url('./media/dean-kamen.jpg');
+    background-size: cover;
+    background-position: 60% 30%;
+}
+
+#kamen-quote {
+    flex-basis: 50%;
+    text-align: center;
+    font-family: "roboto-slab-bold";
+    font-size: 3vh;
+    color: white;
+}
+
+#kamen-quote > p {
+    margin-top: 4rem;
+    font-size: inherit;
+}

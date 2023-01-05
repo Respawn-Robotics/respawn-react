@@ -9,6 +9,7 @@ import Footer from './components/footer/Footer';
 import Home from './pages/main/home/Home';
 import Sponsors from './pages/main/sponsors/Sponsors';
 import About from './pages/main/about/About';
+import First from './pages/main/first/First';
 import Outreach from './pages/main/outreach/Outreach';
 
 // Recon
@@ -32,6 +33,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path={paths.main['sponsors']} element={<Sponsors />} />
           <Route path={paths.main['about']} element={<About />} />
+          <Route path={paths.main['first']} element={<First />} />☻
           <Route path={paths.main['outreach']} element={<Outreach />} />
           {/* Recon */}
           <Route path={paths.recon['dashboard']} element={<Dashboard />} />
