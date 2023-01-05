@@ -50,7 +50,7 @@ function StudentLeaders() {
                     <div className='team-lead-card'>
                         <div className='image-placeholder' />
                         <h2 className='card-title'>Project Manager</h2>
-                        <h2 className='card-name'>Steven Malimasuro</h2>
+                        <h2 className='card-name'>Stephen Malamisuro</h2>
                     </div>
                     <div className='team-lead-card'>
                         <div className='image-placeholder' />

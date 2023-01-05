@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './about.css';
 import Modal from '../../../components/modal/Modal';
 import StudentLeaders from '../../../components/student-leaders/StudentLeaders';
+import Mentors from '../../../components/mentors/Mentors';
 
 import img1 from './media/pic1.jpg';
 
@@ -25,6 +26,9 @@ function About() {
                 out of high school while also getting trained in Solidworks. Throughout their junior and senior years they 
                 accumulate 60 total hours of college credit that they can use toward their future educational careers or join 
                 the work force with the skills and knowledge they acquired.</p>
+            </div>
+            <div id='mentor-container'>
+                <Mentors />
             </div>
             <div id='student-leaders-container'>
                 <StudentLeaders />

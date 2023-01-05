@@ -32,3 +32,11 @@ p.about-us-text {
     width: 100%;
     object-fit: cover;
 }
+
+#student-leaders-container{
+    margin-top: 5%;
+}
+
+#mentors-container{
+    margin-top: 20%;
+}
