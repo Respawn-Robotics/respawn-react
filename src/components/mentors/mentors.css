@@ -18,6 +18,15 @@
     padding: 2.5%;
 }
 
+#image{
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/3;
+    background-color: var(--respawn-dark-blue);
+    margin-bottom: -80%;
+}
+
 .image-placeholder {
     width: 100%;
     aspect-ratio: 2/3;

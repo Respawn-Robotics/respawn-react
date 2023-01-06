@@ -129,7 +129,7 @@ function Navbar({ type }) {
                             <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
                             <NavItem type='link' className='dropdown-link' link={paths.reflect['home']}>REFLECT</NavItem>
                             <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
-                            <NavItem type='link' className='dropdown-link' link={paths.main.pillars['reach']}>REACH</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.main['outreach']}>REACH</NavItem>
                         </NavItem>
                     </> : <>
                         <NavItem type='hamburger'>
@@ -141,7 +141,7 @@ function Navbar({ type }) {
                                 <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.reflect['home']}>REFLECT</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
-                                <NavItem type='link' className='menu-link' link={paths.main.pillars['reach']}>REACH</NavItem>
+                                <NavItem type='link' className='menu-link' link={paths.main['outreach']}>REACH</NavItem>
                             </NavItem>
                         </NavItem>
                     </>}

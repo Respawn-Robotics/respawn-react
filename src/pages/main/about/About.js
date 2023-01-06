@@ -7,6 +7,9 @@ import Mentors from '../../../components/mentors/Mentors';
 import img1 from './media/pic1.jpg';
 
 
+
+
+
 function About() {
 
     const [modalState, setModalState] = useState(false);
