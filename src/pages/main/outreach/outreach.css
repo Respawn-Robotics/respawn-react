@@ -1,15 +1,22 @@
 
 .slider-container{
     width: 100%;
-    height: 75vh;
+    height: 60vh;
     background: black;
 }
 
 .revolution{
     width: 100%;
     height: 400px;
-    margin-top: none;
+    margin-top: -5%;
     background-color: transparent;
+}
+
+.inspiring{
+    width: 100%;
+    height: 400px;
+    margin-top: 20%;
+    background-color: transparent; 
 }
 
 .title-text{
@@ -18,6 +25,8 @@
     font-size: 3rem;
     text-align: center;
     color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
 }
 
 .leftSmaller-title-text{
@@ -25,21 +34,38 @@
     margin-bottom: -3%;
     font-size: 2rem;
     text-align: left;
-    margin-left: 5%;
+    margin-left: 12.5%;
     color: white;
     margin-top: 13%;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+}
+
+.rightSmaller-title-text{
+    font-family: "roboto-slab-extrabold";
+    font-size: 2rem;
+    text-align: left;
+    margin-left: 60%;
+    justify-items: right;
+    margin-top: -17%;
+    margin-bottom: -1%;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
 }
 
 .regular-text{
     font-family: "roboto-slab-regular";
     color: white;
     font-size: 2em;
-    margin-top: 5%;
+    margin-top: 4%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    margin-bottom: -5%;
+    margin-bottom: 10%;
     width: 90%; 
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
 }
 
 .leftRegular-text{
@@ -47,16 +73,32 @@
     color: white;
     font-size: 1.5em;
     margin-top: 4%;
-    margin-bottom: -5%;
+    margin-bottom: -15%;
     margin-left: 5%;;
     margin-right: auto;
     text-align: left;
     width: 40%; 
     display: flex;
-    
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-indent: 20px;
 }
 
-.separator{
+.rightRegular-text{
+    font-family: "roboto-slab-regular";
+    color: white;
+    font-size: 1.5em;
+    margin-bottom: 5%;
+    margin-left: 55%;
+    margin-right: auto;
+    margin-top: 4%;
+    text-align: left;
+    width: 40%; 
+    display: flex;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-indent: 20px;
+}
+
+.leftSeparator{
     border: none;
     margin-left: 5%;
     margin-top: 5%;
@@ -66,13 +108,53 @@
     background-color: var(--respawn-orange);
 }
 
-.image-placeholder{
+.rightSeparator{
+    border: none;
+    margin-left: 55%;
+    margin-top: 3%;
+    margin-bottom: -2%;
+    height: 0.2rem;
     width: 40%;
-    height: 300px;
+    background-color: var(--respawn-orange);
+}
+
+.topImage-placeholder{
+    width: 40%;
+    height: 100%;
     margin-right: 5%;
     margin-left: auto;
-    background-color: grey;
+    background-color: transparent;
     display: flex;
     margin-top: -17%;
+    object-fit: cover;
+
+}
+
+.bottomImage-placeholder{
+    width: 40%;
+    height: 100%;
+    margin-left: 5%;
+    margin-top: -15%;
+    background-color: transparent;
+    display: flex;
+    
+}
+
+.left-lower-image{
+    width: 75%;
+    height: auto;
+    margin-top: -10%;
+    margin-right: auto;
+    margin-left: auto;
+
+
+    
+}
+
+.right-lower-image{
+    width: 90%;
+    height: auto;
+    margin: auto;
+    margin-top: -5%;
 }
 

@@ -18,19 +18,13 @@
     padding: 2.5%;
 }
 
-#image{
+#mentor-image{
     object-fit: cover;
     width: 100%;
     height: auto;
     aspect-ratio: 2/3;
     background-color: var(--respawn-dark-blue);
-    margin-bottom: -80%;
-}
-
-.image-placeholder {
-    width: 100%;
-    aspect-ratio: 2/3;
-    background-color: gray;
+    
 }
 
 .card-title {
@@ -39,7 +33,7 @@
     text-align: center;
     font-family: "roboto-slab-bold";
     font-size: 1.2rem;
-    margin: 0;
+    margin-top: 10%;
 }
 
 .card-name {
@@ -48,13 +42,15 @@
     text-align: center;
     font-family: "roboto-slab";
     font-size: 1rem;
-    margin: 0;
+    margin-top: 0;
 }
 
 #lead-mentors {
     display: flex;
     flex-direction: row;
     margin-top: -1%;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
     
 }
 

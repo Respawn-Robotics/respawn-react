@@ -26,7 +26,7 @@
 .title-text {
     font-size: 2rem;
     font-family: 'roboto-slab-bold';
-    margin: 5rem 0;
+    margin: 5rem 0 0 0;
     color: white;
     text-align: center;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
@@ -88,6 +88,5 @@
     display: block;
     padding: none;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-
 }
 

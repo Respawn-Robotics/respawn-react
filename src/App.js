@@ -36,6 +36,7 @@ function App() {
           {/* Recon */}
           <Route path={paths.recon['dashboard']} element={<Dashboard />} />
           <Route path={paths.recon['scout']} element={<Scout />} />
+          <Route path={paths.recon['rankings']} element={<Dashboard />} />
           {/* Reflect */}
           <Route path={paths.reflect['home']} element={<Reflect />} />
           <Route path={paths.reflect['record']} element={<Record />} />

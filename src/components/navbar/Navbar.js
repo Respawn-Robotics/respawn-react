@@ -125,10 +125,8 @@ function Navbar({ type }) {
                         <NavItem type='link' link={paths.main['first']}><i>FIRST</i></NavItem>
                         <NavItem type='link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                         <NavItem type='dropdown' label='PILLARS OF RESPAWN'>
-                            <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REWIND</NavItem>
                             <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
                             <NavItem type='link' className='dropdown-link' link={paths.reflect['home']}>REFLECT</NavItem>
-                            <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
                             <NavItem type='link' className='dropdown-link' link={paths.main['outreach']}>REACH</NavItem>
                         </NavItem>
                     </> : <>
@@ -137,10 +135,8 @@ function Navbar({ type }) {
                             <NavItem type='link' className='hamburger-link' link={paths.main['first']}><i>FIRST</i></NavItem>
                             <NavItem type='link' className='hamburger-link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                             <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
-                                <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REWIND</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.reflect['home']}>REFLECT</NavItem>
-                                <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.main['outreach']}>REACH</NavItem>
                             </NavItem>
                         </NavItem>
