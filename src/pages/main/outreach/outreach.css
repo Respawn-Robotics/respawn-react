@@ -3,6 +3,7 @@
     width: 100%;
     height: 60vh;
     background: black;
+    background:fixed; 
 }
 
 .revolution{
@@ -22,10 +23,11 @@
 .title-text{
     font-family: "roboto-slab-extrabold";
     margin-bottom: 0;
-    font-size: 3rem;
+    font-size: 2rem;
     text-align: center;
     color: white;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin-top: 50px;
 
 }
 
@@ -57,8 +59,8 @@
 .regular-text{
     font-family: "roboto-slab-regular";
     color: white;
-    font-size: 2em;
-    margin-top: 4%;
+    font-size: 1.5em;
+    margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -116,6 +118,16 @@
     height: 0.2rem;
     width: 40%;
     background-color: var(--respawn-orange);
+}
+
+.separator{
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5%;
+    height: 1rem;
+    width: 100%;
+    background-color: var(--respawn-blue);
 }
 
 .topImage-placeholder{
