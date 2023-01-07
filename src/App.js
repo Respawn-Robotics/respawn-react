@@ -34,7 +34,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path={paths.main['sponsors']} element={<Sponsors />} />
           <Route path={paths.main['about']} element={<About />} />
-          <Route path={paths.main['first']} element={<First />} />☻
+          <Route path={paths.main['first']} element={<First />} />
           <Route path={paths.main.pillars['reach']} element={<Outreach />} />
           {/* Recon */}
           <Route path={paths.recon['dashboard']} element={<Dashboard />} />
