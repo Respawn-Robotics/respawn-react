@@ -1,14 +1,68 @@
 .input-container {
+    position: relative;
     display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1% 0;
 }
 
 .form-input {
     background-color: var(--respawn-blue);
     color: white;
+    max-width: 100%;
     border-radius: 10px;
-    border: 2px solid black;
+    border: 2px solid white;
+    font-family: "roboto-slab-bold";
+    padding: 1ch;
+    text-align: center;
+    resize: none;
+    color: white;
+}
+
+.form-input[type=checkbox] {
+    position: absolute;
+    height: 100%;
+    aspect-ratio: 1/1;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.form-input[type=checkbox] ~ span.form-input:after {
+    content: "\2715";
+}
+
+.form-input[type=checkbox]:checked ~ span.form-input {
+    background-color: var(--respawn-orange);
+}
+
+.form-input[type=checkbox]:checked ~ span.form-input::after {
+    content: "\2713";
+}
+
+.form-input[type=number] {
+    width: 4rem;
+}
+
+.form-input[type=number]::-webkit-inner-spin-button, .form-input[type=number]::-webkit-outer-spin-button {
+    appearance: none;
+}
+
+textarea.form-input {
+    width: min(90%, 50rem);
+}
+
+.select-option {
+    text-align: left;
 }
 
 .form-label {
-    color: white
+    color: white;
+    font-family: "roboto-slab";
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+    .form-label, .form-input {
+        font-size: 0.75rem;
+        overflow: hidden;
+    }
 }

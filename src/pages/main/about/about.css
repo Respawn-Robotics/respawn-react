@@ -21,8 +21,6 @@
 h1.about-us-text {
     font-family: "roboto-slab-bold";
     font-size: 2rem;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-
 }
 
 p.about-us-text {
@@ -36,9 +34,9 @@ p.about-us-text {
 }
 
 #student-leaders-container{
-    margin-top: 5%;
+    margin-top: 5vh;
 }
 
 #mentors-container{
-    margin-top: 20%;
+    margin-top: 10vh;
 }

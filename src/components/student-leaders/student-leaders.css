@@ -15,46 +15,12 @@
     padding: 2.5%;
 }
 
-#sub-image{
+.leader-image{
     object-fit: cover;
     width: 100%;
     height: auto;
     aspect-ratio: 2/3;
     background-color: var(--respawn-dark-blue);
-    margin-bottom: -80%;
-
-}
-
-#core-image{
-    object-fit: cover;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2/3;
-    background-color: var(--respawn-dark-blue);
-    margin-bottom: -80%;
-}
-
-.sub-placeholder {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    margin-bottom: 85%;
-    margin-top: -1%;
-}
-
-.lower-sub-placeholder {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    margin-bottom: 85%;
-    margin-top: -15%;
-}
-
-.core-placeholder {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    margin-bottom: 85%;
 }
 
 .card-title {
@@ -76,7 +42,6 @@
 #student-leaders {
     display: flex;
     flex-direction: row;
-    margin-top: -5%;
 }
 
 #core-7 {

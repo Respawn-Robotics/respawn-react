@@ -4,7 +4,6 @@
         "about": "/about",
         "first": "/first",
         "sponsors": "/sponsors",
-        "outreach": "/outreach",
         "pillars": {
             "recon": "/pillars/recon",
             "repository": "/pillars/repository",
@@ -15,7 +14,7 @@
     "recon": {
         "dashboard": "/recon",
         "scout": "/recon/scout",
-        "rankings" : "recon/rankings"
+        "master-table" : "recon/master-table"
     },
     "reflect": {
         "home": "/reflect",

@@ -102,13 +102,13 @@ function Navbar({ type }) {
 
                     {width / height > 1 ? <>
                         <NavItem type='link' link={paths.recon['dashboard']}>DASHBOARD</NavItem>
-                        <NavItem type='link' link={paths.recon['rankings']}>RANKINGS</NavItem>
+                        <NavItem type='link' link={paths.recon['master-table']}>MASTER TABLE</NavItem>
                         <NavItem type='link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
                     </> : <>
                         <NavItem type='hamburger'>
-                            <NavItem type='link' link={paths.recon['dashboard']}>DASHBOARD</NavItem>
-                            <NavItem type='link' link={paths.recon['rankings']}>RANKINGS</NavItem>
-                            <NavItem type='link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
+                            <NavItem type='link' className='hamburger-link' link={paths.recon['dashboard']}>DASHBOARD</NavItem>
+                            <NavItem type='link' className='hamburger-link' link={paths.recon['master-table']}>MASTER TABLE</NavItem>
+                            <NavItem type='link' className='hamburger-link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
                         </NavItem>
                     </>}
                 </nav>
@@ -122,22 +122,22 @@ function Navbar({ type }) {
 
                     {width / height > 1 ? <>
                         <NavItem type='link' link={paths.main['about']}>ABOUT</NavItem>
-                        <NavItem type='link' link={paths.main['first']}><i>FIRST</i></NavItem>
+                        {/* <NavItem type='link' link={paths.main['first']}><i>FIRST</i></NavItem> */}
                         <NavItem type='link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                         <NavItem type='dropdown' label='PILLARS OF RESPAWN'>
                             <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
                             <NavItem type='link' className='dropdown-link' link={paths.reflect['home']}>REFLECT</NavItem>
-                            <NavItem type='link' className='dropdown-link' link={paths.main['outreach']}>REACH</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.main.pillars['reach']}>REACH</NavItem>
                         </NavItem>
                     </> : <>
                         <NavItem type='hamburger'>
                             <NavItem type='link' className='hamburger-link' link={paths.main['about']}>ABOUT</NavItem>
-                            <NavItem type='link' className='hamburger-link' link={paths.main['first']}><i>FIRST</i></NavItem>
+                            {/* <NavItem type='link' className='hamburger-link' link={paths.main['first']}><i>FIRST</i></NavItem> */}
                             <NavItem type='link' className='hamburger-link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                             <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
                                 <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.reflect['home']}>REFLECT</NavItem>
-                                <NavItem type='link' className='menu-link' link={paths.main['outreach']}>REACH</NavItem>
+                                <NavItem type='link' className='menu-link' link={paths.main.pillars['reach']}>REACH</NavItem>
                             </NavItem>
                         </NavItem>
                     </>}
