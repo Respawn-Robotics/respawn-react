@@ -21,6 +21,8 @@
 h1.about-us-text {
     font-family: "roboto-slab-bold";
     font-size: 2rem;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
 }
 
 p.about-us-text {
@@ -31,4 +33,12 @@ p.about-us-text {
 #team-photo {
     width: 100%;
     object-fit: cover;
+}
+
+#student-leaders-container{
+    margin-top: 5%;
+}
+
+#mentors-container{
+    margin-top: 20%;
 }

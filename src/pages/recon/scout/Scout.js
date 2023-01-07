@@ -79,6 +79,6 @@ function Scout() {
             <ScoutForm />
         </>
     );
-}
+    }
 
 export default Scout;
