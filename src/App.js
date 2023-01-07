@@ -15,6 +15,7 @@ import Outreach from './pages/main/outreach/Outreach';
 // Recon
 import Dashboard from './pages/recon/dashboard/Dashboard';
 import Scout from './pages/recon/scout/Scout';
+import MasterTable from './pages/recon/master-table/MasterTable';
 
 // Reflect
 import Reflect from './pages/reflect/home/Reflect';
@@ -38,7 +39,7 @@ function App() {
           {/* Recon */}
           <Route path={paths.recon['dashboard']} element={<Dashboard />} />
           <Route path={paths.recon['scout']} element={<Scout />} />
-          <Route path={paths.recon['rankings']} element={<Dashboard />} />
+          <Route path={paths.recon['master-table']} element={<MasterTable />} />
           {/* Reflect */}
           <Route path={paths.reflect['home']} element={<Reflect />} />
           <Route path={paths.reflect['record']} element={<Record />} />

@@ -15,7 +15,7 @@
     "recon": {
         "dashboard": "/recon",
         "scout": "/recon/scout",
-        "rankings" : "recon/rankings"
+        "master-table" : "recon/master-table"
     },
     "reflect": {
         "home": "/reflect",

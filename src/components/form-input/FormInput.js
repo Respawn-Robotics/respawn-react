@@ -1,31 +1,52 @@
 import './form-input.css';
+import ClickArea from '../click-area/ClickArea';
 
-function Input({name, type, onChange, options}) {
+function Input({ name, type, onChange, options, imageSrc, dataLabels, className, id }) {
     switch (type) {
+        case "clickarea":
+            return (
+                <>
+                    <ClickArea name={name} imageSrc={imageSrc} dataLabels={dataLabels} onChange={onChange} />
+                </>
+            );
         case "checkbox":
-            return (<input type='checkbox' name={name} onChange={onChange} className='form-input' />);
+            return (
+                <>
+                    <input type='checkbox' name={name} onChange={onChange} className='form-input' />
+                    <span className={`form-input ${className}`} id={id} />
+                </>
+            );
         case "select":
             return (
-                <select name={name} className='form-input' onChange={onChange}>
+                <select name={name} className={`form-input ${className}`} id={id} onChange={onChange}>
                     {options.map((option, index) => {
                         return (
-                            <option className={name + "-option"} id={name + "-option" + index} value={option}>{option}</option>
+                            <option className={`select-option ${className}-option`} id={`${id}-option-${index}`} value={option}>{option}</option>
                         );
                     })}
                 </select>
             );
         case "textarea":
-            return (<textarea name={name} className='form-input' onChange={onChange} />);
+            return (<textarea name={name} className={`form-input ${className}`} id={id} onChange={onChange} />);
         default:
-            return (<input type={type} name={name} className='form-input' onChange={onChange} />);
+            return (<input type={type} name={name} className={`form-input ${className}`} id={id} onChange={onChange} />);
     }
 }
 
-function FormInput({name, type, onChange, options}) {
+function FormInput({ name, type, onChange, options, imageSrc, dataLabels, className, id, inputClassName, inputId }) {
     return (
-        <div className='input-container'>
-            <label className='form-label'>{name.replace(/(-|_)+/g, " ") + ": "}</label>
-            <Input type={type} name={name} options={options} className='form-input' onChange={onChange} />
+        <div className={`input-container${className === undefined ? '' : ` ${className}`}`} id={id}>
+            <label className='form-label'>{name.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, (c) => c.toUpperCase())}</label>
+            <Input
+                type={type}
+                name={name}
+                options={options}
+                imageSrc={imageSrc}
+                dataLabels={dataLabels}
+                className={inputClassName === undefined ? '' : inputClassName}
+                id={inputId === undefined ? '' : inputId} 
+                onChange={onChange}
+            />
         </div>
     )
 }
