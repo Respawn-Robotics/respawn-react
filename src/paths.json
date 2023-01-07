@@ -4,7 +4,6 @@
         "about": "/about",
         "first": "/first",
         "sponsors": "/sponsors",
-        "outreach": "/outreach",
         "pillars": {
             "recon": "/pillars/recon",
             "repository": "/pillars/repository",

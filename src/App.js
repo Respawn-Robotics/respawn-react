@@ -35,7 +35,7 @@ function App() {
           <Route path={paths.main['sponsors']} element={<Sponsors />} />
           <Route path={paths.main['about']} element={<About />} />
           <Route path={paths.main['first']} element={<First />} />☻
-          <Route path={paths.main['outreach']} element={<Outreach />} />
+          <Route path={paths.main.pillars['reach']} element={<Outreach />} />
           {/* Recon */}
           <Route path={paths.recon['dashboard']} element={<Dashboard />} />
           <Route path={paths.recon['scout']} element={<Scout />} />

@@ -1,0 +1,15 @@
+#master-table {
+    display: table;
+    margin-top: 15vh;
+    width: 100%;
+}
+
+.master-table-cell {
+    color: white;
+    font-family: "roboto-slab";
+    text-align: center;
+}
+
+.master-table-heading {
+    font-family: "roboto-slab-bold";
+}
