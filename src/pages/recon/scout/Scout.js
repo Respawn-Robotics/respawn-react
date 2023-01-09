@@ -1,66 +1,108 @@
-import React, { useState, useEffect } from 'react';
-import { onSnapshot, collection, addDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import './scout.css';
+import reconfig from '../../../recon.config';
+import { collection, addDoc } from 'firebase/firestore';
 import db from '../../../firebase.config';
+import canvasImage from './media/canvas-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
-    const [inputs, setInputs] = useState({
-        'Team': -1,
-        'Alliance': 'None',
-        'Match': -1,
-        'Starting_Position': -1,
-        'Exited_Tarmac': false,
-        'Auton_Upper': -1,
-        'Auton_Lower': -1,
-        'Auton_Missed': -1,
-        'Climb_Level': 'None',
-        'Climb_Time': -1,
-        'Additional_Comments': 'None'
-    });
+    const [inputs, setInputs] = useState({});
+
+    useEffect(() => {
+        reconfig.data.map(field => setInputs(i => { return { ...i, [field['name']]: field['default'] } }));
+    }, [])
+
+    function autofillData() {
+        const climbPoints = _ => {
+            switch(inputs['climb-level']) {
+                case 'Traversal Rung':
+                    return 15;
+                case 'High Rung':
+                    return 10;
+                case 'Mid Rung':
+                    return 6;
+                case 'Low Rung':
+                    return 4;
+                default:
+                    return 0;
+            }
+        }
+
+        setInputs(i => {
+            return {
+                ...i,
+                'points-scored' :
+                    (inputs['exited-tarmac'] ? 2 : 0) +
+                    4 * inputs['auton-upper'] +
+                    2 * inputs['auton-lower'] +
+                    2 * inputs['teleop-shots']['upper'].length +
+                    inputs['teleop-shots']['lower'].length +
+                    climbPoints(),
+                'teleop-accuracy' : 
+                    inputs['teleop-shots']['upper'].length / 
+                    inputs['teleop-shots']['missed'].length,
+                'auton-accuracy' :
+                    inputs['auton-upper'] /
+                    inputs['auton-missed']
+            };
+        });
+    }
 
     const sendData = async () => {
+
+        autofillData();
+
         const collecRef = collection(db, "recon");
         const payload = inputs;
 
         await addDoc(collecRef, payload);
     }
 
-    const changeInputs = (event) => {
-        const target = event.target;
+    const changeInputs = (event, data) => {
+        if (!data) {
+            const target = event.target;
 
-        const name = target.name;
-        let value = null;
+            const name = target.name;
+            let value = null;
 
-        switch (target.type) {
-            case "number":
-                value = parseInt(target.value);
-                break;
-            case "checkbox":
-                value = target.checked;
-                break;
-            default:
-                value = target.value;
+            switch (target.type) {
+                case "number":
+                    value = parseInt(target.value);
+                    break;
+                case "checkbox":
+                    value = target.checked;
+                    break;
+                default:
+                    value = target.value;
 
+            }
+
+            setInputs(values => ({ ...values, [name]: value }));
+        } else {
+            setInputs(values => ({ ...values, [data.name]: data.value }));
         }
-
-        setInputs(values => ({ ...values, [name]: value }));
     }
 
     return (<>
-        <form>
-            <FormInput type='number' name='Team' onChange={changeInputs} />
-            <FormInput type='select' name='Alliance' onChange={changeInputs} options={['Red', 'Blue']} />
-            <FormInput type='number' name='Match' onChange={changeInputs} />
-            <FormInput type='select' name='Starting_Position' onChange={changeInputs} options={[1, 2, 3, 4, 5, 6, 7, 8]} />
-            <FormInput type='checkbox' name='Exited_Tarmac' onChange={changeInputs} />
-            <FormInput type='number' name='Auton_Upper' onChange={changeInputs} />
-            <FormInput type='number' name='Auton_Lower' onChange={changeInputs} />
-            <FormInput type='number' name='Auton_Missed' onChange={changeInputs} />
-            <FormInput type='select' name='Climb_Level' onChange={changeInputs} options={['Did Not Climb', 'Low Rung', 'High Rung', 'Traversal Rung']} />
-            <FormInput type='number' name='Climb_Time' onChange={changeInputs} />
-            <FormInput type='textarea' name='Additional_Comments' onChange={changeInputs} />
-            <button type='button' onClick={sendData}>SUBMIT</button>
+        <form id='scout-form'>
+
+            {reconfig.data.map(field => {
+                return (!field.auto ?
+                    <FormInput
+                        name={field.name}
+                        type={field.type}
+                        onChange={changeInputs}
+                        options={field.options}
+                        dataLabels={field['data-labels']}
+                        imageSrc={canvasImage}
+                    /> : <></>
+                );
+            })}
+
+            <div id='submit-button-container'>
+                <button type='button' id='submit-button' onClick={sendData}>SUBMIT</button>
+            </div>
         </form>
     </>
     )
@@ -68,17 +110,11 @@ function ScoutForm() {
 }
 
 function Scout() {
-
-    const [data, setData] = useState([]);
-
-    useEffect(() => onSnapshot(collection(db, "recon"), (snapshot) =>
-        setData(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))), []);
-
     return (
-        <>
+        <div id='scout-form-container'>
             <ScoutForm />
-        </>
+        </div>
     );
-}
+    }
 
 export default Scout;

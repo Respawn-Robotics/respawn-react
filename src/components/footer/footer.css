@@ -1,7 +1,8 @@
 .footer {
+    position: absolute;
+    bottom: 15px;
     display: flex;
     justify-content: space-between;
-    margin: 5vh 0;
     height: 15vh;
     width: 100%;
     background-color: var(--respawn-dark-blue);
@@ -63,7 +64,7 @@
 }
 
 .socials-links * {
-    height: 100%;
+    width: 50%;
 }
 
 #foot-logo {
@@ -83,10 +84,6 @@
     margin: 0 2rem 1rem;
     height: 0.2rem;
     background-color: var(--respawn-orange);
-}
-
-@media screen and (min-aspect-ratio: 1/1) {
-    
 }
 
 @media screen and (max-aspect-ratio: 1/1) {

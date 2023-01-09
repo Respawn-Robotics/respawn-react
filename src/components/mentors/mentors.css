@@ -1,0 +1,67 @@
+.leader-header {
+    color: var(--respawn-orange);
+    text-align: center;
+    font-family: "roboto-slab-extrabold";
+    font-size: 2rem;
+    }
+
+#mentor-section{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mentor-card {
+    width: 12.5%;
+    padding: 1.25%;
+}
+
+#mentor-image{
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/3;
+    background-color: var(--respawn-dark-blue);
+    
+}
+
+.card-title {
+    color: white;
+    white-space: nowrap;
+    text-align: center;
+    font-family: "roboto-slab-bold";
+    font-size: 1.2rem;
+    margin-top: 10%;
+}
+
+.card-name {
+    color: white;
+    white-space: nowrap;
+    text-align: center;
+    font-family: "roboto-slab";
+    font-size: 1rem;
+    margin-top: 0;
+}
+
+#mentors-container {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+    .mentor-card {
+        width: 33%;
+        padding: 2.5%;
+    }
+
+    .card-title {
+        font-size: 0.7rem;
+    }
+    
+    .card-name {
+        font-size: 0.5rem;
+    }
+}

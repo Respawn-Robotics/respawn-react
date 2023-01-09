@@ -14,14 +14,7 @@ Before you start writing code, you need to install [Node.js](https://nodejs.org/
 
 1. Clone the repository locally.
 2. In the main directory, run **`npm install`** to install all the modules defined in **package.json**.
-3. Start editing individual page files found in **/src/pages/**.
-
-#### If you want to create your own React App
-
-1. Find a folder locally you would like to start developing in.
-2. In that folder, run **`npx create-react-app [app-name]`** where **`[app-name]`** is what you would like to call your app.
-3. In **/src/**, find start editing **App.js**.
-
+3. Start editing individual page files found in **/src/pages/** or component files found in **/src/components**.
 
 Now that you have your project, you can run **`npm start`** and go to [localhost:3000](http://localhost:3000) to view your webpage.
 Any additional information about React.js can be found in their [documentation](https://reactjs.org/docs/getting-started.html).

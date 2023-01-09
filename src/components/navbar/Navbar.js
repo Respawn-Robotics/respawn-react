@@ -45,7 +45,7 @@ function NavItem({ type, className, id, label, link, children }) {
     }
 }
 
-function Navbar() {
+function Navbar({ type }) {
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
 
@@ -71,47 +71,82 @@ function Navbar() {
         };
     }, []);
 
-
-    return (
-        <nav className={'navbar' + (isScrolled ? ' scrolled' : '')}>
-            <NavItem className='nav-section' type='link' link={paths.main['home']} id='nav-image'>
-                <img src={logo} id='nav-image' alt='Home' />
-            </NavItem>
-
-            {width / height > 1 ? <>
-                <NavItem type='link' link={paths.main['about']}>ABOUT</NavItem>
-                <NavItem type='link' link={paths.main['first']}><i>FIRST</i></NavItem>
-                <NavItem type='link' link={paths.main['sponsors']}>SPONSORS</NavItem>
-                <NavItem type='dropdown' label='PILLARS OF RESPAWN'>
-                    <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REWIND</NavItem>
-                    <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
-                    <NavItem type='link' className='dropdown-link' link={paths.reflect['home']}>REFLECT</NavItem>
-                    <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
-                    <NavItem type='link' className='dropdown-link' link={paths.main.pillars['reach']}>REACH</NavItem>
-                </NavItem>
-            </> : <>
-                <NavItem type='hamburger'>
-                    <NavItem type='link' className='hamburger-link' link={paths.main['about']}>ABOUT</NavItem>
-                    <NavItem type='link' className='hamburger-link' link={paths.main['first']}><i>FIRST</i></NavItem>
-                    <NavItem type='link' className='hamburger-link' link={paths.main['sponsors']}>SPONSORS</NavItem>
-                    <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
-                        <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REWIND</NavItem>
-                        <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>
-                        <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REFLECT</NavItem>
-                        <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>REPOSITORY</NavItem>
-                        <NavItem type='link' className='menu-link' link={paths.main.pillars['reach']}>REACH</NavItem>
+    switch (type) {
+        case 'reflect':
+            return (
+                <nav className={'navbar' + (isScrolled ? ' scrolled' : '')}>
+                    <NavItem className='nav-section' type='link' link={paths.main['home']} id='nav-image'>
+                        <img src={logo} id='nav-image' alt='Home' />
                     </NavItem>
-                </NavItem>
-            </>}
+
+                    {width / height > 1 ? <>
+                        <NavItem type='link' link={paths.reflect['record']}>RECORD</NavItem>
+                        <NavItem type='link' link={paths.reflect['daily']}>DAILY</NavItem>
+                        <NavItem type='link' link={paths.reflect['legacy']}>LEGACY</NavItem>
+                    </> : <>
+                        <NavItem type='hamburger'>
+                            <NavItem type='link' className='hamburger-link' link={paths.reflect['record']}>RECORD</NavItem>
+                            <NavItem type='link' className='hamburger-link' link={paths.reflect['daily']}>DAILY</NavItem>
+                            <NavItem type='link' className='hamburger-link' link={paths.reflect['legacy']}>LEGACY</NavItem>
+                        </NavItem>
+                    </>}
+                </nav>
+            );
+
+        case 'recon':
+            return (
+                <nav className={'navbar' + (isScrolled ? ' scrolled' : '')}>
+                    <NavItem className='nav-section' type='link' link={paths.main['home']} id='nav-image'>
+                        <img src={logo} id='nav-image' alt='Home' />
+                    </NavItem>
+
+                    {width / height > 1 ? <>
+                        <NavItem type='link' link={paths.recon['dashboard']}>DASHBOARD</NavItem>
+                        <NavItem type='link' link={paths.recon['master-table']}>MASTER TABLE</NavItem>
+                        <NavItem type='link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
+                    </> : <>
+                        <NavItem type='hamburger'>
+                            <NavItem type='link' className='hamburger-link' link={paths.recon['dashboard']}>DASHBOARD</NavItem>
+                            <NavItem type='link' className='hamburger-link' link={paths.recon['master-table']}>MASTER TABLE</NavItem>
+                            <NavItem type='link' className='hamburger-link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
+                        </NavItem>
+                    </>}
+                </nav>
+            );
+        default:
+            return (
+                <nav className={'navbar' + (isScrolled ? ' scrolled' : '')}>
+                    <NavItem className='nav-section' type='link' link={paths.main['home']} id='nav-image'>
+                        <img src={logo} id='nav-image' alt='Home' />
+                    </NavItem>
+
+                    {width / height > 1 ? <>
+                        <NavItem type='link' link={paths.main['about']}>ABOUT</NavItem>
+                        {/* <NavItem type='link' link={paths.main['first']}><i>FIRST</i></NavItem> */}
+                        <NavItem type='link' link={paths.main['sponsors']}>SPONSORS</NavItem>
+                        <NavItem type='dropdown' label='PILLARS OF RESPAWN'>
+                            <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.reflect['home']}>REFLECT</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.main.pillars['reach']}>REACH</NavItem>
+                        </NavItem>
+                    </> : <>
+                        <NavItem type='hamburger'>
+                            <NavItem type='link' className='hamburger-link' link={paths.main['about']}>ABOUT</NavItem>
+                            {/* <NavItem type='link' className='hamburger-link' link={paths.main['first']}><i>FIRST</i></NavItem> */}
+                            <NavItem type='link' className='hamburger-link' link={paths.main['sponsors']}>SPONSORS</NavItem>
+                            <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
+                                <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>
+                                <NavItem type='link' className='menu-link' link={paths.reflect['home']}>REFLECT</NavItem>
+                                <NavItem type='link' className='menu-link' link={paths.main.pillars['reach']}>REACH</NavItem>
+                            </NavItem>
+                        </NavItem>
+                    </>}
+                </nav>
+            );
+
+    }
 
 
-            {/* <button id='navbar-hamburger' style={{ backgroundColor: hamburger ? 'var(--respawn-blue)' : 'transparent' }} onClick={() => { setHamburger((prev) => !prev); }}>
-                <div className='hamburger-icon-bar' id='icon-bar-1' />
-                <div className='hamburger-icon-bar' id='icon-bar-2' />
-                <div className='hamburger-icon-bar' id='icon-bar-3' />
-            </button> */}
-        </nav>
-    );
 }
 
 

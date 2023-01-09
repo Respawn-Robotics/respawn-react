@@ -1,258 +1,42 @@
-.about-body{
-    background-color: var(--respawn-dark-blue);
-    background: fixed;
-
-}
-/*initial container setup*/
-
-#container{
-    min-width: 100%;
-    Display: table;
-}
-
-#mini-container{
-    min-width: 50%;
-    max-width: 50%;
-    display: table;
-    background: black;
-}
-
-#micro-container{
-    min-width: 10%;
-    max-width: 10%;
-    display: block;
-    background: white;
-}
-
-.photo-container{
-    background-color: black;
-    min-height: 20vw;
-    max-height: 20vw;
-
-}
-/*text placement*/
-
-.replacement-text{
-    font-family: 'roboto-slab-regular';
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    align-items: center;
-    display: block;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-
-}
-
-#regular-text{
-    font-family: 'roboto-slab-regular';
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    align-items: center;
-    display: block;
-    width: 25em;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-
-}
-
-#larger-text{
-    font-family: 'roboto-slab-bold';
-    color: white;
-    font-size: 2.5vw;
-    display: block;
-    width: 25em;
-}
-
-.initial-text{
-    font-family: 'roboto-slab-bold';
-    color: white;
-    font-size: 50px;
-    text-align: center;
-    align-items: center;
-    display: block;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    max-width: 100%;
-    padding-top: none;
-    margin-top: 8%;
-}
-/*logo placement*/
-
-#logo-container{
-    display: table;
-    margin-top: 1%;
-}
-
-.logo-container{
-    background: transparent;
-    margin: auto;
-    min-width: 100%;
-    max-height: 15vw;
-    min-height: 15vw;
-    margin-bottom: -7.5%;
-    margin-top: -2%;
-}
-
-#logos{
-    overflow: hidden;
-    height: auto;
-    width: 15%;
-    background-repeat: none;
-    background-position: center;
-    margin-left: 42.5%;
-    margin-right: 42.5%;
-    display: block;
-    padding: none;
-    margin-top: none;
-    margin-bottom: none;
-    background: transparent;
-
-}
-/* other containers */
-.container1{
-    background: transparent;
-    max-width: 20vw;
-    min-width: 20vw;
-}
-
-.container2{
-    background: transparent;
-    max-width: 20vw;
-    min-width: 20vw;
-}
-
-.container3{
-    background: darkorange;
-    max-height: 2vw;
-    min-height: 2vw;
-    margin-top: 5%;
-}
-
-.container4{
-    background: black;
-    max-height: 20vw;
-    min-height: 20vw;
-    margin: auto;
-    justify-content: left;
-
-
-}
-.core-text-container{
-    margin-top: 25%;
-    margin-bottom: 0.5%;
-    margin-left: 0.5%;
-    margin-right: 50%;
-    background-color: red;
-    width: 48%;
-    padding-top: 12.375%;
-    padding-bottom: 12.375%;
-    display: block;
-
-}
-.core-container{
-    margin-top: -25%;
-    margin-bottom: 0.5%;
-    margin-left: 50%;
-    margin-right: 0.5%;
-    background-color: blue;
-    width: 48%;
-    padding-top: 12.375%;
-    padding-bottom: 12.375%;
-    display: block;
-}
-
-.container5{
-    background: transparent;
-    max-height: 20vw;
-    min-height: 20vw;
-    margin: auto;
-}
-
-/*text setup*/
-.secondary-text{
-    max-width: 90%;
-    padding-top: none;
-    min-width: 90%;
-    margin: auto;
-    text-align: center;
-}
-
-.leader-text{
-    vertical-align: middle;
-    max-width: 20%;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: bold;
-    text-align: center;
-}
-
-#respawnBlue {
-    background-color: var(--respawn-dark-blue);
-}
-
-#studentLeaders{
-    background-color: var(--respawn-orange);
-}
-
-#leadColor{
-    background-color: var(--respawn-blue);
-}
-
-.image-slider-container {
-    height: 74vh;
-}
-
-.smaller-text{
-    font-size: 20px;
-    font-family:'roboto-slab';
-    color: white;
-    text-align:center;
-    display:block;
-    width: 25em;
-    margin-left: auto;
-    margin-right: auto;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
-}
-.larger-text{
-    font-weight: bold; 
-    font-size: 2.5vw;
-    padding-top: 6.5vw;
-    font-family: 'roboto-slab-bold';
-    color: white;
-    text-align:center;
-    display: block;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-}
-
-.centered{
-    text-align: center;
-}
-
-.teamPhoto{
-    display: table;
-    min-width: 100%;
-    min-height: 60vw;
-    max-width:100%;
-    max-height: 40vw;
-}
-
-.respawnInfo{
-    display: table;
-    min-width: 100%;
-    min-height: 37vw;
-    max-width:100%;
-    max-height: 40vw;
-}
-
-.containerStyles{
-    width: 500px;
-    height: 280px;
-    margin: 0 auto;
-}
-
-.slideStyles{
+.image-container {
+    height: 75vh;
     width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    background-Position: center;
-    background-Size: cover;
+    background-image: url('./media/pic1.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 0 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.about-us-text-container {
+    padding: 0 5%;
+}
+
+.about-us-text {
+    color: white;
+    text-align: center;
+}
+
+h1.about-us-text {
+    font-family: "roboto-slab-bold";
+    font-size: 2rem;
+}
+
+p.about-us-text {
+    font-family: "roboto-slab";
+    font-size: 1.2rem;
+}
+
+#team-photo {
+    width: 100%;
+    object-fit: cover;
+}
+
+#student-leaders-container{
+    margin-top: 5vh;
+}
+
+#mentors-container{
+    margin-top: 10vh;
 }

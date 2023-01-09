@@ -13,11 +13,13 @@ import SignOut from './pages/authentication/signout/SignOut';
 import Home from './pages/main/home/Home';
 import Sponsors from './pages/main/sponsors/Sponsors';
 import About from './pages/main/about/About';
+import First from './pages/main/first/First';
 import Outreach from './pages/main/outreach/Outreach';
 
 // Recon
 import Dashboard from './pages/recon/dashboard/Dashboard';
 import Scout from './pages/recon/scout/Scout';
+import MasterTable from './pages/recon/master-table/MasterTable';
 
 // Reflect
 import Reflect from './pages/reflect/home/Reflect'
@@ -31,7 +33,8 @@ import DailyEntryForm from './pages/reflect/daily/dailyEntryForm/DailyEntryForm'
 function App() {
   return (
     <>
-      {window.location.pathname.includes("/reflect") ? <ReflectNavbar /> : <Navbar />}
+      {window.location.pathname.includes("/reflect") ? <Navbar type='reflect' /> : 
+      window.location.pathname.includes("recon") ? <Navbar type='recon' /> : <Navbar />}
       <BrowserRouter>
         <Routes>
           {/* Authentication */}
@@ -41,10 +44,12 @@ function App() {
           <Route index element={<Home />} />
           <Route path={paths.main['sponsors']} element={<Sponsors />} />
           <Route path={paths.main['about']} element={<About />} />
-          <Route path={paths.main['outreach']} element={<Outreach />} />
+          <Route path={paths.main['first']} element={<First />} />
+          <Route path={paths.main.pillars['reach']} element={<Outreach />} />
           {/* Recon */}
           <Route path={paths.recon['dashboard']} element={<Dashboard />} />
           <Route path={paths.recon['scout']} element={<Scout />} />
+          <Route path={paths.recon['master-table']} element={<MasterTable />} />
           {/* Reflect */}
           <Route path={paths.reflect['home']} element={<Reflect />} />
           <Route path={paths.reflect['record']} element={<Record />} />

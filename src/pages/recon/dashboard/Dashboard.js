@@ -16,6 +16,7 @@ function Dashboard() {
           console.log(data)
         }
       </table>
+      <h2 className='no-data-message'>Team 325's Competiton Data will be displayed here as soon as it is available.</h2>
     </>
   );
 }

@@ -1,117 +1,92 @@
-.sponsors-body{
-    padding: none;
+#sponsors-body{
+    padding-top: 10vh;
     background: fixed;
     background-image: 
     linear-gradient(
         rgba(0,0,0,0.5),
         rgba(0,0,0,.5)
     ),
-    url(https://pbs.twimg.com/media/FOJ6ed4VUAAeQAb?format=jpg&name=large);
+    url("./media/background.jpg");
+    background-size: cover;
+    background-position: 50% 70%;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
-#container1 {
-    background-color: transparent;
-}
-#container2 {
-    background-color: var(--respawn-dark-blue);
-
-}
 .smaller-text{
-    font-size: 25px;
+    font-size: 1.25rem;
     font-family:'roboto-slab';
     color: white;
-    text-align:center;
-    display: block;
-    width: 25em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 5%;
-    padding: none;
+    text-align: center;
+    width: min(25em, 90%);
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
 }
-.title-text{
-    font-weight: bold; 
-    font-size: 2.5vw;
-    padding-top: 6.5vw;
+
+.title-text {
+    font-size: 2rem;
     font-family: 'roboto-slab-bold';
+    margin: 5rem 0 0 0;
     color: white;
-    text-align:center;
-    display: block;
+    text-align: center;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
+
 .sponsors-section {
-    display:inline-table;
-    min-width: 100%;
-    min-height: 20vw;
-    max-width:100%;
-    max-height: 20vw;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
 }
-.why-sponsor{
-    font-size: 2.5vw;
+
+.sponsors-logos {
+    background-color: var(--respawn-dark-blue);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 30vh;
+    max-height: 30vw;
+}
+
+.logo {
+    flex-basis: auto;
+    max-height: 35%;
+    max-width: 15%;
+    margin-left: 7%;
+}
+
+.bottom-logos{
+    flex-basis: auto;
+    max-height: 35%;
+    max-width: 13%;
+    margin-left: 3%;
+}
+
+.solo-logo{
+    flex-basis: auto;
+    height: auto;
+    width: 25%;
+}
+
+#why-sponsor-section {
+    background-color: var(--respawn-dark-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 1em 0;
+    height: auto;
+}
+
+#why-sponsor{
+    font-size: 2.5rem;
     font-family: 'roboto-slab-bold';
     color: white;
     text-align:center;
     display: block;
-    margin-top: 4%;
-    margin-bottom: 4%;
     padding: none;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-
 }
 
-#bilstein{
-    flex-shrink: 0;
-    width: 350px;
-    height: auto;
-    background-repeat: none;
-    background-position: center;
-    background-color: transparent;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    background-size: contain;
-}
-
-
-#solo-logo{
-    flex-shrink: 0;
-    width: 500px;
-    height: auto;
-    background-repeat: none;
-    background-position: center;
-    background-color: transparent;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    margin-top: 6%;
-    margin-bottom: 5%;
-    background-size: contain;
-}
-
-#logoContainer{
-    display:flex;
-    display:flex;
-    justify-content:space-between;
-    align-items: center;
-    overflow: visible;
-    margin: none;
-    max-height: 30vw;
-
-}
-
-
-#logo{
-    flex-shrink: 0;
-    width: 250px;
-    height: auto;
-    background-repeat: none;
-    background-position: center;
-    background-color: transparent;
-    margin: auto;
-    padding-top: 5.5%;
-    padding-bottom: 5.5%;
-
-
-}

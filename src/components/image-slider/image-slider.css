@@ -13,6 +13,7 @@
     color: white;
     font-size: 4rem;
     transition: 0.25s;
+    opacity: 75%;
 }
 
 .media-nav:hover {
@@ -42,6 +43,8 @@
     width: 100%;
     height: 100%;
     animation: fadeIn 2s;
+    
+
 }
 
 @keyframes fadeIn {

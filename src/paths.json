@@ -17,7 +17,8 @@
     },
     "recon": {
         "dashboard": "/recon",
-        "scout": "/recon/scout"
+        "scout": "/recon/scout",
+        "master-table" : "recon/master-table"
     },
     "reflect": {
         "home": "/reflect",

@@ -1,100 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './about.css';
-import ImageSlider from "../../../components/image-slider/ImageSlider"
+import Modal from '../../../components/modal/Modal';
+import StudentLeaders from '../../../components/student-leaders/StudentLeaders';
+import Mentors from '../../../components/mentors/Mentors';
 
-import one from './media/one.png';
-import two from './media/two.png';
-import three from './media/three.png';
-import four from './media/four.png';
-
-import logo from './media/respawnR_logo.png';
+import img1 from './media/pic1.jpg';
 
 function About() {
+
+    const [modalState, setModalState] = useState(false);
+
     return (
         <>
-            <body className='about-body'>
-                <div className='image-slider-container'>
-                    <ImageSlider delay={4000}>
-                        <img src={one} alt="one" />
-                        <img src={two} alt="two" />
-                        <img src={three} alt="three" />
-                        <img src={four} alt="four" />
-                    </ImageSlider>
-                </div>
-                <div className="logo-container" id='logo-container'>
-                    <img src={logo} alt="Respawn Robotics Logo" id='logos'></img>
-                </div>
-                <div className='container1' id='container'>
-                    <p className='initial-text'>
-                        FIRST Robotics Team 325:<br></br> Respawn Robotics<br></br> is based in Hamilton, Ohio.
-                    </p>
-                </div>
-                <div className='container2' id='container'>
-                    <p className='secondary-text' id='regular-text'>
-                        Butler Tech is a technical school located in Hamilton Ohio that pulls students from 12 surrounding school districts, acquiring the best and brightest. The Mechatronics lab participates in FIRST Robotics as Team 325, Respawn Robotics. Students who choose to take this program will have the opportunity to get a associates degree in Electromechanical Engineering Technologies out of high school while also getting trained in Solidworks. Throughout their junior and senior years they accumulate 60 total hours of college credit that they can use toward their future educational careers or join the work force with the skills and knowledge they acquired.
-                    </p>
-                </div>
-                <div className='container3' id='container'>
-                    <p className='leader-text' id='larger-text'>
-                        Student Leaders
-                    </p>
-                </div>
-                <div className='container4' id='container'>
-                    <div className='core-text-container' id='core-display'>
-                        <p className='larger-text' id='core-text'>
-                            Core 7 Officers
-                        </p>
-                    </div>
-                    <div className='core-container' id='core-display'>
-                        <div className='ceo-picture' id='picture-container'>
-
-                        </div>
-                        <div className='coo-container' id='picture-container'>
-
-                        </div>
-                        <div className='cio-container' id='picture-container'>
-
-                        </div>
-                        <div className='cto-container' id='picture-container'>
-
-                        </div>
-                        <div className='cfo-container' id='picture-container'>
-
-                        </div>
-                        <div className='cmo-container' id='picture-container'>
-
-                        </div>
-                        <div className='cro-container' id='picture-container'>
-
-                        </div>
-                    </div>
-                </div>
-                <div className='container5' id='container'>
-                    <p className='subteam-text' id='larger-text'>
-                        Sub-Team Leads
-                    </p>
-                    <div className='subteamLead-container' id='secondaryContainer'>
-                        <div className='projectManager-picture' id='picture-container'>
-
-                        </div>
-                        <div className='controlsAndWiring-container' id='picture-container'>
-
-                        </div>
-                        <div className='programming-container' id='picture-container'>
-
-                        </div>
-                        <div className='cad-container1' id='picture-container'>
-
-                        </div>
-                        <div className='machining-container' id='picture-container'>
-
-                        </div>
-                        <div className='cad-container2' id='picture-container'>
-
-                        </div>
-                    </div>
-                </div>
-            </body>
+            <div className='image-container' onClick={() => setModalState(true)} />
+            <Modal caption='Respawn Robotics Team Photo' state={modalState} onClose={() => setModalState(false)}>
+                <img src={img1} alt='Respawn Robotics Team Photo' /> {/* eslint-disable-line jsx-a11y/img-redundant-alt */}
+            </Modal>
+            <div className='about-us-text-container'>
+                <h1 className='about-us-text'>Based in Hamilton, Ohio, We are FIRST Robotics Team 325, Respawn Robotics</h1>
+                <p className='about-us-text'>
+                    Butler Tech is a technical school located in Hamilton Ohio that pulls
+                    students from 12 surrounding school districts, acquiring the best and brightest. The Mechatronics
+                    lab participates in FIRST Robotics as Team 325, Respawn Robotics. Students who choose to take this
+                    program will have the opportunity to get a associates degree in Electromechanical Engineering Technologies
+                    out of high school while also getting trained in Solidworks. Throughout their junior and senior years they
+                    accumulate 60 total hours of college credit that they can use toward their future educational careers or join
+                    the work force with the skills and knowledge they acquired.
+                </p>
+            </div>
+            <div id='mentor-container'>
+                <Mentors />
+            </div>
+            <div id='student-leaders-container'>
+                <StudentLeaders />
+            </div>
         </>
     );
 }

@@ -1,0 +1,37 @@
+#scout-form-container {
+    padding-top: 10vh;
+}
+
+#scout-form {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    align-items: center;
+}
+
+#additional-comments-input {
+    grid-column: 1 / span 3;
+}
+
+#submit-button-container {
+    grid-column: 1 / span 3;
+    display: flex;
+    justify-content: center;
+}
+
+#submit-button {
+    font-family: "roboto-slab";
+    color: white;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+    padding: 2ch;
+    background-color: var(--respawn-orange);
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: 0.25s;
+}
+
+#submit-button:hover {
+    background-color: var(--respawn-dark-blue);
+    color: var(--respawn-orange);
+}
