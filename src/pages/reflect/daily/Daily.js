@@ -10,7 +10,7 @@ const Daily = () => {
 
   const onClickDay = (value, event) => {
     var date = value.toISOString().slice(0,10).replace(/-/g,"")
-    navigate("/reflect/daily/entry/" + date, { replace: true })
+    navigate("/reflect/daily/" + date, { replace: true })
   }
 
   return (

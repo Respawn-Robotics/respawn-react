@@ -5,6 +5,10 @@ import paths from './paths.json';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 
+// Authentication
+import SignIn from './pages/authentication/signin/SignIn';
+import SignOut from './pages/authentication/signout/SignOut';
+
 // Main Page
 import Home from './pages/main/home/Home';
 import Sponsors from './pages/main/sponsors/Sponsors';
@@ -30,6 +34,9 @@ function App() {
       {window.location.pathname.includes("/reflect") ? <ReflectNavbar /> : <Navbar />}
       <BrowserRouter>
         <Routes>
+          {/* Authentication */}
+          <Route path={paths.authentication['signin']} element={<SignIn />} />
+          <Route path={paths.authentication['signout']} element={<SignOut />} />
           {/* Main Page */}
           <Route index element={<Home />} />
           <Route path={paths.main['sponsors']} element={<Sponsors />} />

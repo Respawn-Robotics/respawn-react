@@ -13,6 +13,7 @@ const DailyEntryForm = () => {
         'subteam': 'None',
         'rating': -1,
         'whytext': '',
+        'dotext': '',
         'howtext': '',
         'whattext': ''
     });
@@ -48,9 +49,10 @@ const DailyEntryForm = () => {
     <>
         <div className='container'>
           <form>
-            <FormInput id='subteam' type='select' name='Subteam' onChange={changeInputs} options={['Base', 'Acquire','Score', 'End-Game']} />
+            <FormInput id='subteam' type='select' name='Subteam' onChange={changeInputs} options={['Base', 'Cone Acquisition','Cube Acquisition', 'Articulation', 'Strategy']} />
             <FormInput id='rating' type='number' name='Rating ?/5' onChange={changeInputs} />
             <FormInput id='whytext' type='textarea' name='Why was today so good / average / bad?' onChange={changeInputs} />
+            <FormInput id='dotext' type='textarea' name='What did you accompilsh today?' onChange={changeInputs} />
             <FormInput id='howtext' type='textarea' name='How could today have gone better?' onChange={changeInputs} />
             <FormInput id='whattext' type='textarea' name='What are the goals for tomorrow?' onChange={changeInputs} />
             <button type='button' onClick={sendData}>SUBMIT</button>
