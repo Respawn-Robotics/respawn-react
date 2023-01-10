@@ -1,8 +1,16 @@
 import './form-input.css';
 import ClickArea from '../click-area/ClickArea';
+import ScoringGrid from '../scoring-grid/ScoringGrid';
 
 function Input({ name, type, onChange, options, imageSrc, dataLabels, className, id }) {
     switch (type) {
+        //The grid component was made specifically for the 2023 game Charged Up
+        case "grid" :
+            return (
+                <>
+                    <ScoringGrid onChange={onChange} />
+                </>
+            );
         case "clickarea":
             return (
                 <>

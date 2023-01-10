@@ -23,9 +23,9 @@ function ClickArea({ name, dataLabels, imageSrc, onChange }) {
         const ctx = canvasRef.current.getContext('2d');
 
         const x = event.nativeEvent.offsetX / event.target.offsetWidth;
-        const y = event.nativeEvent.offsetY / event.target.offsetHeight
+        const y = event.nativeEvent.offsetY / event.target.offsetHeight;
 
-        setData(p => { return { ...p, [dataLabel['label']]: data[dataLabel['label']].push([[x, y]]) } });
+        setData(p => { return { ...p, [dataLabel['label']]: p[dataLabel['label']].concat([{ x: x, y: y }]) } });
 
         ctx.fillStyle = dataLabel['color'];
         ctx.beginPath();

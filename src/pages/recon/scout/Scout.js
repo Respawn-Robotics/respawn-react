@@ -3,7 +3,7 @@ import './scout.css';
 import reconfig from '../../../recon.config';
 import { collection, addDoc } from 'firebase/firestore';
 import db from '../../../firebase.config';
-import canvasImage from './media/canvas-image.png';
+import canvasImage from './media/field-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
@@ -11,7 +11,7 @@ function ScoutForm() {
 
     useEffect(() => {
         reconfig.data.map(field => setInputs(i => { return { ...i, [field['name']]: field['default'] } }));
-    }, [])
+    }, []);
 
     function autofillData() {
         const climbPoints = _ => {
@@ -51,7 +51,7 @@ function ScoutForm() {
 
     const sendData = async () => {
 
-        autofillData();
+        //autofillData();
 
         const collecRef = collection(db, "recon");
         const payload = inputs;
@@ -82,6 +82,8 @@ function ScoutForm() {
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
+
+        console.log(inputs);
     }
 
     return (<>

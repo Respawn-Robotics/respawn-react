@@ -27,88 +27,49 @@
             "auto": true
         },
         {
-            "name": "starting-position",
-            "type": "select",
-            "options": [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8
-            ],
-            "default": -1,
-            "hidden": true
-        },
-        {
-            "name": "exited-tarmac",
+            "name": "exited-community",
             "type": "checkbox",
             "default": false,
-            "hidden": true
+            "hidden": true,
+            "auto" : true
         },
         {
-            "name": "auton-upper",
-            "type": "number",
-            "default": -1
-        },
-        {
-            "name": "auton-lower",
-            "type": "number",
-            "default": -1
-        },
-        {
-            "name": "auton-missed",
-            "type": "number",
-            "default": -1,
-            "hidden": true
-        },
-        {
-            "name": "auton-accuracy",
-            "type": "number",
-            "default": -1,
-            "auto": true
-        },
-        {
-            "name": "teleop-shots",
+            "name": "auton-path",
             "type": "clickarea",
-            "data-labels": [{
-                    "label": "upper",
-                    "color": "#00ff00"
-                },
+            "image-index": 0,
+            "data-labels" : [
                 {
-                    "label": "lower",
-                    "color": "#00ffff"
-                },
-                {
-                    "label": "missed",
-                    "color": "#ffff00"
+                    "label" : "path-point",
+                    "color" : "#0099FF"
                 }
             ]
         },
         {
-            "name": "teleop-accuracy",
-            "type": "number",
-            "default": -1,
-            "auto": true
-        },
-        {
-            "name": "climb-level",
+            "name": "auton-charge-station",
             "type": "select",
             "options": [
-                "Did Not Climb",
-                "Low Rung",
-                "Mid Rung",
-                "High Rung",
-                "Traversal Rung"
+                "Docked + Engaged",
+                "Docked",
+                "Parked",
+                "None"
             ],
             "default": "None"
         },
         {
-            "name": "climb-time",
-            "type": "number",
-            "default": -1
+            "name": "power-grid",
+            "type": "grid",
+            "default": 0
+        },
+        {
+            "name": "endgame-charge-station",
+            "type": "select",
+            "options": [
+                "Docked + Engaged",
+                "Docked",
+                "Parked",
+                "None"
+            ],
+            "default": "None"
         },
         {
             "name": "additional-comments",

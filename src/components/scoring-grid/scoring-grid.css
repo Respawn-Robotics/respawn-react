@@ -1,0 +1,31 @@
+.scoring-grid {
+    display: grid;
+    width: 100%;
+    aspect-ratio: 3/1;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 15px;
+    row-gap: 15px;
+}
+
+.scoring-grid-cell {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "roboto-slab-bold";
+    text-align: center;
+    font-size: 2rem;
+}
+
+.scoring-grid-cell.option-1 {
+    background-color: rgb(255, 255, 0);
+}
+
+.scoring-grid-cell.option-2 {
+    background-color: rgb(162, 22, 162);
+}
+
+.scoring-grid-cell.option-3 {
+    background-color: #b7b7b7;
+}
