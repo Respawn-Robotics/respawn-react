@@ -1,4 +1,8 @@
 {
+    "authentication" : {
+        "signin": "/signin",
+        "signout": "/signout"
+    },
     "main" : {
         "home": "/",
         "about": "/about",
