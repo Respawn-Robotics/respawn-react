@@ -18,12 +18,18 @@
     "recon": {
         "dashboard": "/recon",
         "scout": "/recon/scout",
-        "master-table" : "recon/master-table"
+        "master-table" : "/recon/master-table",
+        "matches" : "/recon/matches",
+        "match-log" : "/recon/matches/:match",
+        "teams" : "/recon/teams",
+        "team-stats" : "/recon/teams/:team"
     },
     "reflect": {
         "home": "/reflect",
         "record": "/reflect/record",
         "legacy": "/reflect/legacy",
-        "daily": "/reflect/daily"
+        "daily": "/reflect/daily",
+        "daily-entry": "/reflect/daily/:date",
+        "daily-entry-form": "/reflect/daily/entry/:date"
     }
 }

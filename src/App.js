@@ -54,8 +54,8 @@ function App() {
           <Route path={paths.reflect['record']} element={<Record />} />
           <Route path={paths.reflect['legacy']} element={<Legacy />} />
           <Route path={paths.reflect['daily']} element={<Daily />} />
-          <Route path='/reflect/daily/:date' element={<DailyEntry />} />
-          <Route path='/reflect/daily/entry/:date' element={<DailyEntryForm />} />
+          <Route path={paths.reflect['daily-entry']} element={<DailyEntry />} />
+          <Route path={paths.reflect['daily-entry-form']} element={<DailyEntryForm />} />
         </Routes>
       </BrowserRouter>
       <Footer />

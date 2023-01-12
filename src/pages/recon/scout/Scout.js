@@ -8,14 +8,29 @@ import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
     const [inputs, setInputs] = useState({});
+    const [send, setSend] = useState(false);
 
     useEffect(() => {
         reconfig.data.map(field => setInputs(i => { return { ...i, [field['name']]: field['default'] } }));
     }, []);
 
-    function autofillData() {
+    const autofillData = _ => {
+        setSend(true);
+
+        const exitedCommunity = _ => {
+            const points = inputs['auton-path']['path-point'];
+            for (let i = 0; i < points.length; i++) {
+                if (
+                    points[i].x > 0.57 ||
+                    points[i].y < 0.32 ||
+                    (points[i].x > 0.37 && points[i].y < 0.51)
+                ) return 3;
+            }
+            return 0;
+        }
+
         const autonChargeStation = _ => {
-            switch(inputs['auton-charge-station']) {
+            switch (inputs['auton-charge-station']) {
                 case 'Docked + Engaged':
                     return 12;
                 case 'Docked':
@@ -25,8 +40,23 @@ function ScoutForm() {
             }
         }
 
+        const powerGrid = _ => {
+            let pieces = inputs['power-grid'];
+            let sum = 0;
+
+            for (let i = 0; i < pieces.length; i++) {
+                if (pieces[i].piece !== 'cone' && pieces[i].piece !== 'cube') continue;
+
+                if (i < 9) sum += pieces[i].auton ? 6 : 5; 
+                else if (i < 18) sum += pieces[i].auton ? 4 : 3;
+                else sum += pieces[i].auton ? 3 : 2;
+            }
+
+            return sum;
+        }
+
         const endgameChargeStation = _ => {
-            switch(inputs['endgame-charge-station']) {
+            switch (inputs['endgame-charge-station']) {
                 case 'Docked + Engaged':
                     return 10;
                 case 'Docked':
@@ -41,15 +71,18 @@ function ScoutForm() {
         setInputs(i => {
             return {
                 ...i,
-                'points-scored' : 4
+                'exited-community':
+                    exitedCommunity() === 3,
+                'points-scored':
+                    exitedCommunity() +
+                    autonChargeStation() +
+                    powerGrid() +
+                    endgameChargeStation()
             };
         });
     }
 
-    const sendData = async () => {
-
-        autofillData();
-
+    const sendData = async _ => {
         const collecRef = collection(db, "recon");
         const payload = inputs;
 
@@ -61,11 +94,11 @@ function ScoutForm() {
             const target = event.target;
 
             const name = target.name;
-            let value = null;
+            let value;
 
             switch (target.type) {
                 case "number":
-                    value = parseInt(target.value);
+                    value = parseInt(target.value !== '' ? target.value : 0);
                     break;
                 case "checkbox":
                     value = target.checked;
@@ -79,9 +112,13 @@ function ScoutForm() {
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
+        
     }
 
-    useEffect(_ => console.log(inputs));
+    useEffect(_ => {
+        console.log(inputs);
+        if (send) sendData();
+    }, [inputs]);
 
     return (<>
         <form id='scout-form'>
@@ -102,7 +139,7 @@ function ScoutForm() {
             })}
 
             <div id='submit-button-container'>
-                <button type='button' id='submit-button' onClick={sendData}>SUBMIT</button>
+                <button type='button' id='submit-button' onClick={autofillData}>SUBMIT</button>
             </div>
         </form>
     </>
@@ -116,6 +153,6 @@ function Scout() {
             <ScoutForm />
         </div>
     );
-    }
+}
 
 export default Scout;

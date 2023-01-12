@@ -28,8 +28,7 @@
                     "color": "#0000B3"
                 }
             ],
-            "default": "None",
-            "hidden": true
+            "default": "None"
         },
         {
             "name": "points-scored",
@@ -58,8 +57,7 @@
                             "color": "#A216A2"
                         }
                     ],
-                    "default": "None",
-                    "hidden": true
+                    "default": "None"
                 },
                 {
                     "type": "togglebutton",
@@ -78,8 +76,7 @@
                             "color": "#A216A2"
                         }
                     ],
-                    "default": "None",
-                    "hidden": true
+                    "default": "None"
                 },
                 {
                     "type": "togglebutton",
@@ -98,8 +95,7 @@
                             "color": "#A216A2"
                         }
                     ],
-                    "default": "None",
-                    "hidden": true
+                    "default": "None"
                 },
                 {
                     "type": "togglebutton",
@@ -118,8 +114,7 @@
                             "color": "#A216A2"
                         }
                     ],
-                    "default": "None",
-                    "hidden": true
+                    "default": "None"
                 }
             ],
             "default": "None"
@@ -128,7 +123,6 @@
             "name": "exited-community",
             "type": "checkbox",
             "default": false,
-            "hidden": true,
             "auto": true
         },
         {
@@ -142,39 +136,38 @@
                     "color": "#0099FF"
                 }
             ],
-            "default": 0
+            "default": {"path-point" : []}
         },
         {
             "name": "auton-charge-station",
             "type": "select",
             "options": [
-                "Docked + Engaged",
+                "None",
                 "Docked",
-                "None"
+                "Docked + Engaged"
             ],
             "default": "None"
         },
         {
             "name": "power-grid",
             "type": "grid",
-            "default": 0
+            "default": []
         },
         {
             "name": "endgame-charge-station",
             "type": "select",
             "options": [
-                "Docked + Engaged",
-                "Docked",
+                "None",
                 "Parked",
-                "None"
+                "Docked",
+                "Docked + Engaged"
             ],
             "default": "None"
         },
         {
             "name": "additional-comments",
             "type": "textarea",
-            "default": "None",
-            "hidden": true
+            "default": "None"
         }
     ]
 }

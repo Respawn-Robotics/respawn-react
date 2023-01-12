@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
 import './master-table.css';
+
 import db from '../../../firebase.config';
+import reconfig from '../../../recon.config';
 import { onSnapshot, collection } from 'firebase/firestore';
 
 function MasterTable() {
     const [data, setData] = useState([]);
+    const [avg, setAvg] = useState({});
 
-    useEffect(() => {
-        onSnapshot(collection(db, "recon"), (snapshot) =>
-            setData(snapshot.docs.map(doc => {
-                const sortedDoc = Object.keys(doc.data()).sort().reduce((obj, key) => {
-                    obj[key] = doc.data()[key];
-                    return obj;
-                }, {});
-                return (sortedDoc);
-            })));
-    }, []);
+    useEffect(_ =>
+        onSnapshot(collection(db, "recon"), snapshot =>
+            setData(snapshot.docs.map(doc => doc.data()))), []);
 
+    useEffect(_ => {
+        let sortedList = {};
+
+        data.map(entry => {
+            if (!sortedList[entry.team]) {
+                sortedList[entry.team] = [entry];
+                return;
+            }
+
+            sortedList[entry.team].push(entry);
+        })
+    }, [data])
+    
     return (
         <>
             <table id='master-table'>

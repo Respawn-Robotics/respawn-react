@@ -5,6 +5,7 @@ import { onSnapshot, collection } from 'firebase/firestore';
 
 function Dashboard() {
   const [data, setData] = useState([]);
+  
   useEffect(() =>
     onSnapshot(collection(db, "recon"), (snapshot) =>
       setData(snapshot.docs.map(doc => doc.data()))), []);
@@ -16,7 +17,6 @@ function Dashboard() {
           console.log(data)
         }
       </table>
-      <h2 className='no-data-message'>Team 325's Competiton Data will be displayed here as soon as it is available.</h2>
     </>
   );
 }
