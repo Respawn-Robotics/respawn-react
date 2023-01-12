@@ -2,20 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import './scoring-grid.css';
 
 function ScoringGrid(props) {
-    let [cells, setCells] = useState(Array.from({ length: 27 }, _ => {return {}}));
+    const [cells, setCells] = useState(Array.from({ length: 27 }, _ => { return { piece: 'none', auton: false } }));
 
     const checkbox = useRef(null);
 
     const updateCell = (index, field, value) => {
-        setCells(cells.map((cell, i) => 
+        setCells(cells.map((cell, i) =>
             i === index
-            ? {
-                ...cell,
-                [field]: value
-            }
-            : {
-                ...cell
-            }
+                ? {
+                    ...cell,
+                    [field]: value
+                }
+                : {
+                    ...cell
+                }
         ))
     }
 
@@ -74,16 +74,20 @@ function ScoringGrid(props) {
     }
 
     useEffect(_ => {
-        props.onChange(_, { name: 'power-grid', value: cells }); 
-    }, cells)
+        props.onChange(_, { name: 'power-grid', value: cells });
+    }, [cells])
 
     return (
         <>
-            <input type='checkbox' ref={checkbox} />
+            <div className='auton-toggle'>
+                <label>Auton: </label>
+                <input type='checkbox' ref={checkbox} />
+                <span />
+            </div>
             <div className='scoring-grid'>
                 {cells.map((_, index) => {
                     return (
-                        <div className="scoring-grid-cell option-3" onClick={e => {
+                        <div coop={index % 9 > 2 && index % 9 < 6 ? 'true' : 'false'} className="scoring-grid-cell option-3" onClick={e => {
                             return (
                                 index - 18 >= 0 ? toggleBoth(e, index) :
                                     (index + 2) % 3 === 0 ? toggleCube(e, index) :

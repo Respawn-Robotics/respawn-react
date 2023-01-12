@@ -1,22 +1,16 @@
+import { useEffect, useState } from 'react';
 import './form-input.css';
 import ClickArea from '../click-area/ClickArea';
 import ScoringGrid from '../scoring-grid/ScoringGrid';
+import ToggleButton from '../toggle-button/ToggleButton';
 
-function Input({name, type, onChange, options, id, value}) {
+function Input({ name, type, onChange, options, lines, imageSrc, className, id, value }) {
     switch (type) {
-        //The grid component was made specifically for the 2023 game Charged Up
-        case "grid" :
-            return (
-                <>
-                    <ScoringGrid onChange={onChange} />
-                </>
-            );
+        // The grid component was made specifically for the 2023 game Charged Up
+        case "grid":
+            return <ScoringGrid onChange={onChange} />;
         case "clickarea":
-            return (
-                <>
-                    <ClickArea name={name} imageSrc={imageSrc} dataLabels={dataLabels} onChange={onChange} />
-                </>
-            );
+            return <ClickArea name={name} imageSrc={imageSrc} lines={lines} options={options} onChange={onChange} />;
         case "checkbox":
             return (
                 <>
@@ -34,14 +28,57 @@ function Input({name, type, onChange, options, id, value}) {
                     })}
                 </select>
             );
+        case "togglebutton":
+            return <ToggleButton name={name} className={`form-input ${className}`} id={id} onChange={onChange} options={options} />;
         case "textarea":
-            return (<textarea name={name} className={`form-input ${className}`} id={id} onChange={onChange} />);
+            return <textarea name={name} className={`form-input ${className}`} id={id} onChange={onChange} />;
+        case "array":
+            return <ArrayInputs name={name} onChange={onChange} options={options} />;
         default:
-            return (<input type={type} name={name} className={`form-input ${className}`} id={id} onChange={onChange} />);
+            return <input type={type} name={name} className={`form-input ${className}`} id={id} onChange={onChange} />;
     }
 }
 
-function FormInput({ name, type, onChange, options, imageSrc, dataLabels, className, id, inputClassName, inputId }) {
+function ArrayInputs({ name, onChange, options }) {
+    const [input, setInput] = useState(options.map(o => o['default']));
+
+    useEffect(_ => onChange(_, { name: name, value: input }), [input]);
+
+    const updateInput = (e, data, index) => {
+        if (!data) {
+            const target = e.target;
+
+            const name = target.name;
+            let value = null;
+
+            switch (target.type) {
+                case "number":
+                    value = parseInt(target.value);
+                    break;
+                case "checkbox":
+                    value = target.checked;
+                    break;
+                default:
+                    value = target.value;
+
+            }
+
+            setInput(input.map((v, i) => i === index ? value : v));
+        } else {
+            setInput(input.map((v, i) => i === index ? data['value'] : v));
+        }
+    }
+
+    return (
+        <div className='array-input'>
+            {options.map((input, i) => {
+                return <Input type={input['type']} options={input['options']} onChange={(e, data) => updateInput(e, data, i)} />
+            })}
+        </div>
+    )
+}
+
+function FormInput({ name, type, onChange, options, lines, imageSrc, dataLabels, className, id, inputClassName, inputId }) {
     return (
         <div className={`input-container${className === undefined ? '' : ` ${className}`}`} id={id}>
             <label className='form-label'>{name.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, (c) => c.toUpperCase())}</label>
@@ -52,7 +89,7 @@ function FormInput({ name, type, onChange, options, imageSrc, dataLabels, classN
                 imageSrc={imageSrc}
                 dataLabels={dataLabels}
                 className={inputClassName === undefined ? '' : inputClassName}
-                id={inputId === undefined ? '' : inputId} 
+                id={inputId === undefined ? '' : inputId}
                 onChange={onChange}
             />
         </div>

@@ -14,16 +14,25 @@ function ScoutForm() {
     }, []);
 
     function autofillData() {
-        const climbPoints = _ => {
-            switch(inputs['climb-level']) {
-                case 'Traversal Rung':
-                    return 15;
-                case 'High Rung':
+        const autonChargeStation = _ => {
+            switch(inputs['auton-charge-station']) {
+                case 'Docked + Engaged':
+                    return 12;
+                case 'Docked':
+                    return 8;
+                default:
+                    return 0;
+            }
+        }
+
+        const endgameChargeStation = _ => {
+            switch(inputs['endgame-charge-station']) {
+                case 'Docked + Engaged':
                     return 10;
-                case 'Mid Rung':
+                case 'Docked':
                     return 6;
-                case 'Low Rung':
-                    return 4;
+                case 'Parked':
+                    return 2;
                 default:
                     return 0;
             }
@@ -32,26 +41,14 @@ function ScoutForm() {
         setInputs(i => {
             return {
                 ...i,
-                'points-scored' :
-                    (inputs['exited-tarmac'] ? 2 : 0) +
-                    4 * inputs['auton-upper'] +
-                    2 * inputs['auton-lower'] +
-                    2 * inputs['teleop-shots']['upper'].length +
-                    inputs['teleop-shots']['lower'].length +
-                    climbPoints(),
-                'teleop-accuracy' : 
-                    inputs['teleop-shots']['upper'].length / 
-                    inputs['teleop-shots']['missed'].length,
-                'auton-accuracy' :
-                    inputs['auton-upper'] /
-                    inputs['auton-missed']
+                'points-scored' : 4
             };
         });
     }
 
     const sendData = async () => {
 
-        //autofillData();
+        autofillData();
 
         const collecRef = collection(db, "recon");
         const payload = inputs;
@@ -82,22 +79,24 @@ function ScoutForm() {
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
-
-        console.log(inputs);
     }
+
+    useEffect(_ => console.log(inputs));
 
     return (<>
         <form id='scout-form'>
 
-            {reconfig.data.map(field => {
+            {reconfig.data.map((field, i) => {
                 return (!field.auto ?
                     <FormInput
                         name={field.name}
                         type={field.type}
                         onChange={changeInputs}
+                        lines={field.lines}
                         options={field.options}
                         dataLabels={field['data-labels']}
                         imageSrc={canvasImage}
+                        id={`input-${i}`}
                     /> : <></>
                 );
             })}

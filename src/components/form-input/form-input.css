@@ -55,6 +55,12 @@ textarea.form-input {
     text-align: left;
 }
 
+.array-input {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 .form-label {
     color: white;
     font-family: "roboto-slab";

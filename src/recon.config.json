@@ -12,10 +12,21 @@
         },
         {
             "name": "alliance",
-            "type": "select",
+            "type": "togglebutton",
             "options": [
-                "Red",
-                "Blue"
+                {
+                    "mode": "Alliance",
+                    "color": "#000000",
+                    "title": true
+                },
+                {
+                    "mode": "Red",
+                    "color": "#B32D00"
+                },
+                {
+                    "mode": "Blue",
+                    "color": "#0000B3"
+                }
             ],
             "default": "None",
             "hidden": true
@@ -27,22 +38,111 @@
             "auto": true
         },
         {
+            "name": "preset-pieces",
+            "type": "array",
+            "options": [
+                {
+                    "type": "togglebutton",
+                    "options": [
+                        {
+                            "mode": "Piece",
+                            "color": "#B7B7B7",
+                            "title": true
+                        },
+                        {
+                            "mode": "Cone",
+                            "color": "#CCCC00"
+                        },
+                        {
+                            "mode": "Cube",
+                            "color": "#A216A2"
+                        }
+                    ],
+                    "default": "None",
+                    "hidden": true
+                },
+                {
+                    "type": "togglebutton",
+                    "options": [
+                        {
+                            "mode": "Piece",
+                            "color": "#B7B7B7",
+                            "title": true
+                        },
+                        {
+                            "mode": "Cone",
+                            "color": "#CCCC00"
+                        },
+                        {
+                            "mode": "Cube",
+                            "color": "#A216A2"
+                        }
+                    ],
+                    "default": "None",
+                    "hidden": true
+                },
+                {
+                    "type": "togglebutton",
+                    "options": [
+                        {
+                            "mode": "Piece",
+                            "color": "#B7B7B7",
+                            "title": true
+                        },
+                        {
+                            "mode": "Cone",
+                            "color": "#CCCC00"
+                        },
+                        {
+                            "mode": "Cube",
+                            "color": "#A216A2"
+                        }
+                    ],
+                    "default": "None",
+                    "hidden": true
+                },
+                {
+                    "type": "togglebutton",
+                    "options": [
+                        {
+                            "mode": "Piece",
+                            "color": "#B7B7B7",
+                            "title": true
+                        },
+                        {
+                            "mode": "Cone",
+                            "color": "#CCCC00"
+                        },
+                        {
+                            "mode": "Cube",
+                            "color": "#A216A2"
+                        }
+                    ],
+                    "default": "None",
+                    "hidden": true
+                }
+            ],
+            "default": "None"
+        },
+        {
             "name": "exited-community",
             "type": "checkbox",
             "default": false,
             "hidden": true,
-            "auto" : true
+            "auto": true
         },
         {
             "name": "auton-path",
             "type": "clickarea",
             "image-index": 0,
-            "data-labels" : [
+            "lines" : true,
+            "options": [
                 {
-                    "label" : "path-point",
-                    "color" : "#0099FF"
+                    "label": "path-point",
+                    "color": "#0099FF"
                 }
-            ]
+            ],
+            "default": 0
         },
         {
             "name": "auton-charge-station",
@@ -50,7 +150,6 @@
             "options": [
                 "Docked + Engaged",
                 "Docked",
-                "Parked",
                 "None"
             ],
             "default": "None"
