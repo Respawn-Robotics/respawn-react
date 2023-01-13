@@ -1,15 +1,25 @@
 #master-table {
     display: table;
     margin-top: 15vh;
+    border-collapse: collapse;
     width: 100%;
 }
 
 .master-table-cell {
     color: white;
+    width: 0;
+    border-bottom: 1px white solid;
+    text-align: center;
     font-family: "roboto-slab";
     text-align: center;
 }
 
 .master-table-heading {
+    text-align: center;
     font-family: "roboto-slab-bold";
+    border-bottom: 2px white solid;
+}
+
+.master-table-row:nth-child(even) {
+    background-color: var(--respawn-blue);
 }
