@@ -16,7 +16,7 @@
         }
     },
     "recon": {
-        "dashboard": "/recon",
+        "dashboard": "/",
         "scout": "/recon/scout",
         "master-table" : "/recon/master-table",
         "matches" : "/recon/matches",

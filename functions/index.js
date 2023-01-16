@@ -11,48 +11,53 @@ admin.initializeApp();
 //   response.send("Hello from Firebase!");
 // });
 
-exports.getAverages = functions.https.onCall((data, context) => {
-    let sortedList = {};
-    let avg = {};
+// exports.getAverages = functions.firestore.document('recon/{entryId}')
+//     .onCreate((snap, context) => {
+//         const data = snap.data().original;
 
-    data.map(entry => {
-        if (!sortedList[entry.team]) {
-            sortedList[entry.team] = [entry];
-            avg[entry.team] = {};
-            return;
-        }
+//         let sortedList = {};
+//         let avg = {};
 
-        sortedList[entry.team].push(entry);
-    })
+//         data.map(entry => {
+//             if (!sortedList[entry.team]) {
+//                 sortedList[entry.team] = [entry];
+//                 avg[entry.team] = {};
+//                 return;
+//             }
 
-    Object.keys(sortedList).map(team => {
-        sortedList[team].map(entry => {
-            reconfig['data'].map(field => {
-                if (field.name === 'team' || field.name === 'match') return;
-                switch (field.type) {
-                    case 'number':
-                        if (!avg[team][field.name]) {
-                            avg[team][field.name] = entry[field.name] / sortedList[team].length;
-                            return;
-                        }
-                        avg[team][field.name] += entry[field.name] / sortedList[team].length;
-                        return;
-                    case 'select':
-                        const mappedOptions = field.options.reduce((acc, _, i) => {
-                            acc[field.options[i]] = i;
-                            return acc;
-                        }, {});
+//             sortedList[entry.team].push(entry);
+//         })
 
-                        if (!avg[team][field.name]) {
-                            avg[team][field.name] = mappedOptions[entry[field.name]] / sortedList[team].length;
-                            return;
-                        }
-                        avg[team][field.name] += mappedOptions[entry[field.name]] / sortedList[team].length;
-                        return;
-                    default:
-                        return;
-                }
-            })
-        })
-    })
-});
+//         Object.keys(sortedList).map(team => {
+//             sortedList[team].map(entry => {
+//                 reconfig['data'].map(field => {
+//                     if (field.name === 'team' || field.name === 'match') return;
+//                     switch (field.type) {
+//                         case 'number':
+//                             if (!avg[team][field.name]) {
+//                                 avg[team][field.name] = entry[field.name] / sortedList[team].length;
+//                                 return;
+//                             }
+//                             avg[team][field.name] += entry[field.name] / sortedList[team].length;
+//                             return;
+//                         case 'select':
+//                             const mappedOptions = field.options.reduce((acc, _, i) => {
+//                                 acc[field.options[i]] = i;
+//                                 return acc;
+//                             }, {});
+
+//                             if (!avg[team][field.name]) {
+//                                 avg[team][field.name] = mappedOptions[entry[field.name]] / sortedList[team].length;
+//                                 return;
+//                             }
+//                             avg[team][field.name] += mappedOptions[entry[field.name]] / sortedList[team].length;
+//                             return;
+//                         default:
+//                             return;
+//                     }
+//                 })
+//             })
+
+
+//         })
+//     });

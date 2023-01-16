@@ -18,6 +18,12 @@
     text-align: center;
     font-family: "roboto-slab-bold";
     border-bottom: 2px white solid;
+    background-color: var(--respawn-dark-blue);
+    cursor: pointer;
+}
+
+.master-table-row {
+    background-color: var(--respawn-blue-darker);
 }
 
 .master-table-row:nth-child(even) {

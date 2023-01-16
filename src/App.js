@@ -20,6 +20,7 @@ import Outreach from './pages/main/outreach/Outreach';
 import Dashboard from './pages/recon/dashboard/Dashboard';
 import Scout from './pages/recon/scout/Scout';
 import MasterTable from './pages/recon/master-table/MasterTable';
+import Teams from './pages/recon/teams/Teams';
 
 // Reflect
 import Reflect from './pages/reflect/home/Reflect'
@@ -49,6 +50,7 @@ function App() {
           <Route path={paths.recon['dashboard']} element={<Dashboard />} />
           <Route path={paths.recon['scout']} element={<Scout />} />
           <Route path={paths.recon['master-table']} element={<MasterTable />} />
+          <Route path={paths.recon['team-stats']} element={<Teams />} />
           {/* Reflect */}
           <Route path={paths.reflect['home']} element={<Reflect />} />
           <Route path={paths.reflect['record']} element={<Record />} />

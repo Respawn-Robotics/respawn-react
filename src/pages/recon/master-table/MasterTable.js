@@ -1,62 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { getFunctions, httpsCallable } from "firebase/functions";
 import './master-table.css';
 
 import db from '../../../firebase.config';
 import reconfig from '../../../recon.config';
-import { onSnapshot, collection } from 'firebase/firestore';
+import { onSnapshot, doc, getDoc } from 'firebase/firestore';
 
 function MasterTable() {
     const [data, setData] = useState([]);
     const [averages, setAverages] = useState({});
+    const [sortField, setField] = useState('points-scored')
 
-    const functions = getFunctions();
-    const getAverages = httpsCallable(functions, 'getAverages');
-    getAverages({ team: 'all' })
-        .then((result) => {
-            console.log(result.data);
-        });
     useEffect(_ =>
-        onSnapshot(collection(db, "recon"), snapshot =>
-            setData(snapshot.docs.map(doc => doc.data()))), []);
+        onSnapshot(doc(db, 'recon', 'entries'), doc =>
+            setData(doc.data())), []);
 
     useEffect(_ => {
-        let sortedList = {};
         let avg = {};
 
-        data.map(entry => {
-            if (!sortedList[entry.team]) {
-                sortedList[entry.team] = [entry];
-                avg[entry.team] = {};
-                return;
-            }
-
-            sortedList[entry.team].push(entry);
-        })
-
-        Object.keys(sortedList).map(team => {
-            sortedList[team].map(entry => {
+        Object.keys(data).map(team => {
+            avg[team] = {};
+            data[team].map(entry => {
                 reconfig['data'].map(field => {
                     if (field.name === 'team' || field.name === 'match') return;
                     switch (field.type) {
                         case 'number':
                             if (!avg[team][field.name]) {
-                                avg[team][field.name] = entry[field.name] / sortedList[team].length;
+                                avg[team][field.name] = entry[field.name] / data[team].length;
                                 return;
                             }
-                            avg[team][field.name] += entry[field.name] / sortedList[team].length;
+                            avg[team][field.name] += entry[field.name] / data[team].length;
                             return;
                         case 'select':
-                            const mappedOptions = field.options.reduce((acc, _, i) => {
-                                acc[field.options[i]] = i;
-                                return acc;
-                            }, {});
-
                             if (!avg[team][field.name]) {
-                                avg[team][field.name] = mappedOptions[entry[field.name]] / sortedList[team].length;
+                                avg[team][field.name] = entry[field.name] / data[team].length;
                                 return;
                             }
-                            avg[team][field.name] += mappedOptions[entry[field.name]] / sortedList[team].length;
+                            avg[team][field.name] += entry[field.name] / data[team].length;
                             return;
                         default:
                             return;
@@ -65,10 +44,18 @@ function MasterTable() {
             })
         })
 
-        setAverages(avg);
-    }, [data])
+        Object.keys(avg).map(a => {
+            a = avg[a];
 
-    useEffect(_ => console.log(averages), [averages])
+            a['points-scored'] = a['points-scored'].toFixed(1);
+            a['auton-charge-station'] = a['auton-charge-station'].toFixed(1);
+            a['endgame-charge-station'] = a['endgame-charge-station'].toFixed(1);
+
+            a['power-grid'] = (a['points-scored'] - a['auton-charge-station'] - a['endgame-charge-station']).toFixed(1);
+        });
+
+        setAverages(avg);
+    }, [data]);
 
     return (
         <>
@@ -78,15 +65,15 @@ function MasterTable() {
                         <th className='master-table-cell master-table-heading'>Team</th>
                         {Object.keys(averages[Object.keys(averages)[0]] ? averages[Object.keys(averages)[0]] : {}).map((field) => {
                             return (
-                                <th className='master-table-cell master-table-heading'>
-                                    {field.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, (c) => c.toUpperCase())}
+                                <th className='master-table-cell master-table-heading' onClick={_ => setField(field)}>
+                                    Average {field.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, (c) => c.toUpperCase())}
                                 </th>
                             );
                         })}
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(averages).map(team => {
+                    {Object.keys(averages).sort((a, b) => averages[b][sortField] - averages[a][sortField]).map(team => {
                         return (
                             <tr className='master-table-row' id={team.id}>
                                 <td className='master-table-cell'>{team}</td>

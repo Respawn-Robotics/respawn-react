@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './scout.css';
 import reconfig from '../../../recon.config';
-import { collection, addDoc } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import db from '../../../firebase.config';
 import canvasImage from './media/field-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
+    const [team, setTeam] = useState(0);
     const [inputs, setInputs] = useState({});
     const [send, setSend] = useState(false);
 
     useEffect(() => {
-        reconfig.data.map(field => setInputs(i => { return { ...i, [field['name']]: field['default'] } }));
+        reconfig.data.map(field => setInputs(i => { return (field.name !== 'team' ? { ...i, [field['name']]: field['default'] } : {}) }));
     }, []);
 
     const autofillData = _ => {
@@ -83,13 +84,18 @@ function ScoutForm() {
     }
 
     const sendData = async _ => {
-        const collecRef = collection(db, "recon");
-        const payload = inputs;
+        const docRef = doc(db, 'recon', 'entries');
 
-        await addDoc(collecRef, payload);
+        updateDoc(docRef, {[team] : arrayUnion(inputs)});
+
+        setSend(false);
     }
 
     const changeInputs = (event, data) => {
+        if (event && event.target.name === 'team') {
+            setTeam(parseInt(event.target.value));
+            return;
+        }
         if (!data) {
             const target = event.target;
 
@@ -98,7 +104,7 @@ function ScoutForm() {
 
             switch (target.type) {
                 case "number":
-                    value = parseInt(target.value !== '' ? target.value : 0);
+                    value = target.value !== '' ? parseInt(target.value) : 0;
                     break;
                 case "checkbox":
                     value = target.checked;
