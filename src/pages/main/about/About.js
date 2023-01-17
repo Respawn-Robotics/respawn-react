@@ -21,11 +21,10 @@ function About() {
                 <p className='about-us-text'>
                     Butler Tech is a career technical school located in Hamilton Ohio that draws
                     students from 13 surrounding school districts. Our program attracts the best and brightest career-minded 
-                    in the region. The students in mech program participate FIRST in <i>FIRST</i> Robotics Competition as Team 325, 
+                    in the region. The students in the Mechatronics program participate in the <i>FIRST</i> Robotics Competition as Team 325, 
                     Respawn Robotics. Students who choose to take this program will have the opportunity to earn a associates degree 
-                    in Electro-mechanical Engineering Technologies while in high school. 
-                    Throughout their junior and senior years they earn at least 62 semester hours for their degree. Students 
-                    have the option to pursue college and career pathways with the skills and knowledge they acquired.
+                    in Electro-mechanical Engineering Technologies while in high school. Throughout their junior and senior years they earn 
+                    at least 62 semester hours for their degree. Students have the option to pursue college and career pathways with the skills and knowledge they acquired.
                 </p>
             </div>
             <div id='mentor-container'>

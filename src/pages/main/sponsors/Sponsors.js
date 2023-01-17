@@ -67,7 +67,9 @@ function Sponsors() {
                     Bronze
                 </h2>
                 <div className='sponsors-logos'>
-                    <img src={baxter_logo} alt='Baxter International' className='logo bronze' />
+                    <div className='white-background'>
+                        <img src={baxter_logo} alt='Baxter International' className='logo bronze' />
+                    </div>
                 </div>
             </div>
 

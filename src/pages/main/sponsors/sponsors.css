@@ -57,17 +57,21 @@
 .logo.platinum {
     max-height: 100%;
 }
+
 .logo.gold {
     max-height: 30vh;
 }
+
 .logo.silver {
     max-height: 15vh;
 }
+
 .logo.bronze {
     max-height: 7vh;
 }
+
 .logo.base {
-    max-height: 5vh;
+    max-height: 7vh;
 }
 
 #sponsor-section {
@@ -126,6 +130,11 @@ a.sponsorship-text {
 #packet-image{
     height: auto;
     width: 250px;
+}
+
+.white-background {
+    background-color: white;
+    padding: 10px;
 }
 
 @media (max-aspect-ratio: 1/1) {
