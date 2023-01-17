@@ -93,7 +93,6 @@
     margin-top: 4%;
     text-align: left;
     width: 40%; 
-    display: flex;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     text-indent: 20px;
 }
@@ -146,9 +145,6 @@
     margin-top: -10%;
     margin-right: auto;
     margin-left: auto;
-
-
-    
 }
 
 .right-lower-image{

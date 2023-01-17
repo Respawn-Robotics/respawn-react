@@ -105,11 +105,14 @@ h1.our-mission {
     border-width: 2.5px;
     border-color: white;
     padding: 1rem 1.5rem;
+    border-radius: 15px;
+    cursor: pointer;
     transition: 0.25s;
 }
 
 .moreinfo-button:hover {
     background-color: var(--respawn-orange);
+    transform: scale(1.1);
 }
 
 .moreinfo-text{
@@ -118,12 +121,6 @@ h1.our-mission {
     font-size: 1.25rem;
     text-decoration: none;
     transition: all .2s ease-in-out;
-}
-
-.moreinfo-text:hover{
-    transform: scale(1.1);
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    color: #f5f5f5;
 }
 
 .associate-schools{
@@ -146,40 +143,6 @@ h1.our-mission {
     margin-left: auto;
     margin-right: auto;
 }
-
-.sponsorpacket-container{
-    display: flex;
-    flex-direction: column;
-    background-color: transparent;
-    height: 60vh;
-    width: 100%;
-}
-
-#sponsorship-packet {
-    height: 100%;
-    width: 100%;
-    border: none;
-    padding: 0 10% 10%;
-}
-
-.sponsorship-text {
-    text-align: center;
-    font-family: "roboto-slab-bold";
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
-}
-
-a.sponsorship-text {
-    color: var(--respawn-orange);
-    text-decoration: underline;
-}
-
-#packet-image{
-    height: auto;
-    width: 250px;
-}
-
 
 @media screen and (min-aspect-ratio: 1/1) {
     p.our-mission {

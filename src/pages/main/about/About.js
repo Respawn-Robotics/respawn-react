@@ -17,15 +17,15 @@ function About() {
                 <img src={img1} alt='Respawn Robotics Team Photo' /> {/* eslint-disable-line jsx-a11y/img-redundant-alt */}
             </Modal>
             <div className='about-us-text-container'>
-                <h1 className='about-us-text'>Based in Hamilton, Ohio, We are FIRST Robotics Team 325, Respawn Robotics</h1>
+                <h1 className='about-us-text'>Based in Hamilton, Ohio, We are <i>FIRST</i> Robotics Team 325, Respawn Robotics</h1>
                 <p className='about-us-text'>
-                    Butler Tech is a technical school located in Hamilton Ohio that pulls
-                    students from 12 surrounding school districts, acquiring the best and brightest. The Mechatronics
-                    lab participates in FIRST Robotics as Team 325, Respawn Robotics. Students who choose to take this
-                    program will have the opportunity to get a associates degree in Electromechanical Engineering Technologies
-                    out of high school while also getting trained in Solidworks. Throughout their junior and senior years they
-                    accumulate 60 total hours of college credit that they can use toward their future educational careers or join
-                    the work force with the skills and knowledge they acquired.
+                    Butler Tech is a career technical school located in Hamilton Ohio that draws
+                    students from 13 surrounding school districts. Our program attracts the best and brightest career-minded 
+                    in the region. The students in mech program participate FIRST in <i>FIRST</i> Robotics Competition as Team 325, 
+                    Respawn Robotics. Students who choose to take this program will have the opportunity to earn a associates degree 
+                    in Electro-mechanical Engineering Technologies while in high school. 
+                    Throughout their junior and senior years they earn at least 62 semester hours for their degree. Students 
+                    have the option to pursue college and career pathways with the skills and knowledge they acquired.
                 </p>
             </div>
             <div id='mentor-container'>

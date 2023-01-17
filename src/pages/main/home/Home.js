@@ -28,9 +28,6 @@ import ross_logo from './media/ross_logo.png';
 import talawanda_logo from './media/talawanda_logo.png';
 import northwest_logo from './media/northwest_logo.png';
 
-//Misc
-import sponsorship_packet from '../../../media/respawn-robotics-sponsorship.pdf';
-
 
 function Home() {
   return (
@@ -46,9 +43,22 @@ function Home() {
           <img src={img7} alt='Students Learning from Mentor' />
         </ImageSlider>
       </div>
+      <div className='our-mission-container'>
+        <h1 className='our-mission'>Our Mission</h1>
+        <hr className='heading-underline' />
+        <p className='our-mission'>
+          To inspire young students to be science and technology leaders by
+          getting them excited about engineering and technology skills. We
+          promote innovation, learning, and foster well-rounded life
+          capabilities including self-confidence, communication, and leadership.
+          Immersion in these experiences will help students pursue careers that
+          our community needs in order to keep up with the fast-paced global
+          evolution of cutting-edge technologies.
+        </p>
+      </div>
       <div className='join-program'>
         <h2 className='joinUs-text' id='joinUs-title'>
-          Join Our Program
+          About Our Program
         </h2>
         <p className='joinUs-text' id='joinUs-sentence'>
           Learn new skills like machining, programming, CAD & design, and more!
@@ -85,25 +95,6 @@ function Home() {
             <img src={ross_logo} alt="Ross High School" />
             <img src={talawanda_logo} alt="Talawanda High School" />
           </ImageSlider>
-        </div>
-      </div>
-      <div className='column'>
-        <div className='our-mission-container'>
-          <h1 className='our-mission'>Our Mission</h1>
-          <hr className='heading-underline' />
-          <p className='our-mission'>
-            To inspire young students to be science and technology leaders by
-            getting them excited about engineering and technology skills. We
-            promote innovation, learning, and foster well-rounded life
-            capabilities including self-confidence, communication, and leadership.
-            Immersion in these experiences will help students pursue careers that
-            our community needs in order to keep up with the fast-paced global
-            evolution of cutting-edge technologies.
-          </p>
-        </div>
-        <div className='sponsorpacket-container'>
-          <p className='sponsorship-text'>Download our <a className='sponsorship-text' target='blank' href={sponsorship_packet}>Sponsorship Packet</a></p>
-          <embed type="application/pdf" id='sponsorship-packet' title='Sponsorship Packet' src={sponsorship_packet} />
         </div>
       </div>
     </>
