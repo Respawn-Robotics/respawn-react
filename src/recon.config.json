@@ -17,18 +17,21 @@
                 {
                     "mode": "Alliance",
                     "color": "#000000",
+                    "value": 0,
                     "title": true
                 },
                 {
                     "mode": "Red",
+                    "value": 1,
                     "color": "#B32D00"
                 },
                 {
                     "mode": "Blue",
+                    "value": 2,
                     "color": "#0000B3"
                 }
             ],
-            "default": "None"
+            "default": -1
         },
         {
             "name": "points-scored",
@@ -46,18 +49,21 @@
                         {
                             "mode": "Piece",
                             "color": "#B7B7B7",
+                            "value": 0,
                             "title": true
                         },
                         {
                             "mode": "Cone",
+                            "value": 1,
                             "color": "#CCCC00"
                         },
                         {
                             "mode": "Cube",
+                            "value": 2,
                             "color": "#A216A2"
                         }
                     ],
-                    "default": "None"
+                    "default": -1
                 },
                 {
                     "type": "togglebutton",
@@ -65,18 +71,21 @@
                         {
                             "mode": "Piece",
                             "color": "#B7B7B7",
+                            "value": 0,
                             "title": true
                         },
                         {
                             "mode": "Cone",
+                            "value": 1,
                             "color": "#CCCC00"
                         },
                         {
                             "mode": "Cube",
+                            "value": 2,
                             "color": "#A216A2"
                         }
                     ],
-                    "default": "None"
+                    "default": -1
                 },
                 {
                     "type": "togglebutton",
@@ -84,18 +93,21 @@
                         {
                             "mode": "Piece",
                             "color": "#B7B7B7",
+                            "value": 0,
                             "title": true
                         },
                         {
                             "mode": "Cone",
+                            "value": 1,
                             "color": "#CCCC00"
                         },
                         {
                             "mode": "Cube",
+                            "value": 2,
                             "color": "#A216A2"
                         }
                     ],
-                    "default": "None"
+                    "default": -1
                 },
                 {
                     "type": "togglebutton",
@@ -103,27 +115,32 @@
                         {
                             "mode": "Piece",
                             "color": "#B7B7B7",
+                            "value": 0,
                             "title": true
                         },
                         {
                             "mode": "Cone",
+                            "value": 1,
                             "color": "#CCCC00"
                         },
                         {
                             "mode": "Cube",
+                            "value": 2,
                             "color": "#A216A2"
                         }
                     ],
-                    "default": "None"
+                    "default": -1
                 }
             ],
-            "default": "None"
+            "default": [-1, -1, -1, -1],
+            "additional": true
         },
         {
             "name": "exited-community",
             "type": "checkbox",
             "default": false,
-            "auto": true
+            "auto": true,
+            "additional": true
         },
         {
             "name": "auton-path",
@@ -138,7 +155,8 @@
             ],
             "default": {
                 "path-point": []
-            }
+            },
+            "additional": true
         },
         {
             "name": "auton-charge-station",
@@ -148,12 +166,13 @@
                 {"label" : "Docked", "value" : 8},
                 {"label" : "Docked + Engaged", "value" : 12}
             ],
-            "default": "None"
+            "default": 0
         },
         {
             "name": "power-grid",
             "type": "grid",
-            "default": []
+            "default": [],
+            "additional": true
         },
         {
             "name": "endgame-charge-station",
@@ -164,12 +183,13 @@
                 {"label" : "Docked", "value" : 6},
                 {"label" : "Docked + Engaged", "value" : 10}
             ],
-            "default": "None"
+            "default": 0
         },
         {
             "name": "additional-comments",
             "type": "textarea",
-            "default": "None"
+            "default": "None",
+            "additional": true
         }
     ]
 }

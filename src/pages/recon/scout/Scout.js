@@ -30,17 +30,6 @@ function ScoutForm() {
             return 0;
         }
 
-        const autonChargeStation = _ => {
-            switch (inputs['auton-charge-station']) {
-                case 'Docked + Engaged':
-                    return 12;
-                case 'Docked':
-                    return 8;
-                default:
-                    return 0;
-            }
-        }
-
         const powerGrid = _ => {
             let pieces = inputs['power-grid'];
             let sum = 0;
@@ -56,19 +45,6 @@ function ScoutForm() {
             return sum;
         }
 
-        const endgameChargeStation = _ => {
-            switch (inputs['endgame-charge-station']) {
-                case 'Docked + Engaged':
-                    return 10;
-                case 'Docked':
-                    return 6;
-                case 'Parked':
-                    return 2;
-                default:
-                    return 0;
-            }
-        }
-
         setInputs(i => {
             return {
                 ...i,
@@ -76,9 +52,9 @@ function ScoutForm() {
                     exitedCommunity() === 3,
                 'points-scored':
                     exitedCommunity() +
-                    autonChargeStation() +
+                    inputs['auton-charge-station'] +
                     powerGrid() +
-                    endgameChargeStation()
+                    inputs['endgame-charge-station']
             };
         });
     }
@@ -101,9 +77,9 @@ function ScoutForm() {
 
             const name = target.name;
             let value;
-
             switch (target.type) {
                 case "number":
+                case "select-one":
                     value = target.value !== '' ? parseInt(target.value) : 0;
                     break;
                 case "checkbox":

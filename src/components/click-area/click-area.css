@@ -22,5 +22,6 @@
     font-family: "roboto-slab";
     padding: 1ch;
     border-radius: 10px;
+    cursor: pointer;
     border: 2px solid #FFFFFF;
 }
