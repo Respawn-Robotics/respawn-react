@@ -52,26 +52,28 @@
 .logo {
     flex-basis: auto;
     max-height: 100%;
+    max-width: 100%;
+    padding: 2ch;
 }
 
-.logo.platinum {
-    max-height: 100%;
+#hydrotech {
+    max-width: 90%;
 }
 
-.logo.gold {
-    max-height: 30vh;
+#bilstein {
+    max-width: 70%;
 }
 
-.logo.silver {
-    max-height: 15vh;
+#genehaas,
+#polezero,
+#belcan {
+    max-height: 75%;
+    max-width: 35%;
 }
 
-.logo.bronze {
-    max-height: 7vh;
-}
-
-.logo.base {
-    max-height: 7vh;
+#baxter {
+    background-color: white;
+    max-width: 30%;
 }
 
 #sponsor-section {
@@ -130,11 +132,6 @@ a.sponsorship-text {
 #packet-image{
     height: auto;
     width: 250px;
-}
-
-.white-background {
-    background-color: white;
-    padding: 10px;
 }
 
 @media (max-aspect-ratio: 1/1) {

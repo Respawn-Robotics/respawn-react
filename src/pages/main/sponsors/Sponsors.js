@@ -41,7 +41,7 @@ function Sponsors() {
                     Platinum
                 </h2>
                 <div className='sponsors-logos'>
-                    <img src={hydrotech_logo} alt='Hydrotech' className='logo platinum' />
+                    <img src={hydrotech_logo} alt='Hydrotech' className='logo' id='hydrotech' />
                 </div>
             </div>
             <div className='sponsors-section'>
@@ -49,7 +49,7 @@ function Sponsors() {
                     Gold
                 </h2>
                 <div className='sponsors-logos'>
-                    <img src={bilstein_logo} alt='Bilstein' className='logo gold' />
+                    <img src={bilstein_logo} alt='Bilstein' className='logo' id='bilstein' />
                 </div>
             </div>
             <div className='sponsors-section'>
@@ -57,9 +57,9 @@ function Sponsors() {
                     Silver
                 </h2>
                 <div className='sponsors-logos'>
-                    <img src={genehaas_logo} alt="Gene Haas Foundation" className='logo silver' />
-                    <img src={polezero_logo} alt="Pole Zero" className='logo silver' />
-                    <img src={belcan_logo} alt="Belcan Engineering" className='logo silver' />
+                    <img src={genehaas_logo} alt="Gene Haas Foundation" className='logo' id='genehaas' />
+                    <img src={polezero_logo} alt="Pole Zero" className='logo' id='polezero' />
+                    <img src={belcan_logo} alt="Belcan Engineering" className='logo' id='belcan' />
                 </div>
             </div>
             <div className='sponsors-section'>
@@ -67,9 +67,7 @@ function Sponsors() {
                     Bronze
                 </h2>
                 <div className='sponsors-logos'>
-                    <div className='white-background'>
-                        <img src={baxter_logo} alt='Baxter International' className='logo bronze' />
-                    </div>
+                    <img src={baxter_logo} alt='Baxter International' className='logo' id='baxter' />
                 </div>
             </div>
 
@@ -78,9 +76,9 @@ function Sponsors() {
                     Base
                 </h2>
                 <div className='sponsors-logos'>
-                    <img src={pg_logo} alt='P&G CORE' className='logo base' />
-                    <img src={eightyacres_logo} alt="80 Acres Farms" className='logo base' />
-                    <img src={yaskawa_logo} alt="Yaskawa" className='logo base' />
+                    <img src={pg_logo} alt='P&G CORE' className='logo' id='pngcore' />
+                    <img src={eightyacres_logo} alt="80 Acres Farms" className='logo' id='eightyacres' />
+                    <img src={yaskawa_logo} alt="Yaskawa" className='logo' id='yaskawa' />
                 </div>
             </div>
         </div>
