@@ -102,11 +102,13 @@ function Navbar({ type }) {
 
                     {width / height > 1 ? <>
                         <NavItem type='link' link={paths.recon['dashboard']}>DASHBOARD</NavItem>
+                        <NavItem type='link' link={paths.recon['teams']}>TEAMS</NavItem>
                         <NavItem type='link' link={paths.recon['master-table']}>MASTER TABLE</NavItem>
                         <NavItem type='link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
                     </> : <>
                         <NavItem type='hamburger'>
                             <NavItem type='link' className='hamburger-link' link={paths.recon['dashboard']}>DASHBOARD</NavItem>
+                            <NavItem type='link' className='hamburger-link' link={paths.recon['teams']}>TEAMS</NavItem>
                             <NavItem type='link' className='hamburger-link' link={paths.recon['master-table']}>MASTER TABLE</NavItem>
                             <NavItem type='link' className='hamburger-link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
                         </NavItem>
