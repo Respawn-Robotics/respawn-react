@@ -26,7 +26,6 @@ import Reflect from './pages/reflect/home/Reflect'
 import Record from './pages/reflect/record/Record'
 import Legacy from './pages/reflect/legacy/Legacy'
 import Daily from './pages/reflect/daily/Daily'
-import ReflectNavbar from './components/reflect-navbar/ReflectNavbar'
 import DailyEntry from './pages/reflect/daily/dailyEntry/DailyEntry';
 import DailyEntryForm from './pages/reflect/daily/dailyEntryForm/DailyEntryForm';
 
