@@ -20,6 +20,8 @@ import Outreach from './pages/main/outreach/Outreach';
 import Dashboard from './pages/recon/dashboard/Dashboard';
 import Scout from './pages/recon/scout/Scout';
 import MasterTable from './pages/recon/master-table/MasterTable';
+import Profile from './pages/recon/profile/Profile';
+import CreateJoinTeam from './pages/recon/teams/create-join-team/CreateJoinTeam';
 import Teams from './pages/recon/teams/Teams';
 import TeamMatches from './pages/recon/teams/team-matches/TeamMatches';
 
@@ -32,11 +34,12 @@ import DailyEntry from './pages/reflect/daily/dailyEntry/DailyEntry';
 import DailyEntryForm from './pages/reflect/daily/dailyEntryForm/DailyEntryForm';
 
 function App() {
+  
   return (
     <>
-      {window.location.pathname.includes("/reflect") ? <Navbar type='reflect' /> : 
-      window.location.pathname.includes("recon") ? <Navbar type='recon' /> : <Navbar />}
       <BrowserRouter>
+          {window.location.pathname.includes("/reflect") ? <Navbar type='reflect' /> : 
+          window.location.pathname.includes("/recon") ? <Navbar type='recon' /> : <Navbar />}
         <Routes>
           {/* Authentication */}
           <Route path={paths.authentication['signin']} element={<SignIn />} />
@@ -51,6 +54,8 @@ function App() {
           <Route path={paths.recon['dashboard']} element={<Dashboard />} />
           <Route path={paths.recon['scout']} element={<Scout />} />
           <Route path={paths.recon['master-table']} element={<MasterTable />} />
+          <Route path={paths.recon['profile']} element={<Profile />} />
+          <Route path={paths.recon['create-join-team']} element={<CreateJoinTeam />} />
           <Route path={paths.recon['teams']} element={<Teams />} />
           <Route path={paths.recon['team-stats']} element={<TeamMatches />} />
           {/* Reflect */}
