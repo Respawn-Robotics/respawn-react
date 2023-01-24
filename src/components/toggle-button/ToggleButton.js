@@ -18,7 +18,7 @@ function ToggleButton({ name, options, onChange }) {
     }
 
     useEffect(_ => {
-        onChange(_, { name: name, value: options[mode]['value'] });
+        onChange(_, { name: name, value: options[mode]['value'].toString() });
     }, [mode]);
 
     return (

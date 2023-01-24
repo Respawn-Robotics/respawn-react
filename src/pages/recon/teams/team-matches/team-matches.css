@@ -46,6 +46,11 @@ button.entries-head {
     font-size: 1rem;
 }
 
+button.entry-data {
+    cursor: pointer;
+    border: 0;
+}
+
 .entry-additional {
     width: 100%;
 }
@@ -152,11 +157,12 @@ button.entries-head {
 }
 
 .piece-1 {
-    background-color: yellow;
+    background-color: yellow !important;
+    color: black !important;
 }
 
 .piece-2 {
-    background-color: purple;
+    background-color: purple !important;
 }
 
 

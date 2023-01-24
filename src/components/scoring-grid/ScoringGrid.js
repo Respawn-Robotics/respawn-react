@@ -74,7 +74,14 @@ function ScoringGrid(props) {
     }
 
     useEffect(_ => {
-        props.onChange(_, { name: 'power-grid', value: cells });
+        const scored = cells
+            .map((cell, i) => {
+                if (cell['piece'] === 'none') return;
+                return `${cell['piece'] === 'cone' ? '1' : '2'}${cell['auton'] ? 'T' : 'F'}${i}`
+            })
+            .filter(c => c !== undefined);
+
+        props.onChange(_, { name: 'power-grid', value: scored });
     }, [cells])
 
     return (

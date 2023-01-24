@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './scout.css';
 import reconfig from '../../../recon.config';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
@@ -8,11 +8,12 @@ import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
     const [team, setTeam] = useState(0);
+    const downloadLink = useRef(null);
     const [inputs, setInputs] = useState({});
     const [send, setSend] = useState(false);
 
     useEffect(() => {
-        reconfig.data.map(field => setInputs(i => { return (field.name !== 'team' ? { ...i, [field['name']]: field['default'] } : {}) }));
+        reconfig.data.map(field => setInputs(i => { return (field.name !== 'team' ? { ...i, [field['name']]: field['default'].toString() } : {}) }));
     }, []);
 
     const autofillData = _ => {
@@ -31,16 +32,13 @@ function ScoutForm() {
         }
 
         const powerGrid = _ => {
-            let pieces = inputs['power-grid'];
             let sum = 0;
 
-            for (let i = 0; i < pieces.length; i++) {
-                if (pieces[i].piece !== 'cone' && pieces[i].piece !== 'cube') continue;
-
-                if (i < 9) sum += pieces[i].auton ? 6 : 5; 
-                else if (i < 18) sum += pieces[i].auton ? 4 : 3;
-                else sum += pieces[i].auton ? 3 : 2;
-            }
+            inputs['power-grid'].map(node => {
+                if (node.substr(2) < 9) sum += node.charAt(1) === 'T' ? 6 : 5;
+                else if (node.substr(2) < 18) sum += node.charAt(1) === 'T' ? 4 : 3;
+                else sum += node.charAt(1) === 'T' ? 3 : 2;
+            })
 
             return sum;
         }
@@ -51,19 +49,33 @@ function ScoutForm() {
                 'exited-community':
                     exitedCommunity() === 3,
                 'points-scored':
-                    exitedCommunity() +
-                    inputs['auton-charge-station'] +
-                    powerGrid() +
-                    inputs['endgame-charge-station']
+                    (parseInt(exitedCommunity()) +
+                        parseInt(inputs['auton-charge-station']) +
+                        parseInt(powerGrid()) +
+                        parseInt(inputs['endgame-charge-station'])).toString()
             };
         });
     }
 
     const sendData = async _ => {
         const docRef = doc(db, 'recon', 'entries');
+        let result = Promise.race([
+            updateDoc(docRef, { [team]: arrayUnion(inputs) }),
+            new Promise((_, rej) => {
+                const timeoutId = setTimeout(_ => {
+                    clearTimeout(timeoutId);
+                    rej("Request timed out; allow Download")
+                }, 2000)
+            })
+        ]);
 
-        updateDoc(docRef, {[team] : arrayUnion(inputs)});
-
+        result.then(_, _ => {
+            const stringifyJson = JSON.stringify({...inputs, team: team});
+            const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
+            const url = URL.createObjectURL(jsonBlob);
+            downloadLink.current.href = url;
+            downloadLink.current.style.display = 'block';
+        });
         setSend(false);
     }
 
@@ -78,10 +90,6 @@ function ScoutForm() {
             const name = target.name;
             let value;
             switch (target.type) {
-                case "number":
-                case "select-one":
-                    value = target.value !== '' ? parseInt(target.value) : 0;
-                    break;
                 case "checkbox":
                     value = target.checked;
                     break;
@@ -94,13 +102,10 @@ function ScoutForm() {
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
-        
+
     }
 
-    useEffect(_ => {
-        console.log(inputs);
-        if (send) sendData();
-    }, [inputs]);
+    useEffect(_ => { if (send) sendData(); }, [inputs]);
 
     return (<>
         <form id='scout-form'>
@@ -122,6 +127,7 @@ function ScoutForm() {
 
             <div id='submit-button-container'>
                 <button type='button' id='submit-button' onClick={autofillData}>SUBMIT</button>
+                <a type='button' style={{display: 'none', textDecoration: 'none'}} href='#' ref={downloadLink} id='submit-button' download onClick={autofillData}>DOWNLOAD DATA</a>
             </div>
         </form>
     </>

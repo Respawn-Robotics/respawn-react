@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import db from '../../../../firebase.config';
 import reconfig from '../../../../recon.config';
-import { onSnapshot, doc, getDoc } from 'firebase/firestore';
+import { onSnapshot, doc } from 'firebase/firestore';
 import backImage from '../../scout/media/field-image.png';
 
 function TeamMatches() {
@@ -62,10 +62,20 @@ function TeamMatches() {
                     [],
                     [],
                     []
-                ]
-                value.map((node, i) => {
-                    val[Math.floor(i / 9)].push([node.auton, node.piece])
-                });
+                ];
+                let currentIndex = 0;
+                for (let i = 0; i < 27; i++) {
+                    if (value.length <= currentIndex || parseInt(value[currentIndex].substring(2)) !== i) {
+                        val[Math.floor(i / 9)].push([false, 0]);
+                    } else {
+                        val[Math.floor(i / 9)].push([
+                            value[currentIndex].charAt(1) === 'T' ? true : false,
+                            parseInt(value[currentIndex].charAt(0))
+                        ])
+                        currentIndex++;
+                    }
+                }
+                console.log(val)
                 return val;
             case 'array':
                 return field.options.map((o, i) => dataFormat(o, value[i]));
@@ -77,7 +87,7 @@ function TeamMatches() {
     const displayData = (name, data, key) => {
         switch (name) {
             case 'alliance':
-                return <div className={`team-color color-${data}`}>{data === 1 ? 'RED' : 'BLUE'}</div>
+                return <div className={`team-color color-${data}`}>{data === '1' ? 'RED' : 'BLUE'}</div>
             case 'preset-pieces':
                 return <>
                     <div className='preset-pieces-container'>
@@ -137,23 +147,23 @@ function TeamMatches() {
         {Object.keys(teamAvg).length > 0 && <div id='averages-container'>
             <div className='average-box'>
                 <h2>Average Points/Match</h2>
-                <h1>{teamAvg['points-scored']}</h1>
+                <h1>{teamAvg['points-scored'].toFixed(1)}</h1>
             </div>
             <div className='average-box'>
-                <h2>Average Auton Charge Points</h2>
-                <h1>{teamAvg['auton-charge-station']}</h1>
+                <h2>Average Endgame Charge Points</h2>
+                <h1>{teamAvg['endgame-charge-station'].toFixed(1)}</h1>
             </div>
             <div className='average-box'>
                 <h2>Average Power Grid</h2>
-                <h1>{teamAvg['points-scored'] - teamAvg['auton-charge-station'] - teamAvg['endgame-charge-station']}</h1>
+                <h1>{(teamAvg['points-scored'] - teamAvg['auton-charge-station'] - teamAvg['endgame-charge-station']).toFixed(1)}</h1>
             </div>
             <div className='average-box'>
                 <h2>Preset Piece Patterns</h2>
                 <div id='avg-preset-pieces'>
-                    <h1 className={`avg-piece ${(teamAvg['preset-pieces'][0] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][0] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][0] - 1) / 1 : (teamAvg['preset-pieces'][0] - 1) / 1) * 100}%</h1>
-                    <h1 className={`avg-piece ${(teamAvg['preset-pieces'][1] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][1] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][1] - 1) / 1 : (teamAvg['preset-pieces'][1] - 1) / 1) * 100}%</h1>
-                    <h1 className={`avg-piece ${(teamAvg['preset-pieces'][2] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][2] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][2] - 1) / 1 : (teamAvg['preset-pieces'][2] - 1) / 1) * 100}%</h1>
-                    <h1 className={`avg-piece ${(teamAvg['preset-pieces'][3] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][3] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][3] - 1) / 1 : (teamAvg['preset-pieces'][3] - 1) / 1) * 100}%</h1>
+                    <h1 className={`avg-piece ${(teamAvg['preset-pieces'][0] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][0] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][0] - 1) / 1 : (teamAvg['preset-pieces'][0] - 1) / 1).toFixed(2) * 100}%</h1>
+                    <h1 className={`avg-piece ${(teamAvg['preset-pieces'][1] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][1] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][1] - 1) / 1 : (teamAvg['preset-pieces'][1] - 1) / 1).toFixed(2) * 100}%</h1>
+                    <h1 className={`avg-piece ${(teamAvg['preset-pieces'][2] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][2] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][2] - 1) / 1 : (teamAvg['preset-pieces'][2] - 1) / 1).toFixed(2) * 100}%</h1>
+                    <h1 className={`avg-piece ${(teamAvg['preset-pieces'][3] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][3] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][3] - 1) / 1 : (teamAvg['preset-pieces'][3] - 1) / 1).toFixed(2) * 100}%</h1>
                 </div>
             </div>
         </div>
@@ -180,7 +190,7 @@ function TeamMatches() {
                         </td>
                     </tr>
                     <tr className='entry-additional'>
-                        <td colspan='6' ref={e => entryRefs.current[k] = e}>
+                        <td colSpan='6' ref={e => entryRefs.current[k] = e}>
                             <div className='additional-info'>
                                 {reconfig['data'].map((f, i) => (f.name !== 'exited-community' && f.additional) ? <div className={`additional-data data-point-${i}`}>
                                     {displayData(f.name, dataFormat(f, entry[f.name]), k)}
