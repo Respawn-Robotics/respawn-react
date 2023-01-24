@@ -1,75 +1,95 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './scout.css';
 import reconfig from '../../../recon.config';
-import { collection, addDoc } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import db from '../../../firebase.config';
-import canvasImage from './media/canvas-image.png';
+import canvasImage from './media/field-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
+    const [team, setTeam] = useState(0);
+    const downloadLink = useRef(null);
     const [inputs, setInputs] = useState({});
+    const [send, setSend] = useState(false);
 
     useEffect(() => {
-        reconfig.data.map(field => setInputs(i => { return { ...i, [field['name']]: field['default'] } }));
-    }, [])
+        reconfig.data.map(field => setInputs(i => { return (field.name !== 'team' ? { ...i, [field['name']]: field['default'].toString() } : {}) }));
+    }, []);
 
-    function autofillData() {
-        const climbPoints = _ => {
-            switch(inputs['climb-level']) {
-                case 'Traversal Rung':
-                    return 15;
-                case 'High Rung':
-                    return 10;
-                case 'Mid Rung':
-                    return 6;
-                case 'Low Rung':
-                    return 4;
-                default:
-                    return 0;
+    const autofillData = _ => {
+        setSend(true);
+
+        const exitedCommunity = _ => {
+            const points = inputs['auton-path']['path-point'];
+            for (let i = 0; i < points.length; i++) {
+                if (
+                    points[i].x > 0.57 ||
+                    points[i].y < 0.32 ||
+                    (points[i].x > 0.37 && points[i].y < 0.51)
+                ) return 3;
             }
+            return 0;
+        }
+
+        const powerGrid = _ => {
+            let sum = 0;
+
+            inputs['power-grid'].map(node => {
+                if (node.substr(2) < 9) sum += node.charAt(1) === 'T' ? 6 : 5;
+                else if (node.substr(2) < 18) sum += node.charAt(1) === 'T' ? 4 : 3;
+                else sum += node.charAt(1) === 'T' ? 3 : 2;
+            })
+
+            return sum;
         }
 
         setInputs(i => {
             return {
                 ...i,
-                'points-scored' :
-                    (inputs['exited-tarmac'] ? 2 : 0) +
-                    4 * inputs['auton-upper'] +
-                    2 * inputs['auton-lower'] +
-                    2 * inputs['teleop-shots']['upper'].length +
-                    inputs['teleop-shots']['lower'].length +
-                    climbPoints(),
-                'teleop-accuracy' : 
-                    inputs['teleop-shots']['upper'].length / 
-                    inputs['teleop-shots']['missed'].length,
-                'auton-accuracy' :
-                    inputs['auton-upper'] /
-                    inputs['auton-missed']
+                'exited-community':
+                    exitedCommunity() === 3,
+                'points-scored':
+                    (parseInt(exitedCommunity()) +
+                        parseInt(inputs['auton-charge-station']) +
+                        parseInt(powerGrid()) +
+                        parseInt(inputs['endgame-charge-station'])).toString()
             };
         });
     }
 
-    const sendData = async () => {
+    const sendData = async _ => {
+        const docRef = doc(db, 'recon', 'entries');
+        let result = Promise.race([
+            updateDoc(docRef, { [team]: arrayUnion(inputs) }),
+            new Promise((_, rej) => {
+                const timeoutId = setTimeout(_ => {
+                    clearTimeout(timeoutId);
+                    rej("Request timed out; allow Download")
+                }, 2000)
+            })
+        ]);
 
-        autofillData();
-
-        const collecRef = collection(db, "recon");
-        const payload = inputs;
-
-        await addDoc(collecRef, payload);
+        result.then(_, _ => {
+            const stringifyJson = JSON.stringify({...inputs, team: team});
+            const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
+            const url = URL.createObjectURL(jsonBlob);
+            downloadLink.current.href = url;
+            downloadLink.current.style.display = 'block';
+        });
+        setSend(false);
     }
 
     const changeInputs = (event, data) => {
+        if (event && event.target.name === 'team') {
+            setTeam(parseInt(event.target.value));
+            return;
+        }
         if (!data) {
             const target = event.target;
 
             const name = target.name;
-            let value = null;
-
+            let value;
             switch (target.type) {
-                case "number":
-                    value = parseInt(target.value);
-                    break;
                 case "checkbox":
                     value = target.checked;
                     break;
@@ -82,26 +102,32 @@ function ScoutForm() {
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
+
     }
+
+    useEffect(_ => { if (send) sendData(); }, [inputs]);
 
     return (<>
         <form id='scout-form'>
 
-            {reconfig.data.map(field => {
+            {reconfig.data.map((field, i) => {
                 return (!field.auto ?
                     <FormInput
                         name={field.name}
                         type={field.type}
                         onChange={changeInputs}
+                        lines={field.lines}
                         options={field.options}
                         dataLabels={field['data-labels']}
                         imageSrc={canvasImage}
+                        id={`input-${i}`}
                     /> : <></>
                 );
             })}
 
             <div id='submit-button-container'>
-                <button type='button' id='submit-button' onClick={sendData}>SUBMIT</button>
+                <button type='button' id='submit-button' onClick={autofillData}>SUBMIT</button>
+                <a type='button' style={{display: 'none', textDecoration: 'none'}} href='#' ref={downloadLink} id='submit-button' download onClick={autofillData}>DOWNLOAD DATA</a>
             </div>
         </form>
     </>
@@ -115,6 +141,6 @@ function Scout() {
             <ScoutForm />
         </div>
     );
-    }
+}
 
 export default Scout;

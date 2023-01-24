@@ -10,6 +10,12 @@ package-lock.json
 /coverage
 .env
 
+# firebase
+/.firebase
+/functions
+.firebaserc
+firebase.json
+
 # production
 /build
 

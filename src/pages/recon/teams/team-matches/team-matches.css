@@ -1,0 +1,210 @@
+#team-number {
+    text-align: center;
+    font-family: "roboto-slab-extrabold";
+    margin: 10vh 0 0;
+    font-size: 4rem;
+    color: white;
+}
+
+/* -----------------------Match Table----------------------- */
+
+#match-list {
+    display: table;
+    margin-bottom: 10vh;
+    width: 100%;
+}
+
+#headings {
+    width: 100%;
+    font-family: "roboto-slab-extrabold";
+    color: white;
+    background-color: var(--respawn-dark-blue);
+}
+
+.entries-head {
+    text-align: center;
+}
+
+button.entries-head {
+    color: white;
+    font-family: "roboto-slab-extrabold";
+    background-color: var(--respawn-dark-blue);
+    border: 0;
+    cursor: pointer;
+}
+
+.match-entry {
+    margin: 0 0 25px 0;
+    width: 100%;
+}
+
+.entry-data {
+    text-align: center;
+    background-color: var(--respawn-blue-darker);
+    font-family: "roboto-slab";
+    color: white;
+    font-size: 1rem;
+}
+
+button.entry-data {
+    cursor: pointer;
+    border: 0;
+}
+
+.entry-additional {
+    width: 100%;
+}
+
+.entry-additional > td {
+    display: none;
+}
+
+.additional-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    row-gap: 15px;
+    width: 100%;
+    min-height: 35vh;
+    background-color: var(--respawn-blue);
+}
+
+.additional-data {
+    padding: 1% 3%;
+    color: white;
+    font-family: "roboto-slab";
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* -----------------------Team Averages----------------------- */
+
+#averages-container {
+    display: grid;
+    margin: 5vh 0 10vh;
+    padding: 0 2vw;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    width: 100%;
+    flex-direction: row;
+}
+
+#avg-preset-pieces {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.average-box {
+    background-color: var(--respawn-blue);
+    color: white;
+    border-radius: 15px;
+    font-family: "roboto-slab";
+    text-align: center;
+}
+
+.average-box h1 {
+    font-size: 1rem;
+}
+
+.average-box h2 {
+    font-size: 1rem;
+}
+
+.avg-piece {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 2px solid black;
+    aspect-ratio: 1/1;
+    padding: 0 min(1ch, 3%);
+    background-color: gray;
+}
+
+/* -----------------------Alliance----------------------- */
+
+.team-color {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.color-1 {
+    background-color: #B32D00;
+}
+
+.color-2 {
+    background-color: #0000B3;
+}
+
+/* -----------------------Preset Pieces----------------------- */
+
+.preset-pieces-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+}
+
+.preset-piece {
+    width: 25%;
+    margin: 0 1%;
+    aspect-ratio: 1 / 1;
+    background-color: black;
+    border: 2px black solid;
+    border-radius: 15px;
+}
+
+.piece-1 {
+    background-color: yellow !important;
+    color: black !important;
+}
+
+.piece-2 {
+    background-color: purple !important;
+}
+
+
+/* -----------------------Auton Path----------------------- */
+
+.auton-path-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* -----------------------Power Grid----------------------- */
+
+.power-grid-display {
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 5px;
+    row-gap: 5px;
+    align-items: center;
+}
+
+.power-grid-node {
+    display: flex;
+    width: 4ch;
+    aspect-ratio: 1/1;
+    justify-content: center;
+    align-items: center;
+    font-family: 'roboto-slab';
+    color: white;
+    border: 2px black solid;
+    border-radius: 25%;
+    background-color: gray;
+}
+
+.piece-cone {
+    background-color: yellow;
+    color: black;
+}
+
+.piece-cube {
+    background-color: purple;
+}
+
+/* -----------------------Data Points----------------------- */

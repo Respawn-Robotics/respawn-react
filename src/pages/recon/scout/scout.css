@@ -8,7 +8,30 @@
     align-items: center;
 }
 
-#additional-comments-input {
+#input-4 {
+    grid-column: 1 / span 3;
+    padding: 2vh 0 0;
+}
+
+#input-6 {
+    grid-column: 1 / span 3;
+    padding: 2vh 5% 3vh;
+}
+
+#input-7 {
+    grid-column: 1 / span 3;
+}
+
+#input-8 {
+    grid-column: 1 / span 3;
+    padding: 2vh 5%;
+}
+
+#input-9 {
+    grid-column: 1 / span 3;
+}
+
+#input-10 {
     grid-column: 1 / span 3;
 }
 
