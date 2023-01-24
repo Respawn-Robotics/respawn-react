@@ -18,7 +18,9 @@
     "recon": {
         "dashboard": "/recon",
         "scout": "/recon/scout",
-        "master-table" : "recon/master-table"
+        "master-table" : "/recon/master-table",
+        "create-join-team": "/recon/create-join-team",
+        "profile": "/recon/profile"
     },
     "reflect": {
         "home": "/reflect",

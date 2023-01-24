@@ -4,6 +4,7 @@ import logo from '../../media/respawn_logo.png';
 import paths from '../../paths.json';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { getAuth } from "firebase/auth";
+import { useNavigate } from 'react-router'
 
 function NavItem({ type, className, id, label, link, children }) {
     const [display, setDisplay] = useState(false);
@@ -55,7 +56,7 @@ function Navbar({ type }) {
     const prevY = useRef(0);
 
     const auth = getAuth();
-    const [user] = useAuthState(auth)
+    const [user, loading] = useAuthState(auth)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -88,7 +89,7 @@ function Navbar({ type }) {
                         <NavItem type='link' link={paths.reflect['record']}>RECORD</NavItem>
                         <NavItem type='link' link={paths.reflect['daily']}>DAILY</NavItem>
                         <NavItem type='link' link={paths.reflect['legacy']}>LEGACY</NavItem>
-                        {user ? <NavItem type='link' link={paths.authentication['signout']}>SIGN OUT</NavItem> : <> </>}
+                        {(user) ? <NavItem type='link' link={paths.authentication['signout']}>SIGN OUT</NavItem> : <> </>}
                     </> : <>
                         <NavItem type='hamburger'>
                             <NavItem type='link' className='hamburger-link' link={paths.reflect['record']}>RECORD</NavItem>
@@ -110,11 +111,21 @@ function Navbar({ type }) {
                         <NavItem type='link' link={paths.recon['dashboard']}>DASHBOARD</NavItem>
                         <NavItem type='link' link={paths.recon['master-table']}>MASTER TABLE</NavItem>
                         <NavItem type='link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
+                        {(user?.uid && !loading) ? <NavItem type='dropdown' label={user.displayName}>
+                            <NavItem type='link' className='dropdown-link' link={paths.recon['profile']}>PROFILE</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                        </NavItem> : <> </>}
                     </> : <>
                         <NavItem type='hamburger'>
                             <NavItem type='link' className='hamburger-link' link={paths.recon['dashboard']}>DASHBOARD</NavItem>
                             <NavItem type='link' className='hamburger-link' link={paths.recon['master-table']}>MASTER TABLE</NavItem>
                             <NavItem type='link' className='hamburger-link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
+                            {(user?.uid && !loading) ? <NavItem type='dropdown' label={user.displayName}>
+                            <NavItem type='link' className='dropdown-link' link={paths.recon['profile']}>PROFILE</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                        </NavItem> : <> </>}
                         </NavItem>
                     </>}
                 </nav>

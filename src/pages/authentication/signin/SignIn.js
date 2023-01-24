@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
-import { doc, getDoc, getFirestore, collection, setDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, setDoc } from 'firebase/firestore';
 import db from '../../../firebase.config.js';
 import { useAuthState } from 'react-firebase-hooks/auth'
 
@@ -17,9 +17,8 @@ const SignIn = () => {
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
+      // ?
     } else {
-      console.log("No such document!");
       setDoc(doc(usersRef, user.uid), {
         displayName: user.displayName,
         uid: user.uid,
@@ -32,7 +31,7 @@ const SignIn = () => {
   }
   if(user) {
     addUserData()
-    navigate("/")
+    navigate("/recon")
   }
 
   const login = () => {
