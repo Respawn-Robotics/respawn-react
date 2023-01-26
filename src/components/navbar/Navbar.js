@@ -4,7 +4,7 @@ import logo from '../../media/respawn_logo.png';
 import paths from '../../paths.json';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { getAuth } from "firebase/auth";
-import { useNavigate } from 'react-router'
+import { Outlet, Link } from 'react-router-dom'
 
 function NavItem({ type, className, id, label, link, children }) {
     const [display, setDisplay] = useState(false);
@@ -79,7 +79,7 @@ function Navbar({ type }) {
 
     switch (type) {
         case 'reflect':
-            return (
+            return <>
                 <nav className={'navbar' + (isScrolled ? ' scrolled' : '')}>
                     <NavItem className='nav-section' type='link' link={paths.main['home']} id='nav-image'>
                         <img src={logo} id='nav-image' alt='Home' />
@@ -89,7 +89,7 @@ function Navbar({ type }) {
                         <NavItem type='link' link={paths.reflect['record']}>RECORD</NavItem>
                         <NavItem type='link' link={paths.reflect['daily']}>DAILY</NavItem>
                         <NavItem type='link' link={paths.reflect['legacy']}>LEGACY</NavItem>
-                        {(user) ? <NavItem type='link' link={paths.authentication['signout']}>SIGN OUT</NavItem> : <> </>}
+                        {user ? <NavItem type='link' link={paths.authentication['signout']}>SIGN OUT</NavItem> : <> </>}
                     </> : <>
                         <NavItem type='hamburger'>
                             <NavItem type='link' className='hamburger-link' link={paths.reflect['record']}>RECORD</NavItem>
@@ -98,10 +98,11 @@ function Navbar({ type }) {
                         </NavItem>
                     </>}
                 </nav>
-            );
+                <Outlet />
+            </>;
 
         case 'recon':
-            return (
+            return <>
                 <nav className={'navbar' + (isScrolled ? ' scrolled' : '')}>
                     <NavItem className='nav-section' type='link' link={paths.main['home']} id='nav-image'>
                         <img src={logo} id='nav-image' alt='Home' />
@@ -131,9 +132,10 @@ function Navbar({ type }) {
                         </NavItem>
                     </>}
                 </nav>
-            );
+                <Outlet />
+            </>;
         default:
-            return (
+            return <>
                 <nav className={'navbar' + (isScrolled ? ' scrolled' : '')}>
                     <NavItem className='nav-section' type='link' link={paths.main['home']} id='nav-image'>
                         <img src={logo} id='nav-image' alt='Home' />
@@ -161,7 +163,8 @@ function Navbar({ type }) {
                         </NavItem>
                     </>}
                 </nav>
-            );
+                <Outlet />
+            </>;
 
     }
 

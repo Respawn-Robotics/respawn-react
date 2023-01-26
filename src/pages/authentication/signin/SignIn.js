@@ -31,7 +31,7 @@ const SignIn = () => {
   }
   if(user) {
     addUserData()
-    navigate("/recon")
+    navigate("/recon");
   }
 
   const login = () => {

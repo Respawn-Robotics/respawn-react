@@ -34,42 +34,43 @@ import DailyEntry from './pages/reflect/daily/dailyEntry/DailyEntry';
 import DailyEntryForm from './pages/reflect/daily/dailyEntryForm/DailyEntryForm';
 
 function App() {
-  
-  return (
-    <>
-      <BrowserRouter>
-          {window.location.pathname.includes("/reflect") ? <Navbar type='reflect' /> : 
-          window.location.pathname.includes("/recon") ? <Navbar type='recon' /> : <Navbar />}
-        <Routes>
-          {/* Authentication */}
-          <Route path={paths.authentication['signin']} element={<SignIn />} />
-          <Route path={paths.authentication['signout']} element={<SignOut />} />
-          {/* Main Page */}
+  return <>
+    <BrowserRouter>
+      <Routes>
+        {/* Authentication */}
+        <Route path={paths.authentication['signin']} element={<SignIn />} />
+        <Route path={paths.authentication['signout']} element={<SignOut />} />
+        {/* Main Page */}
+        <Route path={paths.main['home']} element={<Navbar />}>
           <Route index element={<Home />} />
           <Route path={paths.main['sponsors']} element={<Sponsors />} />
           <Route path={paths.main['about']} element={<About />} />
           <Route path={paths.main['first']} element={<First />} />
           <Route path={paths.main.pillars['reach']} element={<Outreach />} />
-          {/* Recon */}
-          <Route path={paths.recon['dashboard']} element={<Dashboard />} />
+        </Route>
+        {/* Recon */}
+        <Route path={paths.recon['dashboard']} element={<Navbar type='recon' />}>
+          <Route index element={<Dashboard />} />
           <Route path={paths.recon['scout']} element={<Scout />} />
           <Route path={paths.recon['master-table']} element={<MasterTable />} />
           <Route path={paths.recon['profile']} element={<Profile />} />
           <Route path={paths.recon['create-join-team']} element={<CreateJoinTeam />} />
           <Route path={paths.recon['teams']} element={<Teams />} />
           <Route path={paths.recon['team-stats']} element={<TeamMatches />} />
-          {/* Reflect */}
-          <Route path={paths.reflect['home']} element={<Reflect />} />
+        </Route>
+        {/* Reflect */}
+        <Route path={paths.reflect['home']} element={<Navbar type='reflect' />}>
+          <Route index element={<Reflect />} />
           <Route path={paths.reflect['record']} element={<Record />} />
           <Route path={paths.reflect['legacy']} element={<Legacy />} />
           <Route path={paths.reflect['daily']} element={<Daily />} />
           <Route path={paths.reflect['daily-entry']} element={<DailyEntry />} />
           <Route path={paths.reflect['daily-entry-form']} element={<DailyEntryForm />} />
-        </Routes>
-      </BrowserRouter>
-      <Footer />
-    </>
-  );
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    <Footer />
+  </>;
 }
 
 
