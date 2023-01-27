@@ -24,6 +24,7 @@ import Profile from './pages/recon/profile/Profile';
 import CreateJoinTeam from './pages/recon/teams/create-join-team/CreateJoinTeam';
 import Teams from './pages/recon/teams/Teams';
 import TeamMatches from './pages/recon/teams/team-matches/TeamMatches';
+import Matches from './pages/matches/Matches';
 
 // Reflect
 import Reflect from './pages/reflect/home/Reflect'
@@ -57,6 +58,7 @@ function App() {
           <Route path={paths.recon['create-join-team']} element={<CreateJoinTeam />} />
           <Route path={paths.recon['teams']} element={<Teams />} />
           <Route path={paths.recon['team-stats']} element={<TeamMatches />} />
+          <Route path={paths.recon['matches']} element={<Matches />} />
         </Route>
         {/* Reflect */}
         <Route path={paths.reflect['home']} element={<Navbar type='reflect' />}>

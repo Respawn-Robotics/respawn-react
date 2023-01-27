@@ -23,9 +23,9 @@ function ScoutForm() {
             const points = inputs['auton-path']['path-point'];
             for (let i = 0; i < points.length; i++) {
                 if (
-                    points[i].x > 0.57 ||
-                    points[i].y < 0.32 ||
-                    (points[i].x > 0.37 && points[i].y < 0.51)
+                    (points[i].x < 0.6 && points[i].x > 0.4) ||
+                    (points[i].x < 0.8 && points[i].x > 0.2 && points[i].y > 0.15 && points[i].y < 0.5) ||
+                    (points[i].x < 0.71 && points[i].x < 0.29 && points[i].y > 0.5)
                 ) return 3;
             }
             return 0;
