@@ -13,12 +13,14 @@ function CreateJoinTeam() {
   const auth = getAuth();
   const [user] = useAuthState(auth)
   const navigate = useNavigate()
-  const usersRef = collection(db, "users");
   
   const [inputs, setInputs] = useState({
     'teamNumber': 0,
     'teamName': "",
-    'adminUser': null
+    'regional': null,
+    'owner': null,
+    'admins': [],
+    'users': []
   });
 
   if(!user) {
@@ -27,23 +29,24 @@ function CreateJoinTeam() {
 
   const sendData = async () => {
     const collecRef = collection(db, "recon-teams");
+
     const payload = inputs;
-    console.log(payload)
 
     const docRef = doc(db, "recon-teams", payload.teamName);
+    const userDocRef = doc(db, "users", user.uid);
+
     const docSnap = await getDoc(docRef);
 
     if(docSnap.exists()) {
         toast("A team with this name already exists!");
     } else {
-        payload.adminUser = user.uid;
+        payload.owner = user.uid;
+        payload.users = [userDocRef]
         console.log(payload)
         await setDoc(doc(collecRef, payload.teamName), {
             ...payload
         })
-        await setDoc(doc(usersRef, user.uid), {
-        team: payload.teamName
-    }, { merge: true })
+        toast("Team " + payload.teamName + " successfully created!");
     }
   }
 

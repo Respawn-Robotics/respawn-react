@@ -8,9 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 const SignIn = () => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
-  const [userDoc, setUserDoc] = useState
   const [user] = useAuthState(auth)
-  const usersRef = collection(db, "users");
   const navigate = useNavigate();
   
   const addUserData = async () => {

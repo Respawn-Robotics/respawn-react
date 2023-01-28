@@ -33,6 +33,7 @@ import Legacy from './pages/reflect/legacy/Legacy'
 import Daily from './pages/reflect/daily/Daily'
 import DailyEntry from './pages/reflect/daily/dailyEntry/DailyEntry';
 import DailyEntryForm from './pages/reflect/daily/dailyEntryForm/DailyEntryForm';
+import ManageTeam from './pages/recon/teams/manage-team/ManageTeam';
 
 function App() {
   return <>
@@ -59,6 +60,7 @@ function App() {
           <Route path={paths.recon['teams']} element={<Teams />} />
           <Route path={paths.recon['team-stats']} element={<TeamMatches />} />
           <Route path={paths.recon['matches']} element={<Matches />} />
+          <Route path={paths.recon['manage-team']} element={<ManageTeam />} />
         </Route>
         {/* Reflect */}
         <Route path={paths.reflect['home']} element={<Navbar type='reflect' />}>
