@@ -16,7 +16,7 @@ function Footer() {
                     <a href='mailto:Info@respawnrobotics.com' className='info-email'>Info@respawnrobotics.com</a>
                     <address className='info-address'>
                         3603 Hamilton Middletown Rd. <br />
-                        West Chester Township, Ohio 45011
+                        Hamilton, Ohio 45011
                     </address>
                 </div>
             </div>
