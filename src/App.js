@@ -24,7 +24,7 @@ import Profile from './pages/recon/profile/Profile';
 import CreateJoinTeam from './pages/recon/teams/create-join-team/CreateJoinTeam';
 import Teams from './pages/recon/teams/Teams';
 import TeamMatches from './pages/recon/teams/team-matches/TeamMatches';
-import Matches from './pages/matches/Matches';
+import Matches from './pages/recon/matches/Matches';
 
 // Reflect
 import Reflect from './pages/reflect/home/Reflect'
