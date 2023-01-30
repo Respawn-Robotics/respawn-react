@@ -43,14 +43,24 @@ function Dashboard() {
   useEffect(_ => console.log(data), [data])
 
   return <>
-    <div id='file-input-container'>
-      <label for='upload-file'>Upload Downloaded Scout Entry</label>
-      <input type='file' accept='.json' onChange={handleFile} id='upload-file' />
-      <p>
-        Uploading Team {data.team}
-      </p>
-      <button onClick={sendData}>SUBMIT</button>
+    <div id='your-profile'>
+
     </div>
+    <div id='dashboard-layout'>
+      <div id='file-input-container'>
+        <h1 id='file-input-heading'>Scout via Upload</h1>
+        <label for='upload-file'>Upload Downloaded Scout Entry</label>
+        <input type='file' accept='.json' onChange={handleFile} id='upload-file' />
+        <p id='file-preview-text'>
+          Uploading Team <div>{data.team ? data.team : '...'}</div><br /> Match <div>{data.match ? data.match : '...'}</div>
+        </p>
+        <button onClick={sendData}>SUBMIT</button>
+      </div>
+    </div>
+    <div id='recent-scouts-container'>
+
+    </div>
+    
   </>;
 }
 

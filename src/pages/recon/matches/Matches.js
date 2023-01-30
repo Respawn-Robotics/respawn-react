@@ -3,7 +3,6 @@ import './matches.css';
 
 import db from '../../../firebase.config';
 import { onSnapshot, doc } from 'firebase/firestore';
-import { assertObjectTypeInternalSlot } from "@babel/types";
 
 function Matches() {
     const [allMatchesData, setAllMatchesData] = useState()
@@ -44,7 +43,7 @@ function Matches() {
     }
 
     const DisplayMatch = _ => <>
-    
+        
     </>
 
     const changeMatchNo = e => setMatchNo(parseInt(e.target.value ? e.target.value : 0));
