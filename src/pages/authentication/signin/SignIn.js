@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
-import { doc, getDoc, collection, setDoc, updateDoc, Timestamp } from 'firebase/firestore';
+import { doc, getDocs, collection, updateDoc, Timestamp, query, where, setDoc, arrayUnion } from 'firebase/firestore';
 import db from '../../../firebase.config.js';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -12,20 +12,29 @@ const SignIn = () => {
   const navigate = useNavigate();
   
   const addUserData = async () => {
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
+    const docRef = doc(db, "users", "entries");
+    const userExistsQuery = query(collection(db, "users"), where("allUsers", "array-contains", user?.uid));
+    const docSnap = await getDocs(userExistsQuery);
 
-    if (docSnap.exists()) {
+    if (!docSnap.empty) {
       updateDoc(docRef, {
-        lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime))
+        users: arrayUnion({
+        [user.uid]: {
+          lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime))
+        }
+      })
       })
     } else {
-      setDoc(docRef, {
-        displayName: user.displayName,
-        email: user.email,
-        dateCreated: Timestamp.fromDate(new Date(user.metadata.creationTime)),
-        lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime)),
-        admin: false
+      updateDoc(docRef, {
+        users: arrayUnion({
+          [user.uid]: {
+            displayName: user.displayName,
+            email: user.email,
+            dateCreated: Timestamp.fromDate(new Date(user.metadata.creationTime)),
+            lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime)),
+            team: 0
+          }
+        })
       })
     }
   }

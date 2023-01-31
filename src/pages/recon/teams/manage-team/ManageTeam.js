@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { query, collection, where, getDocs, doc } from 'firebase/firestore';
+import { query, collection, where, getDocs, doc, getDoc } from 'firebase/firestore';
 import db from '../../../../firebase.config';
 import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
@@ -12,10 +12,11 @@ function ManageTeam() {
     const navigate = useNavigate()
     const [isAdmin, setIsAdmin] = useState(null)
     const [team, setTeam] = useState(null)
+    const [users, setUsers] = useState([])
 
     const isUserAdmin = async () => {
-        const q = query(collection(db, "recon-teams"), where("owner", "==", user?.uid));
-        const q2 = query(collection(db, "recon-teams"), where("admins", "array-contains", user?.uid));
+        const q = query(collection(db, "teams"), where("owner", "==", user?.uid));
+        const q2 = query(collection(db, "teams"), where("admins", "array-contains", user?.uid));
 
         const doc1 = await getDocs(q);
         const doc2 = await getDocs(q2);
@@ -24,18 +25,27 @@ function ManageTeam() {
     }
 
     const fetchTeam = async () => {
-        const q = query(collection(db, "recon-teams"), where("users", "array-contains", user?.uid));
+        const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
 
         const doc1 = await getDocs(q);
 
         return doc1.docs[0]
     }
 
+    const fetchTeamUsers = async (teamData) => {
+        const docRef = doc(db, "users", "entries");
+        const docSnap = await getDoc(docRef)
+        const userArray = docSnap.data()
+        console.log(userArray)
+    }
+        
+
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/signin");
         isUserAdmin().then(res => setIsAdmin(res))
         fetchTeam().then(res => setTeam(res.data()))
+        fetchTeamUsers(team)
       }, [user, loading]);
     
     return <>

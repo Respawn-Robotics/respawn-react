@@ -62,7 +62,7 @@ function Navbar({ type }) {
     const [team, setTeam] = useState(false)
 
     const userInTeam = async () => {
-        const q = query(collection(db, "recon-teams"), where("users", "array-contains", user?.uid));
+        const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
 
         const doc = await getDocs(q);
         

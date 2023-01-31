@@ -28,11 +28,11 @@ function CreateJoinTeam() {
   }
 
   const sendData = async () => {
-    const collecRef = collection(db, "recon-teams");
+    const collecRef = collection(db, "teams");
 
     const payload = inputs;
 
-    const docRef = doc(db, "recon-teams", payload.teamName);
+    const docRef = doc(db, "teams", payload.teamName);
 
     const docSnap = await getDoc(docRef);
 
@@ -45,6 +45,7 @@ function CreateJoinTeam() {
         await setDoc(doc(collecRef, payload.teamName), {
             ...payload
         })
+        navigate('/recon/manage-team')
         toast("Team " + payload.teamName + " successfully created!");
     }
   }
@@ -53,7 +54,6 @@ function CreateJoinTeam() {
     const target = e.currentTarget;
 
     const name = target.id;
-    console.log(name)
     let value = null;
 
     switch (target.type) {
