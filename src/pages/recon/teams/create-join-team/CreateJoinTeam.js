@@ -28,11 +28,11 @@ function CreateJoinTeam() {
   }
 
   const sendData = async () => {
-    const collecRef = collection(db, "recon-teams");
+    const collecRef = collection(db, "teams");
 
     const payload = inputs;
 
-    const docRef = doc(db, "recon-teams", payload.teamName);
+    const docRef = doc(db, "teams", payload.teamName);
 
     const docSnap = await getDoc(docRef);
 
@@ -44,7 +44,8 @@ function CreateJoinTeam() {
         console.log(payload)
         await setDoc(doc(collecRef, payload.teamName), {
             ...payload
-        })
+        });
+        await setDoc(doc(collection(db, 'recon'), payload.teamName), {})
         toast("Team " + payload.teamName + " successfully created!");
     }
   }

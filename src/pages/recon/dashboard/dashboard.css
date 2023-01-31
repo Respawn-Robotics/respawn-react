@@ -14,14 +14,15 @@
 
 #file-input-container {
     grid-area: "b";
-    position: absolute;
-    display: flex;
+    padding: 40px;
+    border: 5px solid white;
+    border-radius: 20px;
     background-color: var(--respawn-blue-darker);
+    display: flex;
     border: 5px solid white;
     border-radius: 20px;
     align-items: center;
     flex-direction: column;
-    padding: 30px;
 }
 
 #file-input-container > button {
