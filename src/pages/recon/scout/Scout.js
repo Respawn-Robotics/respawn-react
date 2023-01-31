@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './scout.css';
 import paths from '../../../paths';
 import reconfig from '../../../recon.config';
-import { doc, updateDoc, arrayUnion, FieldPath, setDoc } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { query, collection, where, getDocs } from 'firebase/firestore';
@@ -21,23 +21,19 @@ function ScoutForm() {
     const [inputs, setInputs] = useState({});
     const [send, setSend] = useState(false);
 
-    const fetchTeamNumber = async () => {
+    const fetchTeamName = async () => {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
         
         const doc = await getDocs(q);
-        console.log(doc.docs[0].data())
-        setUserData(doc.docs[0].data());
+        
+        return doc;
     }
 
     useEffect(_ => {
         if (loading) return
         if (!user) return navigate('/signin')
-        fetchTeamNumber();
+        fetchTeamName().then(doc => setUserData(doc.docs[0].data()));
     }, [user, loading]);
-
-    useEffect(_ => {
-        if (userData?.team) return navigate(paths.recon['create-join-team']);
-    })
 
     useEffect(_ => {
         let defaultInputs = {};
@@ -86,10 +82,9 @@ function ScoutForm() {
         });
     }
 
+    useEffect(_ => console.log(userData), [userData]);
     const sendData = async _ => {
-        const docRef = doc(db, 'recon', userData.teamNumber.toString());
-
-        if (!docRef.exists()) setDoc(docRef, {});
+        const docRef = doc(db, 'recon', userData.teamName);
 
         let result = Promise.race([
             updateDoc(docRef, { [team]: arrayUnion(inputs) }),
