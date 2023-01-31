@@ -126,8 +126,7 @@ function TeamMatches() {
                                 {node[0] ? 'A' : ''}
                             </div>
                         </>
-                        )
-                        )}
+                        ))}
                     </div>
                 </>
             default:

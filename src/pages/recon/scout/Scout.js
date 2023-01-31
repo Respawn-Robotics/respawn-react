@@ -1,20 +1,49 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './scout.css';
+import paths from '../../../paths';
 import reconfig from '../../../recon.config';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, FieldPath, setDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { query, collection, where, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import db from '../../../firebase.config';
 import canvasImage from './media/field-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
     const [team, setTeam] = useState(0);
+    const [userData, setUserData] = useState({});
     const downloadLink = useRef(null);
+    const auth = getAuth();
+    const [user, loading] = useAuthState(auth);
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
     const [send, setSend] = useState(false);
 
-    useEffect(() => {
-        reconfig.data.map(field => setInputs(i => { return (field.name !== 'team' ? { ...i, [field['name']]: field['default'].toString() } : {}) }));
-    }, []);
+    const fetchTeamNumber = async () => {
+        const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
+        
+        const doc = await getDocs(q);
+        console.log(doc.docs[0].data())
+        setUserData(doc.docs[0].data());
+    }
+
+    useEffect(_ => {
+        if (loading) return
+        if (!user) return navigate('/signin')
+        fetchTeamNumber();
+    }, [user, loading]);
+
+    useEffect(_ => {
+        if (userData?.team) return navigate(paths.recon['create-join-team']);
+    })
+
+    useEffect(_ => {
+        let defaultInputs = {};
+        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default.toString() : '');
+        setInputs(defaultInputs);
+    }, [user]); 
 
     const autofillData = _ => {
         setSend(true);
@@ -58,7 +87,10 @@ function ScoutForm() {
     }
 
     const sendData = async _ => {
-        const docRef = doc(db, 'recon', 'entries');
+        const docRef = doc(db, 'recon', userData.teamNumber.toString());
+
+        if (!docRef.exists()) setDoc(docRef, {});
+
         let result = Promise.race([
             updateDoc(docRef, { [team]: arrayUnion(inputs) }),
             new Promise((_, rej) => {
@@ -70,7 +102,7 @@ function ScoutForm() {
         ]);
 
         result.then(_, _ => {
-            const stringifyJson = JSON.stringify({...inputs, team: team});
+            const stringifyJson = JSON.stringify({ ...inputs, team: team });
             const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
             const url = URL.createObjectURL(jsonBlob);
             downloadLink.current.href = url;
@@ -127,7 +159,7 @@ function ScoutForm() {
 
             <div id='submit-button-container'>
                 <button type='button' id='submit-button' onClick={autofillData}>SUBMIT</button>
-                <a type='button' style={{display: 'none', textDecoration: 'none'}} href='#' ref={downloadLink} id='submit-button' download onClick={autofillData}>DOWNLOAD DATA</a>
+                <a type='button' style={{ display: 'none', textDecoration: 'none' }} href='#' ref={downloadLink} id='submit-button' download onClick={autofillData}>DOWNLOAD DATA</a>
             </div>
         </form>
     </>
