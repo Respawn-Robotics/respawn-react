@@ -21,7 +21,7 @@ const DailyEntryForm = () => {
     const sendData = async () => {
         const collecRef = collection(db, "mockkickoff");
         const payload = inputs;
-
+        console.log(payload)
         await addDoc(collecRef, payload);
     }
 

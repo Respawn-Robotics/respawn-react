@@ -7,7 +7,6 @@ import './DailyEntry.css'
 
 const Entry = (doc) => {
     const {whytext, rating, subteam, howtext, whattext} = doc.props;
-    console.log(doc.props)
     return (
         <>
         <div className='container'>
