@@ -61,19 +61,29 @@
 }
 
 #bilstein {
-    max-width: 70%;
+    max-width: 80%;
 }
 
 #genehaas,
 #polezero,
 #belcan {
     max-height: 75%;
-    max-width: 35%;
+    max-width: 40%;
 }
 
 #baxter {
     background-color: white;
-    max-width: 30%;
+    max-height: 25%;
+    max-width: 50%;
+}
+
+#pngcore,
+#eightyacres {
+    max-height: 40%;
+}
+
+#yaskawa {
+    max-height: 25%;
 }
 
 #sponsor-section {
