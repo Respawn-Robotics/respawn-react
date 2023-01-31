@@ -33,7 +33,6 @@ function CreateJoinTeam() {
     const payload = inputs;
 
     const docRef = doc(db, "recon-teams", payload.teamName);
-    const userDocRef = doc(db, "users", user.uid);
 
     const docSnap = await getDoc(docRef);
 
@@ -41,7 +40,7 @@ function CreateJoinTeam() {
         toast("A team with this name already exists!");
     } else {
         payload.owner = user.uid;
-        payload.users = [userDocRef]
+        payload.users = [user.uid]
         console.log(payload)
         await setDoc(doc(collecRef, payload.teamName), {
             ...payload
