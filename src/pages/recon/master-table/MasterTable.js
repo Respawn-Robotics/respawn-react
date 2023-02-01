@@ -3,16 +3,33 @@ import './master-table.css';
 
 import db from '../../../firebase.config';
 import reconfig from '../../../recon.config';
-import { onSnapshot, doc, getDoc } from 'firebase/firestore';
+import { onSnapshot, doc, getDoc, query, collection, where, getDocs } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 
 function MasterTable() {
     const [data, setData] = useState([]);
     const [averages, setAverages] = useState({});
-    const [sortField, setField] = useState('points-scored')
+    const [sortField, setField] = useState('points-scored');
+    const auth = getAuth();
+    const [user, loading] = useAuthState(auth);
+    const navigate = useNavigate();
 
-    useEffect(_ =>
-        onSnapshot(doc(db, 'recon', 'entries'), doc =>
-            setData(doc.data())), []);
+    const fetchTeamName = async () => {
+        const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
+
+        const doc = await getDocs(q);
+
+        return doc;
+    }
+
+    useEffect(_ => {
+        if (loading) return
+        if (!user) return navigate('/signin')
+        fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
+            userData.docs[0].data().teamName), doc => setData(doc.data())));
+    }, [user, loading]);
 
     useEffect(_ => {
         let avg = {};
