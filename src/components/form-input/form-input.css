@@ -72,6 +72,11 @@ textarea.form-input {
     font-family: "roboto-slab";
 }
 
+.character-count {
+    color: white;
+    font-family: "roboto-slab";
+}
+
 @media screen and (max-aspect-ratio: 1/1) {
     .form-label, .form-input {
         font-size: 0.75rem;

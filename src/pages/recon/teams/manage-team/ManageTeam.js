@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import User from "../../../../components/user/User";
 
 import { query, collection, where, getDocs, doc, getDoc } from 'firebase/firestore';
 import db from '../../../../firebase.config';
@@ -53,7 +54,7 @@ function ManageTeam() {
     <>
         <h1 className='no-data-message'>Team Name: {team.teamName}</h1> 
         <h1 className='no-data-message'>Users</h1>
-        {team.users.map(user => <h1>{user}</h1>)}
+        {team.users.map(user => <User userData={user} />)}
     </>
     : <> Loading... </>}
         

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import './sign-in.css';
+
 import { useNavigate } from 'react-router-dom'
 import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
 import { doc, getDocs, collection, updateDoc, Timestamp, query, where, setDoc, arrayUnion } from 'firebase/firestore';
@@ -58,7 +60,7 @@ const SignIn = () => {
     <>
       <h1 className='reflect-header'>Sign In</h1>
       <div className='container'>
-        <button onClick={login}>Login with Google</button>
+        <button id='sign-in-button' onClick={login}>Login with Google</button>
       </div>
     </>
   );

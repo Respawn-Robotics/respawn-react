@@ -94,29 +94,6 @@ function Navbar({ type }) {
       }, [user, loading]);
 
     switch (type) {
-        case 'reflect':
-            return <>
-                <nav className={'navbar' + (isScrolled ? ' scrolled' : '')}>
-                    <NavItem className='nav-section' type='link' link={paths.main['home']} id='nav-image'>
-                        <img src={logo} id='nav-image' alt='Home' />
-                    </NavItem>
-
-                    {width / height > 1 ? <>
-                        <NavItem type='link' link={paths.reflect['record']}>RECORD</NavItem>
-                        <NavItem type='link' link={paths.reflect['daily']}>DAILY</NavItem>
-                        <NavItem type='link' link={paths.reflect['legacy']}>LEGACY</NavItem>
-                        {user ? <NavItem type='link' link={paths.authentication['signout']}>SIGN OUT</NavItem> : <> </>}
-                    </> : <>
-                        <NavItem type='hamburger'>
-                            <NavItem type='link' className='hamburger-link' link={paths.reflect['record']}>RECORD</NavItem>
-                            <NavItem type='link' className='hamburger-link' link={paths.reflect['daily']}>DAILY</NavItem>
-                            <NavItem type='link' className='hamburger-link' link={paths.reflect['legacy']}>LEGACY</NavItem>
-                        </NavItem>
-                    </>}
-                </nav>
-                <Outlet />
-            </>;
-
         case 'recon':
             return <>
                 <nav className={'navbar' + (isScrolled ? ' scrolled' : '')}>
@@ -169,7 +146,6 @@ function Navbar({ type }) {
                         <NavItem type='link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                         <NavItem type='dropdown' label='PILLARS OF RESPAWN'>
                             <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
-                            <NavItem type='link' className='dropdown-link' link={paths.reflect['home']}>REFLECT</NavItem>
                             <NavItem type='link' className='dropdown-link' link={paths.main.pillars['reach']}>REACH</NavItem>
                         </NavItem>
                     </> : <>
@@ -179,7 +155,6 @@ function Navbar({ type }) {
                             <NavItem type='link' className='hamburger-link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                             <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
                                 <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>
-                                <NavItem type='link' className='menu-link' link={paths.reflect['home']}>REFLECT</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.main.pillars['reach']}>REACH</NavItem>
                             </NavItem>
                         </NavItem>

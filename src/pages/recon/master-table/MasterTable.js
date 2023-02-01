@@ -3,7 +3,7 @@ import './master-table.css';
 
 import db from '../../../firebase.config';
 import reconfig from '../../../recon.config';
-import { onSnapshot, doc, getDoc, query, collection, where, getDocs } from 'firebase/firestore';
+import { onSnapshot, doc, query, collection, where, getDocs } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';

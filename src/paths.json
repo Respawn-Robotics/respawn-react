@@ -26,13 +26,5 @@
         "teams" : "/recon/teams",
         "team-stats" : "/recon/teams/:team",
         "manage-team" : "/recon/manage-team"
-    },
-    "reflect": {
-        "home": "/reflect",
-        "record": "/reflect/record",
-        "legacy": "/reflect/legacy",
-        "daily": "/reflect/daily",
-        "daily-entry": "/reflect/daily/:date",
-        "daily-entry-form": "/reflect/daily/entry/:date"
     }
 }

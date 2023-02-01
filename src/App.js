@@ -23,20 +23,14 @@ import MasterTable from './pages/recon/master-table/MasterTable';
 import Profile from './pages/recon/profile/Profile';
 import CreateJoinTeam from './pages/recon/teams/create-join-team/CreateJoinTeam';
 import Teams from './pages/recon/teams/Teams';
-import TeamMatches from './pages/recon/teams/team-matches/TeamMatches';
 import Matches from './pages/recon/matches/Matches';
-
-// Reflect
-import Reflect from './pages/reflect/home/Reflect'
-import Record from './pages/reflect/record/Record'
-import Legacy from './pages/reflect/legacy/Legacy'
-import Daily from './pages/reflect/daily/Daily'
-import DailyEntry from './pages/reflect/daily/dailyEntry/DailyEntry';
-import DailyEntryForm from './pages/reflect/daily/dailyEntryForm/DailyEntryForm';
 import ManageTeam from './pages/recon/teams/manage-team/ManageTeam';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return <>
+    <ToastContainer />
     <BrowserRouter>
       <Routes>
         {/* Authentication */}
@@ -58,18 +52,8 @@ function App() {
           <Route path={paths.recon['profile']} element={<Profile />} />
           <Route path={paths.recon['create-join-team']} element={<CreateJoinTeam />} />
           <Route path={paths.recon['teams']} element={<Teams />} />
-          <Route path={paths.recon['team-stats']} element={<TeamMatches />} />
           <Route path={paths.recon['matches']} element={<Matches />} />
           <Route path={paths.recon['manage-team']} element={<ManageTeam />} />
-        </Route>
-        {/* Reflect */}
-        <Route path={paths.reflect['home']} element={<Navbar type='reflect' />}>
-          <Route index element={<Reflect />} />
-          <Route path={paths.reflect['record']} element={<Record />} />
-          <Route path={paths.reflect['legacy']} element={<Legacy />} />
-          <Route path={paths.reflect['daily']} element={<Daily />} />
-          <Route path={paths.reflect['daily-entry']} element={<DailyEntry />} />
-          <Route path={paths.reflect['daily-entry-form']} element={<DailyEntryForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

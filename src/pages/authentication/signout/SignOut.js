@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import './sign-out.css'
+
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { getAuth, signOut } from "firebase/auth";
@@ -22,12 +24,10 @@ const SignOut = () => {
   return (
     <>
         <h1 className='reflect-header'>Sign Out</h1>
-        <div className='daily-container'>
-          <h2>Are you sure you want to sign out?</h2>
-        </div>
-        <div className='daily-container'>
-          <button onClick={signOutButton}>YES</button>
-          <button onClick={cancel}>CANCEL</button>
+        <h2 id='warning-text'>Are you sure you want to sign out?</h2>
+        <div id='sign-out-button-container'>
+          <button id='button-yes' onClick={signOutButton}>YES</button>
+          <button id='button-cancel' onClick={cancel}>CANCEL</button>
         </div>
     </>
   );

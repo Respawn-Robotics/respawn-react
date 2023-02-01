@@ -1,24 +1,34 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './dashboard.css';
 import db from '../../../firebase.config';
-import { onSnapshot, doc, collection, updateDoc, arrayUnion } from 'firebase/firestore';
+import { onSnapshot, doc, query, collection, where, getDocs, updateDoc, arrayUnion } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
-import { useNavigate } from 'react-router-dom'
-import { useAuthState } from 'react-firebase-hooks/auth'
+import { useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Dashboard() {
+  const [database, setDatabase] = useState({});
   const [data, setData] = useState([]);
   const auth = getAuth();
-  const [user] = useAuthState(auth)
-  const navigate = useNavigate()
+  const [user, loading] = useAuthState(auth)
+  const navigate = useNavigate();
 
-  useEffect(() =>
-    onSnapshot(collection(db, "recon"), (snapshot) =>
-      setData(snapshot.docs.map(doc => doc.data()))), []);
+  useEffect(_ => {
+    if (loading) return
+    if (!user) return navigate('/signin')
+    fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
+      userData.docs[0].data().teamName), doc => setDatabase(doc.data())));
+  }, [user, loading]);
 
-  if (!user) {
-    navigate('/signin')
+  const fetchTeamName = async () => {
+    const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
+    const doc = await getDocs(q);
+    return doc;
   }
+
+  useEffect(_ => console.log(database), [database]);
 
   const handleFile = event => {
     const file = event.target.files[0];
@@ -33,11 +43,20 @@ function Dashboard() {
   }
 
   const sendData = async _ => {
-    const docRef = doc(db, 'recon', 'entries');
-    let dataNoTeam = data;
+    let dataNoTeam = structuredClone(data);
     delete dataNoTeam['team'];
 
-    await updateDoc(docRef, { [data.team]: arrayUnion(dataNoTeam) });
+    if (!database[data.team] || database[data.team].map(en => en.match).indexOf(data.match) === -1) {
+      const docRef = doc(db, 'recon', 'wespawn');
+      toast.promise(updateDoc(docRef, { [data.team]: arrayUnion(dataNoTeam) }), {
+        pending: 'Uploading...',
+        success: 'Uploaded!',
+        error: 'Upload Failed!'
+      });
+    } else {
+      console.log('dsahdashjk')
+      toast('A scout for the same team in the same match already exists!', {type: 'error'});
+    }
   }
 
   useEffect(_ => console.log(data), [data])
@@ -60,7 +79,7 @@ function Dashboard() {
     <div id='recent-scouts-container'>
 
     </div>
-    
+
   </>;
 }
 

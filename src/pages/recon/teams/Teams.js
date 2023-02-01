@@ -1,23 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import './teams.css';
-import { useParams } from "react-router-dom";
 
 import db from '../../../firebase.config';
 import reconfig from '../../../recon.config';
-import { onSnapshot, doc } from 'firebase/firestore';
+import { onSnapshot, doc, query, collection, where, getDocs } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 import backImage from '../scout/media/field-image.png';
 
 
-function TeamMatches({ data, team }) {
+function TeamMatches({ database, teamNum }) {
     const [teamAvg, setTeamAvg] = useState({});
     const entryRefs = useRef([]);
     const canvasRefs = useRef([]);
     const imageRef = useRef(null);
+    const [data, setData] = useState([]);
+    useEffect(_ => setData(database ? database[teamNum] : []), [teamNum])
 
     useEffect(_ => {
         let avg = {};
 
-        data.map(entry => {
+        data?.map(entry => {
             reconfig['data'].map(field => {
                 if (field.name === 'team' || field.name === 'match') return;
                 const value = dataFormat(field, entry[field.name]);
@@ -70,7 +74,6 @@ function TeamMatches({ data, team }) {
                         currentIndex++;
                     }
                 }
-                console.log(val)
                 return val;
             case 'array':
                 return field.options.map((o, i) => dataFormat(o, value[i]));
@@ -86,25 +89,27 @@ function TeamMatches({ data, team }) {
             case 'preset-pieces':
                 return <>
                     <div className='preset-pieces-container'>
-                        {data.map(d => <div className={`preset-piece piece-${d}`} />)}
+                        {data?.map(d => <div className={`preset-piece piece-${d}`} />)}
                     </div>
                 </>;
             case 'auton-path':
                 if (canvasRefs.current.length > 0) {
                     const canvas = canvasRefs.current[key];
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
+                    const ctx = canvas?.getContext('2d');
+                    ctx?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
                     let prevX = data[0].points[0].x;
                     let prevY = data[0].points[0].y;
                     data[0].points.map(p => {
-                        ctx.fillStyle = 'lime';
-                        ctx.strokeStyle = 'lime';
+                        if (ctx) {
+                            ctx.fillStyle = 'lime';
+                            ctx.strokeStyle = 'lime';
+                        }
 
-                        ctx.beginPath();
-                        ctx.arc(p.x * 300, p.y * 150, 3, 0, 2 * Math.PI);
-                        ctx.moveTo(prevX * 300, prevY * 150);
-                        ctx.lineTo(p.x * 300, p.y * 150);
-                        ctx.stroke();
+                        ctx?.beginPath();
+                        ctx?.arc(p.x * 300, p.y * 150, 3, 0, 2 * Math.PI);
+                        ctx?.moveTo(prevX * 300, prevY * 150);
+                        ctx?.lineTo(p.x * 300, p.y * 150);
+                        ctx?.stroke();
 
                         prevX = p.x;
                         prevY = p.y;
@@ -116,7 +121,7 @@ function TeamMatches({ data, team }) {
             case 'power-grid':
                 return <>
                     <div className='power-grid-display'>
-                        {data.map(row => row.map(node => <>
+                        {data?.map(row => row.map(node => <>
                             <div className={`power-grid-node piece-${node[1]}`}>
                                 {node[0] ? 'A' : ''}
                             </div>
@@ -137,7 +142,7 @@ function TeamMatches({ data, team }) {
 
     return <>
         <img src={backImage} ref={imageRef} hidden />
-        <h1 id='team-number'>{team}</h1>
+        <h1 id='team-number'>{teamNum}</h1>
         {Object.keys(teamAvg).length > 0 && <div id='averages-container'>
             <div className='average-box'>
                 <h2>Average Points/Match</h2>
@@ -165,7 +170,7 @@ function TeamMatches({ data, team }) {
         <table id='match-list'>
             <thead>
                 <tr id='headings'>
-                    {reconfig['data'].map(field => (field.name !== 'team' && !field.additional) ? <th className='entries-head'>
+                    {reconfig['data'].map((field, i) => (field.name !== 'team' && !field.additional) ? <th key={`heading-${i}`} className='entries-head'>
                         {field.name.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, c => c.toUpperCase())}
                     </th> : '')}
                     <th>
@@ -174,8 +179,8 @@ function TeamMatches({ data, team }) {
                 </tr>
             </thead>
             <tbody>
-                {data.map((entry, k) => <>
-                    <tr className='match-entry'>
+                {data?.map((entry, k) => <>
+                    <tr key={`main-${k}`} className='match-entry'>
                         {reconfig['data'].map((f, i) => (f.name !== 'team' && !f.additional) ? <td className={`entry-data data-point-${i}`}>
                             {displayData(f.name, dataFormat(f, entry[f.name]))}
                         </td> : '')}
@@ -183,7 +188,7 @@ function TeamMatches({ data, team }) {
                             <button onClick={_ => displayAdditional(k)} className='entry-data'>More</button>
                         </td>
                     </tr>
-                    <tr className='entry-additional'>
+                    <tr key={`additional-${k}`} className='entry-additional'>
                         <td colSpan='6' ref={e => entryRefs.current[k] = e}>
                             <div className='additional-info'>
                                 {reconfig['data'].map((f, i) => (f.name !== 'exited-community' && f.additional) ? <div className={`additional-data data-point-${i}`}>
@@ -201,27 +206,35 @@ function TeamMatches({ data, team }) {
 
 function Teams() {
     const [data, setData] = useState([]);
-    const searchbar = useRef(null);
+    const [team, setTeam] = useState(0);
+    const auth = getAuth();
+    const [user, loading] = useAuthState(auth);
+    const navigate = useNavigate();
 
-    useEffect(_ =>
-        onSnapshot(doc(db, 'recon', 'wespawn'), doc =>
-            setData(doc.data())), []);
+    const fetchTeamName = async () => {
+        const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
 
-    const redirect = k => {
-        if (k.key !== "Enter") return;
+        const doc = await getDocs(q);
 
-        window.location.pathname = `/recon/teams${searchbar.current.value ? '/' : ''}${searchbar.current.value}`;
+        return doc;
     }
 
+    useEffect(_ => {
+        if (loading) return
+        if (!user) return navigate('/signin')
+        fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
+            userData.docs[0].data().teamName), doc => setData(doc.data())));
+    }, [user, loading]);
+
+    const changeTeam = e => setTeam(parseInt(e.target.value ? e.target.value : 0));
     return <>
         <div id='search-container'>
-            <h1 id='search-heading'>Search for a team:</h1>
-            <input id='searchbar' ref={searchbar} onKeyDown={redirect}></input>
+            <label htmlFor='searchbar' id='search-heading'>Search for a team:</label>
+            <input id='searchbar' type='number' onChange={changeTeam}></input>
         </div>
-        {console.log(data)}
         <TeamMatches
-            data={data ? data[parseInt(searchbar.current.val ? searchbar.current.val : 0)] : []}
-            team={parseInt(searchbar.current.value ? searchbar.current.val : 0)}
+            database={data}
+            teamNum={team}
         />
     </>
 }
