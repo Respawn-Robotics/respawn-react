@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CreateJoinTeam.css';
 import db from '../../../../firebase.config';
 import FormInput from '../../../../components/form-input/FormInput';
-import { doc, getDoc, getFirestore, collection, setDoc, addDoc } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, collection, setDoc, addDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -27,28 +27,46 @@ function CreateJoinTeam() {
     navigate('/signin')
   }
 
+  const getUserIndex = async (uid) => {
+    const docRef = doc(db, "users", "entries");
+    const docSnap = await getDoc(docRef)
+    const userArray = docSnap.data()
+    let index;
+    Object.keys(userArray.users).map(user => {
+        console.log(user)
+        if(user.uid == uid) {
+          index = userArray.users.indexOf(user)
+        }
+    })
+    console.log(index)
+    console.log(userArray)
+}
+
   const sendData = async () => {
-    const collecRef = collection(db, "teams");
-
     const payload = inputs;
+    const collecRef = collection(db, "teams");
+    const usersDocRef = doc(db, "users", user.uid);
+    const teamDofRef = doc(db, "teams", payload.teamName);
 
-    const docRef = doc(db, "teams", payload.teamName);
+    const teamDocSnap = await getDoc(teamDofRef);
 
-    const docSnap = await getDoc(docRef);
-
-    if(docSnap.exists()) {
+    if(teamDocSnap.exists()) {
         toast("A team with this name already exists!");
     } else {
+        // This is where I gave up. malding
         payload.owner = user.uid;
         payload.users = [user.uid]
-        console.log(payload)
-        await setDoc(doc(collecRef, payload.teamName), {
+        setDoc(doc(collecRef, payload.teamName), {
             ...payload
         })
+        updateDoc(usersDocRef, {
+          team: payload.teamName
+        })
+        }
         navigate('/recon/manage-team')
         toast("Team " + payload.teamName + " successfully created!");
-    }
-  }
+      }
+
 
   const changeInputs = (e) => {
     const target = e.currentTarget;

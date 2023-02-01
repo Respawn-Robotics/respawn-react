@@ -12,8 +12,8 @@ const SignIn = () => {
   const navigate = useNavigate();
   
   const addUserData = async () => {
-    const docRef = doc(db, "users", "entries");
-    const userExistsQuery = query(collection(db, "users"), where("allUsers", "array-contains", user?.uid));
+    const docRef = doc(db, "users", user.uid);
+    const userExistsQuery = query(collection(db, "users"), where("uid", "array-contains", user?.uid));
     const docSnap = await getDocs(userExistsQuery);
 
     if (!docSnap.empty) {
@@ -25,16 +25,13 @@ const SignIn = () => {
       })
       })
     } else {
-      updateDoc(docRef, {
-        users: arrayUnion({
-          [user.uid]: {
-            displayName: user.displayName,
-            email: user.email,
-            dateCreated: Timestamp.fromDate(new Date(user.metadata.creationTime)),
-            lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime)),
-            team: 0
-          }
-        })
+      setDoc(docRef, {
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+        dateCreated: Timestamp.fromDate(new Date(user.metadata.creationTime)),
+        lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime)),
+        team: ""
       })
     }
   }

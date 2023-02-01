@@ -26,26 +26,32 @@ function ManageTeam() {
 
     const fetchTeam = async () => {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
-
+        
         const doc1 = await getDocs(q);
 
         return doc1.docs[0]
     }
 
     const fetchTeamUsers = async (teamData) => {
-        const docRef = doc(db, "users", "entries");
-        const docSnap = await getDoc(docRef)
-        const userArray = docSnap.data()
-        console.log(userArray)
+        console.log(teamData.teamName)
+        const q = query(collection(db, "users"), where("team", "==", teamData.teamName.toString()));
+        const docs = await getDocs(q);
+        let userArray = [];
+        docs.forEach(doc => {
+            const data = doc.data()
+            userArray.push(data)
+        })
+        return userArray
     }
-        
 
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/signin");
         isUserAdmin().then(res => setIsAdmin(res))
-        fetchTeam().then(res => setTeam(res.data()))
-        fetchTeamUsers(team)
+        fetchTeam().then(res => {
+            setTeam(res.data())
+            fetchTeamUsers(res.data()).then(res => setUsers(res))
+        })
       }, [user, loading]);
     
     return <>
@@ -53,7 +59,7 @@ function ManageTeam() {
     <>
         <h1 className='no-data-message'>Team Name: {team.teamName}</h1> 
         <h1 className='no-data-message'>Users</h1>
-        {team.users.map(user => <h1>{user}</h1>)}
+        {users.map(user => <h1 key={user.uid} className="no-data-message">{user.displayName}</h1>)}
     </>
     : <> Loading... </>}
         
