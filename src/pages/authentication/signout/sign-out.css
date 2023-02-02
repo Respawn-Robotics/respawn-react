@@ -1,0 +1,39 @@
+#warning-text {
+    color: var(--respawn-orange);
+    font-size: 2rem;
+    text-align: center;
+    font-family: "roboto-slab";
+}
+
+#sign-out-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+#sign-out-button-container > button {
+    font-size: 2.25rem;
+    color: white;
+    width: 16ch;
+    padding: 2ch 1ch;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+#button-yes {
+    background-color: #12b931;
+    border-radius: 10px 0 0 10px;
+}
+
+#button-yes:hover {
+    background-color: #2be34d;
+}
+
+#button-cancel {
+    background-color: #c63724;
+    border-radius: 0 10px 10px 0;
+}
+
+#button-cancel:hover {
+    background-color: #ea4b36;
+}

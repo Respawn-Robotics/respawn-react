@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './form-input.css';
 import ClickArea from '../click-area/ClickArea';
 import ScoringGrid from '../scoring-grid/ScoringGrid';
 import ToggleButton from '../toggle-button/ToggleButton';
 
 function Input({ name, type, onChange, options, lines, imageSrc, className, id, value }) {
+    const charCount = useRef(null)
     switch (type) {
         // The grid component was made specifically for the 2023 game Charged Up
         case "grid":
@@ -31,7 +32,10 @@ function Input({ name, type, onChange, options, lines, imageSrc, className, id, 
         case "togglebutton":
             return <ToggleButton name={name} className={`form-input ${className}`} id={id} onChange={onChange} options={options} />;
         case "textarea":
-            return <textarea name={name} className={`form-input ${className}`} id={id} onChange={onChange} />;
+            return <>
+                <textarea value={value} name={name} maxLength='200' className={`form-input ${className}`} id={id} onChange={e => {onChange(e); charCount.current.innerHTML = `Characters Left: ${200 - e.target.value.length}`;}} />
+                <p className='character-count' ref={charCount} />
+            </>
         case "array":
             return <ArrayInputs name={name} onChange={onChange} options={options} />;
         default:
@@ -78,7 +82,7 @@ function ArrayInputs({ name, onChange, options }) {
     )
 }
 
-function FormInput({ name, type, onChange, options, lines, imageSrc, dataLabels, className, id, inputClassName, inputId }) {
+function FormInput({ name, type, onChange, options, lines, imageSrc, dataLabels, className, id, inputClassName, inputId, value }) {
     return (
         <div className={`input-container${className === undefined ? '' : ` ${className}`}`} id={id}>
             <label className='form-label'>{name.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, (c) => c.toUpperCase())}</label>
@@ -91,6 +95,7 @@ function FormInput({ name, type, onChange, options, lines, imageSrc, dataLabels,
                 className={inputClassName === undefined ? '' : inputClassName}
                 id={inputId === undefined ? '' : inputId}
                 onChange={onChange}
+                value={value}
             />
         </div>
     )

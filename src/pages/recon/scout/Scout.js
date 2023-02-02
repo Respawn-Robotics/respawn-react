@@ -1,20 +1,45 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './scout.css';
+import paths from '../../../paths';
 import reconfig from '../../../recon.config';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { query, collection, where, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import db from '../../../firebase.config';
 import canvasImage from './media/field-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
     const [team, setTeam] = useState(0);
+    const [userData, setUserData] = useState({});
     const downloadLink = useRef(null);
+    const auth = getAuth();
+    const [user, loading] = useAuthState(auth);
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
     const [send, setSend] = useState(false);
 
-    useEffect(() => {
-        reconfig.data.map(field => setInputs(i => { return (field.name !== 'team' ? { ...i, [field['name']]: field['default'].toString() } : {}) }));
-    }, []);
+    const fetchTeamName = async () => {
+        const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
+        
+        const doc = await getDocs(q);
+        
+        return doc;
+    }
+
+    useEffect(_ => {
+        if (loading) return
+        if (!user) return navigate('/signin')
+        fetchTeamName().then(doc => setUserData(doc.docs[0].data()));
+    }, [user, loading]);
+
+    useEffect(_ => {
+        let defaultInputs = {};
+        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default.toString() : '');
+        setInputs(defaultInputs);
+    }, [user]); 
 
     const autofillData = _ => {
         setSend(true);
@@ -23,9 +48,9 @@ function ScoutForm() {
             const points = inputs['auton-path']['path-point'];
             for (let i = 0; i < points.length; i++) {
                 if (
-                    points[i].x > 0.57 ||
-                    points[i].y < 0.32 ||
-                    (points[i].x > 0.37 && points[i].y < 0.51)
+                    (points[i].x < 0.6 && points[i].x > 0.4) ||
+                    (points[i].x < 0.8 && points[i].x > 0.2 && points[i].y > 0.15 && points[i].y < 0.5) ||
+                    (points[i].x < 0.71 && points[i].x < 0.29 && points[i].y > 0.5)
                 ) return 3;
             }
             return 0;
@@ -57,10 +82,12 @@ function ScoutForm() {
         });
     }
 
+    useEffect(_ => console.log(userData), [userData]);
     const sendData = async _ => {
-        const docRef = doc(db, 'recon', 'entries');
+        const docRef = doc(db, 'recon', userData.teamName);
+
         let result = Promise.race([
-            updateDoc(docRef, { [team]: arrayUnion(inputs) }),
+            updateDoc(docRef, { [team]: arrayUnion({...inputs, author: user.uid}) }),
             new Promise((_, rej) => {
                 const timeoutId = setTimeout(_ => {
                     clearTimeout(timeoutId);
@@ -70,7 +97,7 @@ function ScoutForm() {
         ]);
 
         result.then(_, _ => {
-            const stringifyJson = JSON.stringify({...inputs, team: team});
+            const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.uid });
             const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
             const url = URL.createObjectURL(jsonBlob);
             downloadLink.current.href = url;
@@ -127,7 +154,7 @@ function ScoutForm() {
 
             <div id='submit-button-container'>
                 <button type='button' id='submit-button' onClick={autofillData}>SUBMIT</button>
-                <a type='button' style={{display: 'none', textDecoration: 'none'}} href='#' ref={downloadLink} id='submit-button' download onClick={autofillData}>DOWNLOAD DATA</a>
+                <a type='button' style={{ display: 'none', textDecoration: 'none' }} href='#' ref={downloadLink} id='submit-button' download onClick={autofillData}>DOWNLOAD DATA</a>
             </div>
         </form>
     </>
