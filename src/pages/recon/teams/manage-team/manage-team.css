@@ -1,0 +1,16 @@
+#users-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#user-headings {
+    display: grid;
+    grid-template-columns: .75fr .75fr .75fr .5fr .3fr;
+}
+
+#user-headings > h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: white;
+    font-family: "roboto-slab-extrabold";
+}

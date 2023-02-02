@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './manage-team.css';
 import User from "../../../../components/user/User";
 
 import { query, collection, where, getDocs, doc, getDoc, onSnapshot } from 'firebase/firestore';
@@ -22,7 +23,7 @@ function ManageTeam() {
 
         const doc1 = await getDocs(q);
         const doc2 = await getDocs(q2);
-        
+
         return (doc1.empty && doc2.empty) ? false : true
     }
 
@@ -33,7 +34,6 @@ function ManageTeam() {
     }
 
     const fetchTeamUsers = async (teamData) => {
-        console.log(teamData.teamName)
         const q = query(collection(db, "users"), where("team", "==", teamData.teamName.toString()));
         const docs = await getDocs(q);
         let userArray = [];
@@ -51,19 +51,48 @@ function ManageTeam() {
         fetchTeam().then(res => {
             setTeam(res.data())
             onSnapshot(doc(db, 'recon', res.data().teamName), doc => setScoutingData(doc.data()));
-            fetchTeamUsers(res.data()).then(res => setUsers(res))
+            fetchTeamUsers(res.data()).then(u => setUsers(u.sort((a, b) => {
+                if (res.data().owner === a.uid) return -1;
+                if (res.data().owner === b.uid) return 1;
+                if (res.data().admins?.includes(a.uid)) {
+                    if (res.data().admins?.includes(b.uid)) return 0;
+                    return -1;
+                }
+                if (res.data().admins?.includes(b.uid)) return 1;
+                return 0;
+            })))
         });
-      }, [user, loading]);
-    
+    }, [user, loading]);
+
+    useEffect(_ => console.log(users), [users]);
+
     return <>
-    {team ? 
-    <>
-        <h1 className='no-data-message'>Team Name: {team.teamName}</h1> 
-        <h1 className='no-data-message'>Users</h1>
-        {users.map(user => <User userData={user} admin={isAdmin} scoutData={scoutingData} />)}
-    </>
-    : <> Loading... </>}
-        
+        {team ?
+            <>
+                <h1 className='no-data-message'>Team Name: {team.teamName}</h1>
+                <h1 className='no-data-message'>Users:</h1>
+                <div id='users-container'>
+                    <div id='user-headings'>
+                        <h1>Name</h1>
+                        <h1>Email</h1>
+                        <h1>Rank</h1>
+                        <h1>No. Of Scouts</h1>
+                    </div>
+                    {users.map(i => <User
+                        userData={i}
+                        key={i.uid}
+                        admin={isAdmin}
+                        rank={
+                            team.owner === i.uid ? 'Owner' :
+                            team.admins.includes(i.uid) ? 'Admin' :
+                            'User'
+                        }
+                        scoutData={scoutingData}
+                    />)}
+                </div>
+            </>
+            : <> Loading... </>}
+
     </>
 }
 
