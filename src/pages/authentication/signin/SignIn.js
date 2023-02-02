@@ -20,11 +20,7 @@ const SignIn = () => {
 
     if (!docSnap.empty) {
       updateDoc(docRef, {
-        users: arrayUnion({
-        [user.uid]: {
-          lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime))
-        }
-      })
+        lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime))
       })
     } else {
       setDoc(docRef, {

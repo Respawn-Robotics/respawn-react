@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './profile.css';
 import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'

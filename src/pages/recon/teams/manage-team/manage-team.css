@@ -14,3 +14,9 @@
     color: white;
     font-family: "roboto-slab-extrabold";
 }
+
+.no-data-message {
+    text-align: center;
+    font-size: 3em;
+    color: white;
+}

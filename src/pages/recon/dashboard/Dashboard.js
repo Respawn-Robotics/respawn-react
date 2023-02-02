@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FormInput from '../../../components/form-input/FormInput';
 
 function Dashboard() {
   const [database, setDatabase] = useState({});
@@ -14,6 +15,9 @@ function Dashboard() {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth)
   const navigate = useNavigate();
+  const [inputs, setInputs] = useState({
+    displayName: ""
+  });
 
   useEffect(_ => {
     if (loading) return
@@ -59,11 +63,61 @@ function Dashboard() {
     }
   }
 
-  useEffect(_ => console.log(data), [data])
+  const changeInputs = (e) => {
+    console.log(getDisplayName())
+    const target = e.currentTarget;
+
+    const name = target.id;
+    let value = null;
+
+    switch (target.type) {
+        case "number":
+            value = parseInt(target.value);
+            break;
+        case "checkbox":
+            value = target.checked;
+            break;
+        default:
+            value = target.value;
+
+    }
+    setInputs(values => ({ ...values, [name]: value }));
+  }
+
+const getDisplayName = async () => {
+  const userExistsQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
+  const docSnap = await getDocs(userExistsQuery);
+  return docSnap
+}
+
+const returnDisplayName = () => {
+  let displayName;
+  getDisplayName().then(res => displayName = res)
+
+  console.log(displayName)
+}
+const sendDisplayNameData = async () => {
+    const payload = inputs;
+    const usersDocRef = doc(db, "users", user.uid);
+
+    await updateDoc(usersDocRef, {
+      displayName: payload.displayName
+    })
+
+    setInputs({ displayName: "" })
+    toast("Successfully changed display name!");
+    }
 
   return <>
     <div id='your-profile'>
-
+    {user ? 
+      <>
+        <h1 className='no-data-message'>Current Display Name: {returnDisplayName()}</h1> 
+        <form>
+          <FormInput inputId='displayName' type='textarea' name='Change Display Name' onChange={changeInputs} />
+          <button type='button' onClick={sendDisplayNameData}>SUBMIT</button>
+        </form> </> 
+      : <>Loading...</>}
     </div>
     <div id='dashboard-layout'>
       <div id='file-input-container'>
