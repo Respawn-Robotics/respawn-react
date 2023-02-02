@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import User from "../../../../components/user/User";
 
-import { query, collection, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import { query, collection, where, getDocs, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import db from '../../../../firebase.config';
 import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
@@ -12,6 +12,7 @@ function ManageTeam() {
     const [user, loading] = useAuthState(auth)
     const navigate = useNavigate()
     const [isAdmin, setIsAdmin] = useState(null)
+    const [scoutingData, setScoutingData] = useState({});
     const [team, setTeam] = useState(null)
     const [users, setUsers] = useState([])
 
@@ -27,26 +28,31 @@ function ManageTeam() {
 
     const fetchTeam = async () => {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
-
         const doc1 = await getDocs(q);
-
         return doc1.docs[0]
     }
 
     const fetchTeamUsers = async (teamData) => {
-        const docRef = doc(db, "users", "entries");
-        const docSnap = await getDoc(docRef)
-        const userArray = docSnap.data()
-        console.log(userArray)
+        console.log(teamData.teamName)
+        const q = query(collection(db, "users"), where("team", "==", teamData.teamName.toString()));
+        const docs = await getDocs(q);
+        let userArray = [];
+        docs.forEach(doc => {
+            const data = doc.data()
+            userArray.push(data)
+        })
+        return userArray
     }
-        
 
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/signin");
         isUserAdmin().then(res => setIsAdmin(res))
-        fetchTeam().then(res => setTeam(res.data()))
-        fetchTeamUsers(team)
+        fetchTeam().then(res => {
+            setTeam(res.data())
+            onSnapshot(doc(db, 'recon', res.data().teamName), doc => setScoutingData(doc.data()));
+            fetchTeamUsers(res.data()).then(res => setUsers(res))
+        });
       }, [user, loading]);
     
     return <>
@@ -54,7 +60,7 @@ function ManageTeam() {
     <>
         <h1 className='no-data-message'>Team Name: {team.teamName}</h1> 
         <h1 className='no-data-message'>Users</h1>
-        {team.users.map(user => <User userData={user} />)}
+        {users.map(user => <User userData={user} admin={isAdmin} scoutData={scoutingData} />)}
     </>
     : <> Loading... </>}
         

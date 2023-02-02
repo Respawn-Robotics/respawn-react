@@ -1,3 +1,10 @@
 .user-display {
+    display: grid;
+    width: 100%;
+    color: white;
+    font-family: "roboto-slab";
+    text-align: center;
     background-color: var(--respawn-blue);
+    grid-template-columns: 1fr 1.5fr .5fr .5fr;
+    grid-template-rows: 5ch;
 }
