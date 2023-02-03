@@ -19,16 +19,14 @@ function Dashboard() {
   const [inputs, setInputs] = useState({
     displayName: ""
   });
+  const [displayName, setDisplayName] = useState("")
 
   useEffect(_ => {
     if (loading) return
     if (!user) return navigate('/signin')
-    fetchTeamName().then(userData => {
-      onSnapshot(doc(db, 'recon',
-        userData.docs[0].data().teamName), doc => setDatabase(doc.data()))
-
-      setName(userData.docs[0].data().teamName);
-    });
+    getDisplayName().then(res => setDisplayName(res.displayName))
+    fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
+      userData.docs[0].data().teamName), doc => setDatabase(doc.data())));
   }, [user, loading]);
 
   const fetchTeamName = async () => {
@@ -36,8 +34,6 @@ function Dashboard() {
     const doc = await getDocs(q);
     return doc;
   }
-
-  useEffect(_ => console.log(database), [database]);
 
   const handleFile = event => {
     const file = event.target.files[0];
@@ -89,19 +85,15 @@ function Dashboard() {
     setInputs(values => ({ ...values, [name]: value }));
   }
 
-  const getDisplayName = async () => {
-    const userExistsQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
-    const docSnap = await getDocs(userExistsQuery);
-    return docSnap
-  }
+const getDisplayName = async () => {
+  const userExistsQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
+  const docSnap = await getDocs(userExistsQuery);
 
-  const returnDisplayName = () => {
-    let displayName;
-    getDisplayName().then(res => displayName = res)
+  return docSnap.docs[0].data()
+}
 
-    console.log(displayName)
-  }
-  const sendDisplayNameData = async () => {
+
+const sendDisplayNameData = async () => {
     const payload = inputs;
     const usersDocRef = doc(db, "users", user.uid);
 
@@ -111,15 +103,16 @@ function Dashboard() {
 
     setInputs({ displayName: "" })
     toast("Successfully changed display name!");
-  }
+    navigate("/recon")
+    }
 
   return <>
     <div id='your-profile'>
-      {user ?
-        <>
-          <h1 className='header' id='users-header'>Current Display Name: {returnDisplayName()}</h1>
-        </>
-        : <>Loading...</>}
+    {user ? 
+      <>
+        <h1 className='header' id='users-header'>Welcome <o>{displayName}</o>!</h1> 
+      </> 
+      : <>Loading...</>}
     </div>
     <div id='dashboard-layout'>
       <div id='file-input-container'>

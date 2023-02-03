@@ -20,8 +20,9 @@ function Invite({ user, invite }) {
         updateDoc(usersDocRef, {
           team: invite.team
         })
-        updateDoc(teamDocRef, {
-          users: [user.uid]
+
+        updateDoc(teamDocRef, { 
+          users: arrayUnion(user.uid)
         })
 
         await deleteDoc(inviteRef);

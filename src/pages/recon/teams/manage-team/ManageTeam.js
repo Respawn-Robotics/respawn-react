@@ -13,7 +13,7 @@ function ManageTeam() {
     const auth = getAuth();
     const [user, loading] = useAuthState(auth)
     const navigate = useNavigate()
-    const [isAdmin, setIsAdmin] = useState(null)
+    const [currentUserRank, setCurrentUserRank] = useState("")
     const [scoutingData, setScoutingData] = useState({});
     const [team, setTeam] = useState(null)
     const [users, setUsers] = useState([])
@@ -22,13 +22,16 @@ function ManageTeam() {
     })
 
     const isUserAdmin = async () => {
-        const q = query(collection(db, "teams"), where("owner", "==", user?.uid));
-        const q2 = query(collection(db, "teams"), where("admins", "array-contains", user?.uid));
-
+        const q = query(collection(db, "teams"), where("admins", "array-contains", user?.uid));
         const doc1 = await getDocs(q);
-        const doc2 = await getDocs(q2);
+        console.log(doc1.empty)
+        return doc1.empty
+    }
 
-        return (doc1.empty && doc2.empty) ? false : true
+    const isUserOwner = async () => {
+        const q = query(collection(db, "teams"), where("owner", "==", user?.uid));
+        const doc1 = await getDocs(q);
+        return doc1.empty
     }
 
     const fetchTeam = async () => {
@@ -51,7 +54,13 @@ function ManageTeam() {
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/signin");
-        isUserAdmin().then(res => setIsAdmin(res))
+        isUserAdmin().then(res => {
+            setCurrentUserRank(res ? "" : "Admin")
+        })
+        isUserOwner().then(res => {
+            setCurrentUserRank(res ? "" : "Owner")
+        })
+        console.log(currentUserRank)
         fetchTeam().then(res => {
             setTeam(res.data())
             onSnapshot(doc(db, 'recon', res.data().teamName), doc => setScoutingData(doc.data()));
@@ -126,15 +135,23 @@ function ManageTeam() {
                     {users.map(i => <User
                         userData={i}
                         key={i.uid}
-                        admin={isAdmin}
+                        admin={(currentUserRank === "Admin" || currentUserRank === "Owner")}
                         rank={
                             team.owner === i.uid ? 'Owner' :
                             team.admins.includes(i.uid) ? 'Admin' :
                             'User'
                         }
                         scoutData={scoutingData}
+                        user={user}
                     />)}
                 </div>
+                {(currentUserRank === "Admin" || currentUserRank === "Owner") ? <>
+                <form>
+                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
+                    <button type='button' onClick={sendData}>SUBMIT</button>
+                </form>
+                </> : <></>}
+                
             </>
             
             : <> Loading... </>}

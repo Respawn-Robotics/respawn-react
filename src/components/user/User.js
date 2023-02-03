@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import './user.css';
 
-function Users({userData, rank, admin, scoutData}) {
+function Users({user, userData, rank, admin, scoutData}) {
     const [userScouts, setUserScouts] = useState([]);
 
-    const manageUser = uid => {
+    const ownerManageUser = uid => {
         console.log(uid)
     }
 
@@ -21,7 +21,10 @@ function Users({userData, rank, admin, scoutData}) {
             <p className="user-email">{userData.email}</p>
             <p className='user-rank'>{rank}</p>
             <p className='scout-count'>{userScouts}</p>
-            {admin && <button className='manage-user' onClick={_ => manageUser(userData.uid)}>Manage User</button>}
+            {admin && (rank == "owner") ? <button className='manage-user' onClick={_ => ownerManageUser(userData.uid)}>Manage User</button> : 
+            <>
+            
+            </>}            
         </div>
 }
 
