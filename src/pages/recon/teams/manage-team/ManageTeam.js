@@ -29,7 +29,6 @@ function ManageTeam() {
     const isUserAdmin = async () => {
         const q = query(collection(db, "teams"), where("admins", "array-contains", user.uid));
         const doc1 = await getDocs(q);
-        console.log(doc1.empty)
         return doc1.empty
     }
 

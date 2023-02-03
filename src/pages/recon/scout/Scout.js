@@ -3,7 +3,7 @@ import './scout.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import reconfig from '../../../recon.config';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, onSnapshot } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { query, collection, where, getDocs } from 'firebase/firestore';
@@ -15,6 +15,7 @@ import FormInput from '../../../components/form-input/FormInput';
 function ScoutForm() {
     const [team, setTeam] = useState(0);
     const [userData, setUserData] = useState({});
+    const [database, setDatabase] = useState({});
     const downloadLink = useRef(null);
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
@@ -33,7 +34,11 @@ function ScoutForm() {
     useEffect(_ => {
         if (loading) return
         if (!user) return navigate('/signin')
-        fetchTeamName().then(doc => setUserData(doc.docs[0].data()));
+        fetchTeamName().then(document => {
+            setUserData(document.docs[0].data())
+            onSnapshot(doc(db, 'recon',
+                document.docs[0].data().teamName), d => setDatabase(d.data()));
+        });
     }, [user, loading]);
 
     useEffect(_ => {
@@ -84,42 +89,45 @@ function ScoutForm() {
         });
     }
 
-    useEffect(_ => console.log(userData), [userData]);
     const sendData = async _ => {
-        try {
-            const docRef = doc(db, 'recon', userData.teamName);
+        console.log(database)
+        if (!database[team] || database[team].map(en => en.match).indexOf(inputs.match) === -1) {
+            try {
+                const docRef = doc(db, 'recon', userData.teamName);
+                let result = toast.promise(Promise.race([
+                    updateDoc(docRef, { [team]: arrayUnion({ ...inputs, author: user.displayName }) }),
+                    new Promise((_, rej) => {
+                        const timeoutId = setTimeout(_ => {
+                            clearTimeout(timeoutId);
+                            rej("Request timed out; try downloading the scout and uploading it when you have a connection.")
+                        }, 2000)
+                    })
+                ]), {
+                    pending: 'Uploading...',
+                    success: 'Uploaded!',
+                    error: 'Upload Failed!'
+                });
 
-            let result = toast.promise(Promise.race([
-                updateDoc(docRef, { [team]: arrayUnion({ ...inputs, author: user.displayName }) }),
-                new Promise((_, rej) => {
-                    const timeoutId = setTimeout(_ => {
-                        clearTimeout(timeoutId);
-                        rej("Request timed out; try downloading the scout and uploading it when you have a connection.")
-                    }, 2000)
-                })
-            ]), {
-                pending: 'Uploading...',
-                success: 'Uploaded!',
-                error: 'Upload Failed!'
-            });
-
-            result.then(_ => {
-                navigate('/recon');
-            }, rej => {
-                toast(rej, { type: 'error' });
+                result.then(_ => {
+                    navigate('/recon');
+                }, rej => {
+                    toast(rej, { type: 'error' });
+                    const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
+                    const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
+                    const url = URL.createObjectURL(jsonBlob);
+                    downloadLink.current.href = url;
+                    downloadLink.current.style.display = 'block';
+                });
+            } catch (error) {
+                toast("Request timed out; try downloading the scout and uploading it when you have a connection.", { type: 'error' });
                 const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
                 const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
                 const url = URL.createObjectURL(jsonBlob);
                 downloadLink.current.href = url;
                 downloadLink.current.style.display = 'block';
-            });
-        } catch (error) {
-            toast("Request timed out; try downloading the scout and uploading it when you have a connection.", { type: 'error' });
-                const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
-                const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
-                const url = URL.createObjectURL(jsonBlob);
-                downloadLink.current.href = url;
-                downloadLink.current.style.display = 'block';
+            }
+        } else {
+            toast('A scout for the same team in the same match already exists!', { type: 'error' });
         }
         setSend(false);
     }

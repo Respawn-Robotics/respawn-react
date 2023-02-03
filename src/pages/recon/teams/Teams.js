@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import backImage from '../scout/media/field-image.png';
 
 
-function TeamMatches({ database, teamNum }) {
+function TeamMatches({ database, teamNum, admin }) {
     const [teamAvg, setTeamAvg] = useState({});
     const entryRefs = useRef([]);
     const canvasRefs = useRef([]);
@@ -170,6 +170,7 @@ function TeamMatches({ database, teamNum }) {
         <table id='match-list'>
             <thead>
                 <tr id='headings'>
+                    {admin && <th className='entries-head'>Delete</th>}
                     {reconfig['data'].map((field, i) => (field.name !== 'team' && !field.additional) ? <th key={`heading-${i}`} className='entries-head'>
                         {field.name.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, c => c.toUpperCase())}
                     </th> : '')}
@@ -182,6 +183,7 @@ function TeamMatches({ database, teamNum }) {
             <tbody>
                 {data?.map((entry, k) => <>
                     <tr key={`main-${k}`} className='match-entry'>
+                        {admin && <td className='entry-data data-point-author'><button>x</button></td>}
                         {reconfig['data'].map((f, i) => (f.name !== 'team' && !f.additional) ? <td className={`entry-data data-point-${i}`}>
                             {displayData(f.name, dataFormat(f, entry[f.name]))}
                         </td> : '')}
@@ -211,6 +213,7 @@ function Teams() {
     const [team, setTeam] = useState(0);
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
+    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
 
     const fetchTeamName = async () => {
@@ -221,9 +224,28 @@ function Teams() {
         return doc;
     }
 
+    const isUserAdmin = async () => {
+        const q = query(collection(db, "teams"), where("admins", "array-contains", user.uid));
+        const doc1 = await getDocs(q);
+        return doc1.empty
+    }
+
+    const isUserOwner = async () => {
+        const q = query(collection(db, "teams"), where("owner", "==", user.uid));
+        const doc1 = await getDocs(q);
+        return doc1.empty
+    }
+
+
     useEffect(_ => {
         if (loading) return
         if (!user) return navigate('/signin')
+        isUserAdmin().then(res => {
+            if(res == false) setIsAdmin(true)
+        });
+        isUserOwner().then(res => {
+            if(res == false) setIsAdmin(true)
+        });
         fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
             userData.docs[0].data().teamName), doc => setData(doc.data())));
     }, [user, loading]);
@@ -237,6 +259,7 @@ function Teams() {
         <TeamMatches
             database={data}
             teamNum={team}
+            admin={isAdmin}
         />
     </>
 }

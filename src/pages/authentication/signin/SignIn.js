@@ -15,12 +15,12 @@ const SignIn = () => {
   
   const addUserData = async () => {
     const docRef = doc(db, "users", user.uid);
-    const userExistsQuery = query(collection(db, "users"), where("uid", "array-contains", user?.uid));
+    const userExistsQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
     const docSnap = await getDocs(userExistsQuery);
 
     if (!docSnap.empty) {
       updateDoc(docRef, {
-        lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime))
+        lastSignInTime: Timestamp.fromDate(new Date(Date.now))
       })
     } else {
       setDoc(docRef, {
