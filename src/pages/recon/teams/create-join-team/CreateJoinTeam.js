@@ -29,21 +29,6 @@ function CreateJoinTeam() {
     navigate('/signin')
   }
 
-  const getUserIndex = async (uid) => {
-    const docRef = doc(db, "users", "entries");
-    const docSnap = await getDoc(docRef)
-    const userArray = docSnap.data()
-    let index;
-    Object.keys(userArray.users).map(user => {
-        console.log(user)
-        if(user.uid == uid) {
-          index = userArray.users.indexOf(user)
-        }
-    })
-    console.log(index)
-    console.log(userArray)
-}
-
   const sendData = async () => {
     const payload = inputs;
     const collecRef = collection(db, "teams");

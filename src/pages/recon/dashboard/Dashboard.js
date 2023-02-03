@@ -18,10 +18,12 @@ function Dashboard() {
   const [inputs, setInputs] = useState({
     displayName: ""
   });
+  const [displayName, setDisplayName] = useState("")
 
   useEffect(_ => {
     if (loading) return
     if (!user) return navigate('/signin')
+    getDisplayName().then(res => setDisplayName(res.displayName))
     fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
       userData.docs[0].data().teamName), doc => setDatabase(doc.data())));
   }, [user, loading]);
@@ -31,8 +33,6 @@ function Dashboard() {
     const doc = await getDocs(q);
     return doc;
   }
-
-  useEffect(_ => console.log(database), [database]);
 
   const handleFile = event => {
     const file = event.target.files[0];
@@ -87,15 +87,11 @@ function Dashboard() {
 const getDisplayName = async () => {
   const userExistsQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
   const docSnap = await getDocs(userExistsQuery);
-  return docSnap
+
+  return docSnap.docs[0].data()
 }
 
-const returnDisplayName = () => {
-  let displayName;
-  getDisplayName().then(res => displayName = res)
 
-  console.log(displayName)
-}
 const sendDisplayNameData = async () => {
     const payload = inputs;
     const usersDocRef = doc(db, "users", user.uid);
@@ -106,13 +102,14 @@ const sendDisplayNameData = async () => {
 
     setInputs({ displayName: "" })
     toast("Successfully changed display name!");
+    navigate("/recon")
     }
 
   return <>
     <div id='your-profile'>
     {user ? 
       <>
-        <h1 className='no-data-message'>Current Display Name: {returnDisplayName()}</h1> 
+        <h1 className='no-data-message'>Current Display Name: {displayName}</h1> 
         <form>
           <FormInput inputId='displayName' type='textarea' name='Change Display Name' onChange={changeInputs} />
           <button type='button' onClick={sendDisplayNameData}>SUBMIT</button>
