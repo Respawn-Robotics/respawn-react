@@ -119,12 +119,13 @@ function ManageTeam() {
         {team ?
             <>
                 <h1 className='header' id='team-name'>Team Name: <o>{team.teamName}</o></h1>
+                {(currentUserRank === "Admin" || currentUserRank === "Owner") &&
                 <form id='send-invite-form'>
                     <h1 className='header'>Send Invite:</h1>
-                    <FormInput id='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.Email}/>
+                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
                     <button id='submit-button' type='button' onClick={sendData}>SUBMIT</button>
-                </form>
-                <h1 className='header' id='users-header'>Users:</h1>
+                </form>}
+                <h1 className='header'>Users:</h1>
                 <div id='users-container'>
                     <div id='user-headings'>
                         <h1>Name</h1>
@@ -144,14 +145,7 @@ function ManageTeam() {
                         scoutData={scoutingData}
                         user={user}
                     />)}
-                </div>
-                {(currentUserRank === "Admin" || currentUserRank === "Owner") ? <>
-                <form>
-                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
-                    <button type='button' onClick={sendData}>SUBMIT</button>
-                </form>
-                </> : <></>}
-                
+                </div>                
             </>
             
             : <> Loading... </>}

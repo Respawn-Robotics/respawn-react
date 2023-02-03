@@ -112,7 +112,7 @@ function Navbar({ type }) {
                         </NavItem> : 
                         <> <NavItem type='dropdown' label={user?.displayName}>
                         <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
-                        <NavItem type='link' className='dropdown-link' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                        <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
                         </NavItem> </>}
 
                     </> : <>
@@ -123,10 +123,10 @@ function Navbar({ type }) {
                             <NavItem type='link' className='hamburger-link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
                             {(!loading && team) ? <NavItem type='menu' className='hamburger-link' label={user.displayName}>
                                 <NavItem type='link' className='menu-link' link={paths.recon['manage-team']}>MANAGE TEAM</NavItem>
-                                <NavItem type='link' className='menu-link' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                                <NavItem type='link' className='menu-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
                             </NavItem> : <> <NavItem type='dropdown' label={user?.displayName}>
                         <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
-                        <NavItem type='link' className='dropdown-link' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                        <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
                         </NavItem> </>}
                         </NavItem>
                     </>}

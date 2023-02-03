@@ -2,7 +2,7 @@ import React from 'react';
 import './invite.css';
 
 import { useNavigate } from 'react-router-dom'
-import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
 import db from "../../firebase.config";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';

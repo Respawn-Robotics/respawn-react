@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import FormInput from '../../../components/form-input/FormInput';
 
 function Dashboard() {
   const [database, setDatabase] = useState({});
@@ -16,17 +15,17 @@ function Dashboard() {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth)
   const navigate = useNavigate();
-  const [inputs, setInputs] = useState({
-    displayName: ""
-  });
   const [displayName, setDisplayName] = useState("")
 
   useEffect(_ => {
     if (loading) return
     if (!user) return navigate('/signin')
     getDisplayName().then(res => setDisplayName(res.displayName))
-    fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
-      userData.docs[0].data().teamName), doc => setDatabase(doc.data())));
+    fetchTeamName().then(userData => {
+      onSnapshot(doc(db, 'recon',
+        userData.docs[0].data().teamName), doc => setDatabase(doc.data()));
+      setName(userData.docs[0].data().teamName);
+    });
   }, [user, loading]);
 
   const fetchTeamName = async () => {
@@ -50,7 +49,6 @@ function Dashboard() {
   const sendData = async _ => {
     let dataNoTeam = structuredClone(data);
     delete dataNoTeam['team'];
-
     if (!database[data.team] || database[data.team].map(en => en.match).indexOf(data.match) === -1) {
       const docRef = doc(db, 'recon', name);
       toast.promise(updateDoc(docRef, { [data.team]: arrayUnion(dataNoTeam) }), {
@@ -59,60 +57,24 @@ function Dashboard() {
         error: 'Upload Failed!'
       });
     } else {
-      console.log('dsahdashjk')
       toast('A scout for the same team in the same match already exists!', { type: 'error' });
     }
   }
 
-  const changeInputs = (e) => {
-    console.log(getDisplayName())
-    const target = e.currentTarget;
+  const getDisplayName = async () => {
+    const userExistsQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
+    const docSnap = await getDocs(userExistsQuery);
 
-    const name = target.id;
-    let value = null;
-
-    switch (target.type) {
-      case "number":
-        value = parseInt(target.value);
-        break;
-      case "checkbox":
-        value = target.checked;
-        break;
-      default:
-        value = target.value;
-
-    }
-    setInputs(values => ({ ...values, [name]: value }));
+    return docSnap.docs[0].data()
   }
-
-const getDisplayName = async () => {
-  const userExistsQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
-  const docSnap = await getDocs(userExistsQuery);
-
-  return docSnap.docs[0].data()
-}
-
-
-const sendDisplayNameData = async () => {
-    const payload = inputs;
-    const usersDocRef = doc(db, "users", user.uid);
-
-    await updateDoc(usersDocRef, {
-      displayName: payload.displayName
-    })
-
-    setInputs({ displayName: "" })
-    toast("Successfully changed display name!");
-    navigate("/recon")
-    }
 
   return <>
     <div id='your-profile'>
-    {user ? 
-      <>
-        <h1 className='header' id='users-header'>Welcome <o>{displayName}</o>!</h1> 
-      </> 
-      : <>Loading...</>}
+      {user ?
+        <>
+          <h1 className='header' id='dashboard-header'>Welcome <o>{displayName}</o>!</h1>
+        </>
+        : <>Loading...</>}
     </div>
     <div id='dashboard-layout'>
       <div id='file-input-container'>
