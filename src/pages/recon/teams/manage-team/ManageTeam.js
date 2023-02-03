@@ -9,6 +9,11 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
 
+function useForceUpdate(){
+    const [value, setValue] = useState(0); 
+    return () => setValue(value => value + 1); 
+}
+
 function ManageTeam() {
     const auth = getAuth();
     const [user, loading] = useAuthState(auth)
@@ -22,14 +27,14 @@ function ManageTeam() {
     })
 
     const isUserAdmin = async () => {
-        const q = query(collection(db, "teams"), where("admins", "array-contains", user?.uid));
+        const q = query(collection(db, "teams"), where("admins", "array-contains", user.uid));
         const doc1 = await getDocs(q);
         console.log(doc1.empty)
         return doc1.empty
     }
 
     const isUserOwner = async () => {
-        const q = query(collection(db, "teams"), where("owner", "==", user?.uid));
+        const q = query(collection(db, "teams"), where("owner", "==", user.uid));
         const doc1 = await getDocs(q);
         return doc1.empty
     }
@@ -55,12 +60,11 @@ function ManageTeam() {
         if (loading) return;
         if (!user) return navigate("/signin");
         isUserAdmin().then(res => {
-            setCurrentUserRank(res ? "" : "Admin")
+            if(res == false) setCurrentUserRank("Admin")
         })
         isUserOwner().then(res => {
-            setCurrentUserRank(res ? "" : "Owner")
+            if(res == false) setCurrentUserRank("Owner")
         })
-        console.log(currentUserRank)
         fetchTeam().then(res => {
             setTeam(res.data())
             onSnapshot(doc(db, 'recon', res.data().teamName), doc => setScoutingData(doc.data()));
@@ -78,6 +82,8 @@ function ManageTeam() {
     }, [user, loading]);
 
     const changeInputs = (e) => {
+        console.log(currentUserRank)
+
         const target = e.currentTarget;
 
         const name = target.id;
@@ -143,9 +149,16 @@ function ManageTeam() {
                             'User'
                         }
                         scoutData={scoutingData}
-                        user={user}
+                        currentUserRank={currentUserRank}
                     />)}
-                </div>                
+                </div>
+                {(currentUserRank == "Admin" || currentUserRank == "Owner") ? <>
+                <form>
+                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
+                    <button type='button' onClick={sendData}>SUBMIT</button>
+                </form>
+                </> : <></>}
+                
             </>
             
             : <> Loading... </>}
