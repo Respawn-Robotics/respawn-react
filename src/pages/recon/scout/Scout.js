@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './scout.css';
-import paths from '../../../paths';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import reconfig from '../../../recon.config';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
@@ -23,9 +24,9 @@ function ScoutForm() {
 
     const fetchTeamName = async () => {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
-        
+
         const doc = await getDocs(q);
-        
+
         return doc;
     }
 
@@ -39,7 +40,7 @@ function ScoutForm() {
         let defaultInputs = {};
         reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default.toString() : '');
         setInputs(defaultInputs);
-    }, [user]); 
+    }, [user]);
 
     const autofillData = _ => {
         setSend(true);
@@ -84,25 +85,41 @@ function ScoutForm() {
 
     useEffect(_ => console.log(userData), [userData]);
     const sendData = async _ => {
-        const docRef = doc(db, 'recon', userData.teamName);
+        try {
+            const docRef = doc(db, 'recon', userData.teamName);
 
-        let result = Promise.race([
-            updateDoc(docRef, { [team]: arrayUnion({...inputs, author: user.displayName}) }),
-            new Promise((_, rej) => {
-                const timeoutId = setTimeout(_ => {
-                    clearTimeout(timeoutId);
-                    rej("Request timed out; allow Download")
-                }, 2000)
-            })
-        ]);
+            let result = toast.promise(Promise.race([
+                updateDoc(docRef, { [team]: arrayUnion({ ...inputs, author: user.displayName }) }),
+                new Promise((_, rej) => {
+                    const timeoutId = setTimeout(_ => {
+                        clearTimeout(timeoutId);
+                        rej("Request timed out; try downloading the scout and uploading it when you have a connection.")
+                    }, 2000)
+                })
+            ]), {
+                pending: 'Uploading...',
+                success: 'Uploaded!',
+                error: 'Upload Failed!'
+            });
 
-        result.then(_, _ => {
-            const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
-            const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
-            const url = URL.createObjectURL(jsonBlob);
-            downloadLink.current.href = url;
-            downloadLink.current.style.display = 'block';
-        });
+            result.then(_ => {
+                navigate('/recon');
+            }, rej => {
+                toast(rej, { type: 'error' });
+                const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
+                const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
+                const url = URL.createObjectURL(jsonBlob);
+                downloadLink.current.href = url;
+                downloadLink.current.style.display = 'block';
+            });
+        } catch (error) {
+            toast("Request timed out; try downloading the scout and uploading it when you have a connection.", { type: 'error' });
+                const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
+                const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
+                const url = URL.createObjectURL(jsonBlob);
+                downloadLink.current.href = url;
+                downloadLink.current.style.display = 'block';
+        }
         setSend(false);
     }
 

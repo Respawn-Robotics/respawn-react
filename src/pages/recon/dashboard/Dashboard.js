@@ -87,10 +87,6 @@ function Dashboard() {
         <button onClick={sendData}>SUBMIT</button>
       </div>
     </div>
-    <div id='recent-scouts-container'>
-
-    </div>
-
   </>;
 }
 
