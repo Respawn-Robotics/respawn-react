@@ -162,6 +162,16 @@
   border: none;
 }
 
+#sign-out {
+  background-color: #4e1010;
+  color: #d42323;
+}
+
+#sign-out:hover {
+  background-color: #d42323;
+  color: white;
+}
+
 @media screen and (min-aspect-ratio: 1/1) {  
   .dropdown:hover .dropdown-content {
     display: block;

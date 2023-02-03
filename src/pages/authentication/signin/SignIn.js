@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './sign-in.css';
 
 import { useNavigate } from 'react-router-dom'
@@ -55,7 +55,7 @@ const SignIn = () => {
 
   return (
     <>
-      <h1 className='reflect-header'>Sign In</h1>
+      <h1 id='header'>Sign In</h1>
       <div className='container'>
         <button id='sign-in-button' onClick={login}>Login with Google</button>
       </div>
