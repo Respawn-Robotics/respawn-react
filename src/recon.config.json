@@ -153,9 +153,7 @@
                     "color": "#0099FF"
                 }
             ],
-            "default": {
-                "path-point": []
-            },
+            "default": {},
             "additional": true
         },
         {

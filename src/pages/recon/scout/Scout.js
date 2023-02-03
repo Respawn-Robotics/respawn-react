@@ -38,7 +38,7 @@ function ScoutForm() {
 
     useEffect(_ => {
         let defaultInputs = {};
-        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default.toString() : '');
+        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default : '');
         setInputs(defaultInputs);
     }, [user]);
 
@@ -46,7 +46,8 @@ function ScoutForm() {
         setSend(true);
 
         const exitedCommunity = _ => {
-            const points = inputs['auton-path']['path-point'];
+            let points = inputs['auton-path']['path-point'];
+            if (!points) return 0;
             for (let i = 0; i < points.length; i++) {
                 if (
                     (points[i].x < 0.6 && points[i].x > 0.4) ||

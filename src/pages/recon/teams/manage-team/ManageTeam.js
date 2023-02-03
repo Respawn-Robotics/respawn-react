@@ -152,13 +152,6 @@ function ManageTeam() {
                         currentUserRank={currentUserRank}
                     />)}
                 </div>
-                {(currentUserRank == "Admin" || currentUserRank == "Owner") ? <>
-                <form>
-                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
-                    <button type='button' onClick={sendData}>SUBMIT</button>
-                </form>
-                </> : <></>}
-                
             </>
             
             : <> Loading... </>}

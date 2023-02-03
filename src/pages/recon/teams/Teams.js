@@ -93,7 +93,7 @@ function TeamMatches({ database, teamNum }) {
                     </div>
                 </>;
             case 'auton-path':
-                if (canvasRefs.current.length > 0) {
+                if (canvasRefs.current.length > 0 && Object.keys(data) > 0) {
                     const canvas = canvasRefs.current[key];
                     const ctx = canvas?.getContext('2d');
                     ctx?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
@@ -113,8 +113,8 @@ function TeamMatches({ database, teamNum }) {
 
                         prevX = p.x;
                         prevY = p.y;
-                    })
-                };
+                    });
+                }
                 return <>
                     <canvas ref={e => canvasRefs.current[key] = e} className='auton-path-canvas' />
                 </>
