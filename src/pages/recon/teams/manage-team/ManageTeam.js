@@ -109,8 +109,13 @@ function ManageTeam() {
     return <>
         {team ?
             <>
-                <h1 className='no-data-message'>Team Name: {team.teamName}</h1>
-                <h1 className='no-data-message'>Users:</h1>
+                <h1 className='header' id='team-name'>Team Name: <o>{team.teamName}</o></h1>
+                <form id='send-invite-form'>
+                    <h1 className='header'>Send Invite:</h1>
+                    <FormInput id='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.Email}/>
+                    <button id='submit-button' type='button' onClick={sendData}>SUBMIT</button>
+                </form>
+                <h1 className='header' id='users-header'>Users:</h1>
                 <div id='users-container'>
                     <div id='user-headings'>
                         <h1>Name</h1>
@@ -130,10 +135,6 @@ function ManageTeam() {
                         scoutData={scoutingData}
                     />)}
                 </div>
-                <form>
-                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
-                    <button type='button' onClick={sendData}>SUBMIT</button>
-                </form>
             </>
             
             : <> Loading... </>}

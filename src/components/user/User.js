@@ -10,9 +10,9 @@ function Users({userData, rank, admin, scoutData}) {
 
     useEffect(_ => {
         let tempArray = 0;
-        // Object.keys(scoutData).map(teamScouted => scoutData[teamScouted].map(entry => {
-        //     if (entry.author === userData.uid) tempArray++;
-        // }));
+        Object.keys(scoutData)?.map(teamScouted => scoutData[teamScouted].map(entry => {
+            if (entry.author === userData.uid) tempArray++;
+        }));
         setUserScouts(tempArray);
     }, [scoutData]);
 

@@ -7,7 +7,7 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
-import Invite from '../../../../components/Invite/invite';
+import Invite from '../../../../components/Invite/Invite';
 import 'react-toastify/dist/ReactToastify.css';
 
 function CreateJoinTeam() {
@@ -106,15 +106,15 @@ function CreateJoinTeam() {
 
   return (
   <>
-    <div className='container'>
-      <form>
+    <div className='column' id='forms-container'>
+      <form id='create-team-form'>
         <FormInput inputId='teamNumber' type='number' name='Team' onChange={changeInputs} />
         <FormInput inputId='teamName' type='textarea' name='Team Name' onChange={changeInputs} />
-        <button type='button' onClick={sendData}>SUBMIT</button>
+        <button id='submit-button' type='button' onClick={sendData}>SUBMIT</button>
       </form>
-      <form>
+      <div id='invite-container'>
         {user ? <Invite user={user} invite={invite}/> : <></>}
-      </form>
+      </div>
     </div>
   </>
   );

@@ -87,7 +87,7 @@ function ScoutForm() {
         const docRef = doc(db, 'recon', userData.teamName);
 
         let result = Promise.race([
-            updateDoc(docRef, { [team]: arrayUnion({...inputs, author: user.uid}) }),
+            updateDoc(docRef, { [team]: arrayUnion({...inputs, author: user.displayName}) }),
             new Promise((_, rej) => {
                 const timeoutId = setTimeout(_ => {
                     clearTimeout(timeoutId);
@@ -97,7 +97,7 @@ function ScoutForm() {
         ]);
 
         result.then(_, _ => {
-            const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.uid });
+            const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
             const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
             const url = URL.createObjectURL(jsonBlob);
             downloadLink.current.href = url;
@@ -129,7 +129,6 @@ function ScoutForm() {
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
-
     }
 
     useEffect(_ => { if (send) sendData(); }, [inputs]);

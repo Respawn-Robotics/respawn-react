@@ -173,6 +173,7 @@ function TeamMatches({ database, teamNum }) {
                     {reconfig['data'].map((field, i) => (field.name !== 'team' && !field.additional) ? <th key={`heading-${i}`} className='entries-head'>
                         {field.name.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, c => c.toUpperCase())}
                     </th> : '')}
+                    <th className='entries-head'>Author</th>
                     <th>
                         <button className='entries-head' onClick={_ => entryRefs.current.map((_, i) => displayAdditional(i))}>Show All</button>
                     </th>
@@ -184,12 +185,13 @@ function TeamMatches({ database, teamNum }) {
                         {reconfig['data'].map((f, i) => (f.name !== 'team' && !f.additional) ? <td className={`entry-data data-point-${i}`}>
                             {displayData(f.name, dataFormat(f, entry[f.name]))}
                         </td> : '')}
+                        <td className='entry-data data-point-author'>{entry.author}</td>
                         <td className='entry-data'>
                             <button onClick={_ => displayAdditional(k)} className='entry-data'>More</button>
                         </td>
                     </tr>
                     <tr key={`additional-${k}`} className='entry-additional'>
-                        <td colSpan='6' ref={e => entryRefs.current[k] = e}>
+                        <td colSpan='7' ref={e => entryRefs.current[k] = e}>
                             <div className='additional-info'>
                                 {reconfig['data'].map((f, i) => (f.name !== 'exited-community' && f.additional) ? <div className={`additional-data data-point-${i}`}>
                                     {displayData(f.name, dataFormat(f, entry[f.name]), k)}

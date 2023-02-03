@@ -8,11 +8,36 @@
     grid-template-columns: .75fr .75fr .75fr .5fr .3fr;
 }
 
+#users-header {
+    margin-top: 10vh;
+}
+
+o {
+    font-size: inherit;
+    color: var(--respawn-orange);
+}
+
 #user-headings > h1 {
     text-align: center;
     font-size: 1.5rem;
     color: white;
     font-family: "roboto-slab-extrabold";
+}
+
+#team-name {
+    margin-top: 15vh;
+}
+
+#send-invite-form {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+#email {
+    width: max(30%, 20rem);
 }
 
 .no-data-message {
