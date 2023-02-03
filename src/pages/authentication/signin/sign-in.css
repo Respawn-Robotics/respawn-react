@@ -13,3 +13,10 @@
 #sign-in-button:hover {
     background-color: var(--respawn-orange);
 }
+
+#header {
+    text-align: center;
+    color: white;
+    font-size: 3rem;
+    font-family: "roboto-slab-extrabold";
+}

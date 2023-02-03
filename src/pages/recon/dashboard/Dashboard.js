@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './dashboard.css';
 import db from '../../../firebase.config';
 import { onSnapshot, doc, query, collection, where, getDocs, updateDoc, arrayUnion } from 'firebase/firestore';
@@ -12,6 +12,7 @@ import FormInput from '../../../components/form-input/FormInput';
 function Dashboard() {
   const [database, setDatabase] = useState({});
   const [data, setData] = useState([]);
+  const [name, setName] = useState();
   const auth = getAuth();
   const [user, loading] = useAuthState(auth)
   const navigate = useNavigate();
@@ -22,8 +23,12 @@ function Dashboard() {
   useEffect(_ => {
     if (loading) return
     if (!user) return navigate('/signin')
-    fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
-      userData.docs[0].data().teamName), doc => setDatabase(doc.data())));
+    fetchTeamName().then(userData => {
+      onSnapshot(doc(db, 'recon',
+        userData.docs[0].data().teamName), doc => setDatabase(doc.data()))
+
+      setName(userData.docs[0].data().teamName);
+    });
   }, [user, loading]);
 
   const fetchTeamName = async () => {
@@ -51,7 +56,7 @@ function Dashboard() {
     delete dataNoTeam['team'];
 
     if (!database[data.team] || database[data.team].map(en => en.match).indexOf(data.match) === -1) {
-      const docRef = doc(db, 'recon', 'wespawn');
+      const docRef = doc(db, 'recon', name);
       toast.promise(updateDoc(docRef, { [data.team]: arrayUnion(dataNoTeam) }), {
         pending: 'Uploading...',
         success: 'Uploaded!',
@@ -59,7 +64,7 @@ function Dashboard() {
       });
     } else {
       console.log('dsahdashjk')
-      toast('A scout for the same team in the same match already exists!', {type: 'error'});
+      toast('A scout for the same team in the same match already exists!', { type: 'error' });
     }
   }
 
