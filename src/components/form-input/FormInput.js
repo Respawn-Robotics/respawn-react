@@ -33,7 +33,7 @@ function Input({ name, type, onChange, options, lines, imageSrc, className, id, 
             return <ToggleButton name={name} className={`form-input ${className}`} id={id} onChange={onChange} options={options} />;
         case "textarea":
             return <>
-                <textarea name={name} maxLength='200' className={`form-input ${className}`} id={id} onChange={e => {onChange(e); charCount.current.innerHTML = `Characters Left: ${200 - e.target.value.length}`;}} />
+                <textarea value={value} name={name} maxLength='200' className={`form-input ${className}`} id={id} onChange={e => {onChange(e); charCount.current.innerHTML = `Characters Left: ${200 - e.target.value.length}`;}} />
                 <p className='character-count' ref={charCount} />
             </>
         case "array":
@@ -82,7 +82,7 @@ function ArrayInputs({ name, onChange, options }) {
     )
 }
 
-function FormInput({ name, type, onChange, options, lines, imageSrc, dataLabels, className, id, inputClassName, inputId }) {
+function FormInput({ name, type, onChange, options, lines, imageSrc, dataLabels, className, id, inputClassName, inputId, value }) {
     return (
         <div className={`input-container${className === undefined ? '' : ` ${className}`}`} id={id}>
             <label className='form-label'>{name.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, (c) => c.toUpperCase())}</label>
@@ -95,6 +95,7 @@ function FormInput({ name, type, onChange, options, lines, imageSrc, dataLabels,
                 className={inputClassName === undefined ? '' : inputClassName}
                 id={inputId === undefined ? '' : inputId}
                 onChange={onChange}
+                value={value}
             />
         </div>
     )

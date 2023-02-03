@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import './manage-team.css';
 import User from "../../../../components/user/User";
-
-import { query, collection, where, getDocs, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import FormInput from "../../../../components/form-input/FormInput";
+import { query, collection, where, getDocs, doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
 import db from '../../../../firebase.config';
 import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { toast } from 'react-toastify';
 
 function ManageTeam() {
     const auth = getAuth();
@@ -16,6 +17,9 @@ function ManageTeam() {
     const [scoutingData, setScoutingData] = useState({});
     const [team, setTeam] = useState(null)
     const [users, setUsers] = useState([])
+    const [inputs, setInputs] = useState({
+        email: ""
+    })
 
     const isUserAdmin = async () => {
         const q = query(collection(db, "teams"), where("owner", "==", user?.uid));
@@ -64,7 +68,43 @@ function ManageTeam() {
         });
     }, [user, loading]);
 
-    useEffect(_ => console.log(users), [users]);
+    const changeInputs = (e) => {
+        const target = e.currentTarget;
+
+        const name = target.id;
+        let value = null;
+
+        switch (target.type) {
+            case "number":
+                value = parseInt(target.value);
+                break;
+            case "checkbox":
+                value = target.checked;
+                break;
+            default:
+                value = target.value;
+
+        }
+        setInputs(values => ({ ...values, [name]: value }));
+      }
+
+    const sendData = async () => {
+        const payload = inputs;
+        const invitesDocRef = doc(db, "invites", inputs.email);
+
+        const invitesSnap = await getDoc(invitesDocRef);
+
+        payload.team = team.teamName;
+        if(invitesSnap.exists()) {
+            toast("That user has already been invited!");
+        } else {
+            setDoc(invitesDocRef, {
+                ...payload
+            })
+            setInputs({ email: "" })
+            toast("Successfully sent invite!");
+        }
+    }
 
     return <>
         {team ?
@@ -90,7 +130,12 @@ function ManageTeam() {
                         scoutData={scoutingData}
                     />)}
                 </div>
+                <form>
+                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
+                    <button type='button' onClick={sendData}>SUBMIT</button>
+                </form>
             </>
+            
             : <> Loading... </>}
 
     </>
