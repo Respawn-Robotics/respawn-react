@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
-import { doc, getDoc, getFirestore, collection, setDoc, addDoc, updateDoc, query, where, getDocs, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, collection, setDoc, addDoc, updateDoc, query, where, getDocs, deleteDoc, arrayUnion } from 'firebase/firestore';
 import db from "../../firebase.config";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -18,8 +18,9 @@ function Invite({ user, invite }) {
         updateDoc(usersDocRef, {
           team: invite.team
         })
-        updateDoc(teamDocRef, {
-          users: [user.uid]
+
+        updateDoc(teamDocRef, { 
+          users: arrayUnion(user.uid)
         })
 
         await deleteDoc(inviteRef);

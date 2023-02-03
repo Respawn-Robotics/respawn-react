@@ -98,7 +98,7 @@ function CreateJoinTeam() {
         <button type='button' onClick={sendData}>SUBMIT</button>
       </form>
       <form>
-        {user ? <Invite user={user} invite={invite}/> : <></>}
+        {user && invite ? <Invite user={user} invite={invite}/> : <></>}
       </form>
     </div>
   </>

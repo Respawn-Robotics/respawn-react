@@ -109,11 +109,8 @@ const sendDisplayNameData = async () => {
     <div id='your-profile'>
     {user ? 
       <>
-        <h1 className='no-data-message'>Current Display Name: {displayName}</h1> 
-        <form>
-          <FormInput inputId='displayName' type='textarea' name='Change Display Name' onChange={changeInputs} />
-          <button type='button' onClick={sendDisplayNameData}>SUBMIT</button>
-        </form> </> 
+        <h1 className='no-data-message'>Welcome <o>{displayName}</o>!</h1> 
+      </> 
       : <>Loading...</>}
     </div>
     <div id='dashboard-layout'>
