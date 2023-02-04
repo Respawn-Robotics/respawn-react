@@ -98,8 +98,8 @@ function TeamMatches({ database, teamNum, admin, tName }) {
                     const canvas = canvasRefs.current[key];
                     const ctx = canvas?.getContext('2d');
                     ctx?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
-                    let prevX = data[0]?.points[0].x;
-                    let prevY = data[0]?.points[0].y;
+                    let prevX = data[0]?.points[0]?.x;
+                    let prevY = data[0]?.points[0]?.y;
                     data[0]?.points.map(p => {
                         if (ctx) {
                             ctx.fillStyle = 'lime';
