@@ -2,7 +2,7 @@ import React from 'react';
 import './sign-in.css';
 
 import { useNavigate } from 'react-router-dom'
-import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
+import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult, signInWithPopup } from "firebase/auth";
 import { doc, getDocs, collection, updateDoc, Timestamp, query, where, setDoc, arrayUnion } from 'firebase/firestore';
 import db from '../../../firebase.config.js';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -40,7 +40,7 @@ const SignIn = () => {
   }
 
   const login = () => {
-    signInWithRedirect(auth, provider).then(_ => {
+    signInWithPopup(auth, provider).then(_ => {
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;

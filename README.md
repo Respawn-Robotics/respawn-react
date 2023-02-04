@@ -4,11 +4,10 @@
 - [Introduction](#introduction)
 - [Techstack](#techstack)
 - [Respawn Recon](#respawn-recon)
-    - [Major Features](#major-features)
 <hr>
 
 ### Introduction
-Respawn Reactis the offical website developed by students of FRC team Respawn Robotics 325. On this website we host information about our team, sponsors and our scouting platform [Respawn Recon](#respawn-recon).
+Respawn React is the offical website developed by students of FRC team Respawn Robotics 325. On this website we host information about our team, sponsors and our scouting platform [Respawn Recon](#respawn-recon).
 
 ### Techstack
 - JavaScript Framework: [React](https://reactjs.org/)
@@ -18,4 +17,4 @@ Respawn Reactis the offical website developed by students of FRC team Respawn Ro
 ## Respawn Recon
 Respawn Recon is created by Respawn Robotics to make scouting and data compilation easier during competitions. This is the second year of using this system and the first year it is being expanded to the public. 
 - Learn more about it [here](https://github.com/Respawn-Robotics/respawn-react/wiki/respawn-recon)
-- View it live [here](www.respawnrobotics.com/recon)
+- View it live [here](https://www.respawnrobotics.com/recon)

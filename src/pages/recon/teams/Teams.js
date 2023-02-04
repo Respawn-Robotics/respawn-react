@@ -3,14 +3,14 @@ import './teams.css';
 
 import db from '../../../firebase.config';
 import reconfig from '../../../recon.config';
-import { onSnapshot, doc, query, collection, where, getDocs } from 'firebase/firestore';
+import { onSnapshot, doc, query, collection, where, getDocs, updateDoc, arrayRemove } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import backImage from '../scout/media/field-image.png';
 
 
-function TeamMatches({ database, teamNum, admin }) {
+function TeamMatches({ database, teamNum, admin, tName }) {
     const [teamAvg, setTeamAvg] = useState({});
     const entryRefs = useRef([]);
     const canvasRefs = useRef([]);
@@ -93,10 +93,10 @@ function TeamMatches({ database, teamNum, admin }) {
                     </div>
                 </>;
             case 'auton-path':
-                if (canvasRefs.current.length > 0 && Object.keys(data) > 0) {
+                if (canvasRefs.current.length > 0) {
                     const canvas = canvasRefs.current[key];
-                    const ctx = canvas?.getContext('2d');
-                    ctx?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
                     let prevX = data[0].points[0].x;
                     let prevY = data[0].points[0].y;
                     data[0].points.map(p => {
@@ -105,11 +105,11 @@ function TeamMatches({ database, teamNum, admin }) {
                             ctx.strokeStyle = 'lime';
                         }
 
-                        ctx?.beginPath();
-                        ctx?.arc(p.x * 300, p.y * 150, 3, 0, 2 * Math.PI);
-                        ctx?.moveTo(prevX * 300, prevY * 150);
-                        ctx?.lineTo(p.x * 300, p.y * 150);
-                        ctx?.stroke();
+                        ctx.beginPath();
+                        ctx.arc(p.x * 300, p.y * 150, 3, 0, 2 * Math.PI);
+                        ctx.moveTo(prevX * 300, prevY * 150);
+                        ctx.lineTo(p.x * 300, p.y * 150);
+                        ctx.stroke();
 
                         prevX = p.x;
                         prevY = p.y;
@@ -138,6 +138,10 @@ function TeamMatches({ database, teamNum, admin }) {
     const displayAdditional = i => {
         entryRefs.current[i].hidden = !entryRefs.current[i].hidden;
         entryRefs.current[i].style.display = entryRefs.current[i].hidden ? 'table-cell' : 'none';
+    }
+
+    const deleteEntry = match => {
+        updateDoc(doc(db, 'recon', tName), {[teamNum] : arrayRemove(match)});
     }
 
     return <>
@@ -183,7 +187,7 @@ function TeamMatches({ database, teamNum, admin }) {
             <tbody>
                 {data?.map((entry, k) => <>
                     <tr key={`main-${k}`} className='match-entry'>
-                        {admin && <td className='entry-data data-point-author'><button>x</button></td>}
+                        {admin && <td className='entry-data data-point-author' onClick={_ => deleteEntry(entry)}><button>x</button></td>}
                         {reconfig['data'].map((f, i) => (f.name !== 'team' && !f.additional) ? <td className={`entry-data data-point-${i}`}>
                             {displayData(f.name, dataFormat(f, entry[f.name]))}
                         </td> : '')}
@@ -193,7 +197,7 @@ function TeamMatches({ database, teamNum, admin }) {
                         </td>
                     </tr>
                     <tr key={`additional-${k}`} className='entry-additional'>
-                        <td colSpan='7' ref={e => entryRefs.current[k] = e}>
+                        <td colSpan='8' ref={e => entryRefs.current[k] = e}>
                             <div className='additional-info'>
                                 {reconfig['data'].map((f, i) => (f.name !== 'exited-community' && f.additional) ? <div className={`additional-data data-point-${i}`}>
                                     {displayData(f.name, dataFormat(f, entry[f.name]), k)}
@@ -213,6 +217,7 @@ function Teams() {
     const [team, setTeam] = useState(0);
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
+    const [teamName, setTeamName] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
 
@@ -241,13 +246,16 @@ function Teams() {
         if (loading) return
         if (!user) return navigate('/signin')
         isUserAdmin().then(res => {
-            if(res == false) setIsAdmin(true)
+            if (res == false) setIsAdmin(true)
         });
         isUserOwner().then(res => {
-            if(res == false) setIsAdmin(true)
+            if (res == false) setIsAdmin(true)
         });
-        fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
-            userData.docs[0].data().teamName), doc => setData(doc.data())));
+        fetchTeamName().then(userData => {
+            onSnapshot(doc(db, 'recon',
+                userData.docs[0].data().teamName), doc => setData(doc.data()));
+            setTeamName(userData.docs[0].data());
+        });
     }, [user, loading]);
 
     const changeTeam = e => setTeam(parseInt(e.target.value ? e.target.value : 0));
@@ -260,6 +268,7 @@ function Teams() {
             database={data}
             teamNum={team}
             admin={isAdmin}
+            tName={teamName}
         />
     </>
 }

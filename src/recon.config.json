@@ -164,7 +164,7 @@
                 {"label" : "Docked", "value" : 8},
                 {"label" : "Docked + Engaged", "value" : 12}
             ],
-            "default": 0
+            "default": "0"
         },
         {
             "name": "power-grid",
@@ -181,7 +181,7 @@
                 {"label" : "Docked", "value" : 6},
                 {"label" : "Docked + Engaged", "value" : 10}
             ],
-            "default": 0
+            "default": "0"
         },
         {
             "name": "additional-comments",
