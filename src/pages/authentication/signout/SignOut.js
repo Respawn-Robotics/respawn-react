@@ -23,11 +23,11 @@ const SignOut = () => {
 
   return (
     <>
-        <h1 id='header'>Sign Out</h1>
+        <h1 className='header'>Sign Out</h1>
         <h2 id='warning-text'>Are you sure you want to sign out?</h2>
         <div id='sign-out-button-container'>
-          <button id='button-yes' onClick={signOutButton}>YES</button>
-          <button id='button-cancel' onClick={cancel}>CANCEL</button>
+          <button className='button-yes' onClick={signOutButton}>YES</button>
+          <button className='button-cancel' onClick={cancel}>CANCEL</button>
         </div>
     </>
   );

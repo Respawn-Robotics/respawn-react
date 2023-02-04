@@ -7,7 +7,7 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
-import Invite from '../../../../components/Invite/invite';
+import Invite from '../../../../components/invite/Invite';
 import 'react-toastify/dist/ReactToastify.css';
 
 function CreateJoinTeam() {
@@ -28,21 +28,6 @@ function CreateJoinTeam() {
   if(!user) {
     navigate('/signin')
   }
-
-  const getUserIndex = async (uid) => {
-    const docRef = doc(db, "users", "entries");
-    const docSnap = await getDoc(docRef)
-    const userArray = docSnap.data()
-    let index;
-    Object.keys(userArray.users).map(user => {
-        console.log(user)
-        if(user.uid == uid) {
-          index = userArray.users.indexOf(user)
-        }
-    })
-    console.log(index)
-    console.log(userArray)
-}
 
   const sendData = async () => {
     const payload = inputs;
@@ -106,15 +91,16 @@ function CreateJoinTeam() {
 
   return (
   <>
-    <div className='container'>
-      <form>
+    <div className='column' id='forms-container'>
+      <form id='create-team-form'>
+        <h1 className='header'>Create Team:</h1>
         <FormInput inputId='teamNumber' type='number' name='Team' onChange={changeInputs} />
         <FormInput inputId='teamName' type='textarea' name='Team Name' onChange={changeInputs} />
-        <button type='button' onClick={sendData}>SUBMIT</button>
+        <button id='submit-button' type='button' onClick={sendData}>SUBMIT</button>
       </form>
-      <form>
-        {user ? <Invite user={user} invite={invite}/> : <></>}
-      </form>
+      <div id='invite-container'>
+        {user && invite && <Invite user={user} invite={invite}/>}
+      </div>
     </div>
   </>
   );

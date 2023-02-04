@@ -78,3 +78,8 @@ label[for="upload-file"]:hover {
 #upload-file {
     opacity: 0;
 }
+
+#dashboard-header {
+    margin-top: 15vh;
+    font-size: 2rem;
+}

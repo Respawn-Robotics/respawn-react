@@ -5,7 +5,16 @@
 
 #user-headings {
     display: grid;
-    grid-template-columns: .75fr .75fr .75fr .5fr .3fr;
+    grid-template-columns: 3fr 3fr 3fr 2fr 2fr 2fr;
+}
+
+#users-header {
+    margin-top: 10vh;
+}
+
+o {
+    font-size: inherit;
+    color: var(--respawn-orange);
 }
 
 #user-headings > h1 {
@@ -13,6 +22,22 @@
     font-size: 1.5rem;
     color: white;
     font-family: "roboto-slab-extrabold";
+}
+
+#team-name {
+    margin-top: 15vh;
+}
+
+#send-invite-form {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+#email {
+    width: max(30%, 20rem);
 }
 
 .no-data-message {

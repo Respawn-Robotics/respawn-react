@@ -47,6 +47,11 @@ body {
   padding-bottom: 20vh;
 }
 
+i {
+  font-size: 1em;
+  margin: 0 0.25ch 0 0;
+}
+
 @media screen and (max-aspect-ratio: 1/1) {
   * {
     font-size: 2vh;

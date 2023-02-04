@@ -55,6 +55,6 @@
 }
 
 #submit-button:hover {
-    background-color: var(--respawn-dark-blue);
+    background-color: var(--respawn-blue-darker);
     color: var(--respawn-orange);
 }

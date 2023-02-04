@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './scout.css';
-import paths from '../../../paths';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import reconfig from '../../../recon.config';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, onSnapshot } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { query, collection, where, getDocs } from 'firebase/firestore';
@@ -14,6 +15,7 @@ import FormInput from '../../../components/form-input/FormInput';
 function ScoutForm() {
     const [team, setTeam] = useState(0);
     const [userData, setUserData] = useState({});
+    const [database, setDatabase] = useState({});
     const downloadLink = useRef(null);
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
@@ -23,29 +25,34 @@ function ScoutForm() {
 
     const fetchTeamName = async () => {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
-        
+
         const doc = await getDocs(q);
-        
+
         return doc;
     }
 
     useEffect(_ => {
         if (loading) return
         if (!user) return navigate('/signin')
-        fetchTeamName().then(doc => setUserData(doc.docs[0].data()));
+        fetchTeamName().then(document => {
+            setUserData(document.docs[0].data())
+            onSnapshot(doc(db, 'recon',
+                document.docs[0].data().teamName), d => setDatabase(d.data()));
+        });
     }, [user, loading]);
 
     useEffect(_ => {
         let defaultInputs = {};
-        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default.toString() : '');
+        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default : '');
         setInputs(defaultInputs);
-    }, [user]); 
+    }, [user]);
 
     const autofillData = _ => {
         setSend(true);
 
         const exitedCommunity = _ => {
-            const points = inputs['auton-path']['path-point'];
+            let points = inputs['auton-path']['path-point'];
+            if (!points) return 0;
             for (let i = 0; i < points.length; i++) {
                 if (
                     (points[i].x < 0.6 && points[i].x > 0.4) ||
@@ -82,27 +89,46 @@ function ScoutForm() {
         });
     }
 
-    useEffect(_ => console.log(userData), [userData]);
     const sendData = async _ => {
-        const docRef = doc(db, 'recon', userData.teamName);
+        console.log(database)
+        if (!database[team] || database[team].map(en => en.match).indexOf(inputs.match) === -1) {
+            try {
+                const docRef = doc(db, 'recon', userData.teamName);
+                let result = toast.promise(Promise.race([
+                    updateDoc(docRef, { [team]: arrayUnion({ ...inputs, author: user.displayName }) }),
+                    new Promise((_, rej) => {
+                        const timeoutId = setTimeout(_ => {
+                            clearTimeout(timeoutId);
+                            rej("Request timed out; try downloading the scout and uploading it when you have a connection.")
+                        }, 2000)
+                    })
+                ]), {
+                    pending: 'Uploading...',
+                    success: 'Uploaded!',
+                    error: 'Upload Failed!'
+                });
 
-        let result = Promise.race([
-            updateDoc(docRef, { [team]: arrayUnion({...inputs, author: user.uid}) }),
-            new Promise((_, rej) => {
-                const timeoutId = setTimeout(_ => {
-                    clearTimeout(timeoutId);
-                    rej("Request timed out; allow Download")
-                }, 2000)
-            })
-        ]);
-
-        result.then(_, _ => {
-            const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.uid });
-            const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
-            const url = URL.createObjectURL(jsonBlob);
-            downloadLink.current.href = url;
-            downloadLink.current.style.display = 'block';
-        });
+                result.then(_ => {
+                    navigate('/recon');
+                }, rej => {
+                    toast(rej, { type: 'error' });
+                    const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
+                    const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
+                    const url = URL.createObjectURL(jsonBlob);
+                    downloadLink.current.href = url;
+                    downloadLink.current.style.display = 'block';
+                });
+            } catch (error) {
+                toast("Request timed out; try downloading the scout and uploading it when you have a connection.", { type: 'error' });
+                const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
+                const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
+                const url = URL.createObjectURL(jsonBlob);
+                downloadLink.current.href = url;
+                downloadLink.current.style.display = 'block';
+            }
+        } else {
+            toast('A scout for the same team in the same match already exists!', { type: 'error' });
+        }
         setSend(false);
     }
 
@@ -129,7 +155,6 @@ function ScoutForm() {
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
-
     }
 
     useEffect(_ => { if (send) sendData(); }, [inputs]);

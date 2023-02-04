@@ -9,11 +9,16 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
 
+function useForceUpdate(){
+    const [value, setValue] = useState(0); 
+    return () => setValue(value => value + 1); 
+}
+
 function ManageTeam() {
     const auth = getAuth();
     const [user, loading] = useAuthState(auth)
     const navigate = useNavigate()
-    const [isAdmin, setIsAdmin] = useState(null)
+    const [currentUserRank, setCurrentUserRank] = useState("")
     const [scoutingData, setScoutingData] = useState({});
     const [team, setTeam] = useState(null)
     const [users, setUsers] = useState([])
@@ -22,13 +27,15 @@ function ManageTeam() {
     })
 
     const isUserAdmin = async () => {
-        const q = query(collection(db, "teams"), where("owner", "==", user?.uid));
-        const q2 = query(collection(db, "teams"), where("admins", "array-contains", user?.uid));
-
+        const q = query(collection(db, "teams"), where("admins", "array-contains", user.uid));
         const doc1 = await getDocs(q);
-        const doc2 = await getDocs(q2);
+        return doc1.empty
+    }
 
-        return (doc1.empty && doc2.empty) ? false : true
+    const isUserOwner = async () => {
+        const q = query(collection(db, "teams"), where("owner", "==", user.uid));
+        const doc1 = await getDocs(q);
+        return doc1.empty
     }
 
     const fetchTeam = async () => {
@@ -51,7 +58,12 @@ function ManageTeam() {
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/signin");
-        isUserAdmin().then(res => setIsAdmin(res))
+        isUserAdmin().then(res => {
+            if(res == false) setCurrentUserRank("Admin")
+        })
+        isUserOwner().then(res => {
+            if(res == false) setCurrentUserRank("Owner")
+        })
         fetchTeam().then(res => {
             setTeam(res.data())
             onSnapshot(doc(db, 'recon', res.data().teamName), doc => setScoutingData(doc.data()));
@@ -69,6 +81,8 @@ function ManageTeam() {
     }, [user, loading]);
 
     const changeInputs = (e) => {
+        console.log(currentUserRank)
+
         const target = e.currentTarget;
 
         const name = target.id;
@@ -109,8 +123,14 @@ function ManageTeam() {
     return <>
         {team ?
             <>
-                <h1 className='no-data-message'>Team Name: {team.teamName}</h1>
-                <h1 className='no-data-message'>Users:</h1>
+                <h1 className='header' id='team-name'>Team Name: <o>{team.teamName}</o></h1>
+                {(currentUserRank === "Admin" || currentUserRank === "Owner") &&
+                <form id='send-invite-form'>
+                    <h1 className='header'>Send Invite:</h1>
+                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
+                    <button id='submit-button' type='button' onClick={sendData}>SUBMIT</button>
+                </form>}
+                <h1 className='header'>Users:</h1>
                 <div id='users-container'>
                     <div id='user-headings'>
                         <h1>Name</h1>
@@ -121,19 +141,16 @@ function ManageTeam() {
                     {users.map(i => <User
                         userData={i}
                         key={i.uid}
-                        admin={isAdmin}
+                        admin={(currentUserRank === "Admin" || currentUserRank === "Owner")}
                         rank={
                             team.owner === i.uid ? 'Owner' :
                             team.admins.includes(i.uid) ? 'Admin' :
                             'User'
                         }
                         scoutData={scoutingData}
+                        currentUserRank={currentUserRank}
                     />)}
                 </div>
-                <form>
-                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
-                    <button type='button' onClick={sendData}>SUBMIT</button>
-                </form>
             </>
             
             : <> Loading... </>}

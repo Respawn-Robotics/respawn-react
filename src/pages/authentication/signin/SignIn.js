@@ -2,7 +2,7 @@ import React from 'react';
 import './sign-in.css';
 
 import { useNavigate } from 'react-router-dom'
-import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
+import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult, signInWithPopup } from "firebase/auth";
 import { doc, getDocs, collection, updateDoc, Timestamp, query, where, setDoc, arrayUnion } from 'firebase/firestore';
 import db from '../../../firebase.config.js';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -15,12 +15,12 @@ const SignIn = () => {
   
   const addUserData = async () => {
     const docRef = doc(db, "users", user.uid);
-    const userExistsQuery = query(collection(db, "users"), where("uid", "array-contains", user?.uid));
+    const userExistsQuery = query(collection(db, "users"), where("uid", "==", user?.uid));
     const docSnap = await getDocs(userExistsQuery);
 
     if (!docSnap.empty) {
       updateDoc(docRef, {
-        lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime))
+        lastSignInTime: Timestamp.fromDate(new Date(Date.now))
       })
     } else {
       setDoc(docRef, {
@@ -40,7 +40,7 @@ const SignIn = () => {
   }
 
   const login = () => {
-    signInWithRedirect(auth, provider).then(_ => {
+    signInWithPopup(auth, provider).then(_ => {
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -51,7 +51,7 @@ const SignIn = () => {
 
   return (
     <>
-      <h1 id='header'>Sign In</h1>
+      <h1 className='header'>Sign In</h1>
       <div className='container'>
         <button id='sign-in-button' onClick={login}>Login with Google</button>
       </div>

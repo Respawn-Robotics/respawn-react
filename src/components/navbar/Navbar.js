@@ -112,7 +112,7 @@ function Navbar({ type }) {
                         </NavItem> : 
                         <> <NavItem type='dropdown' label={user?.displayName}>
                         <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
-                        <NavItem type='link' className='dropdown-link' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                        <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
                         </NavItem> </>}
 
                     </> : <>
@@ -123,10 +123,10 @@ function Navbar({ type }) {
                             <NavItem type='link' className='hamburger-link' link={paths.recon['scout']}>SCOUT FORM</NavItem>
                             {(!loading && team) ? <NavItem type='menu' className='hamburger-link' label={user.displayName}>
                                 <NavItem type='link' className='menu-link' link={paths.recon['manage-team']}>MANAGE TEAM</NavItem>
-                                <NavItem type='link' className='menu-link' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                                <NavItem type='link' className='menu-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
                             </NavItem> : <> <NavItem type='dropdown' label={user?.displayName}>
                         <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
-                        <NavItem type='link' className='dropdown-link' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                        <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
                         </NavItem> </>}
                         </NavItem>
                     </>}
@@ -142,7 +142,7 @@ function Navbar({ type }) {
 
                     {width / height > 1 ? <>
                         <NavItem type='link' link={paths.main['about']}>ABOUT</NavItem>
-                        {/* <NavItem type='link' link={paths.main['first']}><i>FIRST</i></NavItem> */}
+                        <NavItem type='link' link={paths.main['first']}><i>FIRST</i></NavItem>
                         <NavItem type='link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                         <NavItem type='dropdown' label='PILLARS OF RESPAWN'>
                             <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
@@ -151,7 +151,7 @@ function Navbar({ type }) {
                     </> : <>
                         <NavItem type='hamburger'>
                             <NavItem type='link' className='hamburger-link' link={paths.main['about']}>ABOUT</NavItem>
-                            {/* <NavItem type='link' className='hamburger-link' link={paths.main['first']}><i>FIRST</i></NavItem> */}
+                            <NavItem type='link' className='hamburger-link' link={paths.main['first']}><i>FIRST</i></NavItem>
                             <NavItem type='link' className='hamburger-link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                             <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
                                 <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>

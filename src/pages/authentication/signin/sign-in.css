@@ -14,9 +14,14 @@
     background-color: var(--respawn-orange);
 }
 
-#header {
+.header {
     text-align: center;
     color: white;
     font-size: 3rem;
     font-family: "roboto-slab-extrabold";
+}
+
+.container {
+    display: flex;
+    justify-content: center;
 }

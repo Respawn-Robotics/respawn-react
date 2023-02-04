@@ -1,0 +1,35 @@
+.button-container {
+    width: 50%;
+}
+
+.accept-button {
+    font-size: 1.5rem;
+    color: white;
+    width: 50%;
+    padding: 2ch 1ch;
+    border: 2px solid white;
+    transition: 0.25s;
+    border-radius: 20px 0 0 20px;
+    background-color: #12b931;
+    cursor: pointer;
+}
+
+.accept-button:hover {
+    background-color: #2be34d;
+}
+
+.deny-button {
+    font-size: 1.5rem;
+    color: white;
+    width: 50%;
+    padding: 2ch 1ch;
+    border: 2px solid white;
+    transition: 0.25s;
+    border-radius: 0 20px 20px 0;
+    background-color: #c63724;
+    cursor: pointer;
+}
+
+.deny-button:hover {
+    background-color: #ea4b36;
+}

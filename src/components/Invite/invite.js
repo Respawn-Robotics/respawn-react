@@ -1,6 +1,8 @@
 import React from 'react';
+import './invite.css';
+
 import { useNavigate } from 'react-router-dom'
-import { doc, getDoc, getFirestore, collection, setDoc, addDoc, updateDoc, query, where, getDocs, deleteDoc } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
 import db from "../../firebase.config";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -18,8 +20,9 @@ function Invite({ user, invite }) {
         updateDoc(usersDocRef, {
           team: invite.team
         })
-        updateDoc(teamDocRef, {
-          users: [user.uid]
+
+        updateDoc(teamDocRef, { 
+          users: arrayUnion(user.uid)
         })
 
         await deleteDoc(inviteRef);
@@ -36,10 +39,12 @@ function Invite({ user, invite }) {
 
   return (
     <>  {invite ? <>
-        <h1 className='no-data-message'>Invite</h1>
-        <h1 className='no-data-message'>From team {invite.team}</h1>
-        <button onClick={acceptInvite}>ACCEPT</button>
-        <button onClick={denyInvite}>DENY</button>
+        <h1 className='header'>Invite</h1>
+        <h1 className='header'>From team <o>{invite.team}</o></h1>
+        <div className='button-container'>
+          <button className='accept-button' onClick={acceptInvite}>ACCEPT</button>
+          <button className='deny-button' onClick={denyInvite}>DENY</button>
+        </div>
     </> : <> </>}
 
     </>
