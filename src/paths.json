@@ -20,12 +20,11 @@
         "scout": "/recon/scout",
         "master-table" : "/recon/master-table",
         "create-join-team": "/recon/create-join-team",
-        "profile": "/recon/profile"
-    },
-    "reflect": {
-        "home": "/reflect",
-        "record": "/reflect/record",
-        "legacy": "/reflect/legacy",
-        "daily": "/reflect/daily"
+        "profile": "/recon/profile",
+        "matches" : "/recon/matches",
+        "match-log" : "/recon/matches/:match",
+        "teams" : "/recon/teams",
+        "team-stats" : "/recon/teams/:team",
+        "manage-team" : "/recon/manage-team"
     }
 }

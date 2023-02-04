@@ -1,0 +1,24 @@
+.user-display {
+    display: grid;
+    width: 100%;
+    margin: 1vh 0;
+    color: white;
+    font-family: "roboto-slab";
+    text-align: center;
+    background-color: var(--respawn-blue);
+    grid-template-columns: 3fr 3fr 3fr 2fr 2fr 2fr;
+    grid-template-rows: 5ch;
+}
+
+.manage-user {
+    background-color: var(--respawn-orange);
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.manage-user:hover {
+    background-color: var(--respawn-blue-darker);
+}

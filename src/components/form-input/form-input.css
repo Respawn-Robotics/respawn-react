@@ -55,7 +55,24 @@ textarea.form-input {
     text-align: left;
 }
 
+.array-input {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.array-input > * {
+    margin: 1% 2%;
+}
+
 .form-label {
+    color: white;
+    font-family: "roboto-slab";
+}
+
+.character-count {
     color: white;
     font-family: "roboto-slab";
 }

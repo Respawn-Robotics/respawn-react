@@ -1,37 +1,42 @@
 import React, { useState } from 'react';
+import './sign-in.css';
+
 import { useNavigate } from 'react-router-dom'
 import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
-import { doc, getDoc, collection, setDoc } from 'firebase/firestore';
+import { doc, getDocs, collection, updateDoc, Timestamp, query, where, setDoc, arrayUnion } from 'firebase/firestore';
 import db from '../../../firebase.config.js';
-import { useAuthState } from 'react-firebase-hooks/auth'
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const SignIn = () => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   const [user] = useAuthState(auth)
-  const usersRef = collection(db, "users");
   const navigate = useNavigate();
-
+  
   const addUserData = async () => {
     const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
-    
-    if (docSnap.exists()) {
-      // ?
+    const userExistsQuery = query(collection(db, "users"), where("uid", "array-contains", user?.uid));
+    const docSnap = await getDocs(userExistsQuery);
+
+    if (!docSnap.empty) {
+      updateDoc(docRef, {
+        lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime))
+      })
     } else {
-      setDoc(doc(usersRef, user.uid), {
-        displayName: user.displayName,
+      setDoc(docRef, {
         uid: user.uid,
+        displayName: user.displayName,
         email: user.email,
-        dateCreated: user.metadata.creationTime,
-        lastSignInTime: user.metadata.lastSignInTime,
-        admin: false
-    })
+        dateCreated: Timestamp.fromDate(new Date(user.metadata.creationTime)),
+        lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime)),
+        team: ""
+      })
+    }
   }
-  }
-  if(user) {
-    addUserData()
-    navigate("/recon")
+  if (user) {
+    addUserData();
+    
+    navigate("/recon");
   }
 
   const login = () => {
@@ -46,10 +51,10 @@ const SignIn = () => {
 
   return (
     <>
-        <h1 className='reflect-header'>Sign In</h1>
-        <div className='container'>
-            <button onClick={login}>Login with Google</button>
-        </div>
+      <h1 className='reflect-header'>Sign In</h1>
+      <div className='container'>
+        <button id='sign-in-button' onClick={login}>Login with Google</button>
+      </div>
     </>
   );
 };

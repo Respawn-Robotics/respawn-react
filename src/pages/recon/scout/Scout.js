@@ -1,75 +1,122 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './scout.css';
+import paths from '../../../paths';
 import reconfig from '../../../recon.config';
-import { collection, addDoc } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { query, collection, where, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import db from '../../../firebase.config';
-import canvasImage from './media/canvas-image.png';
+import canvasImage from './media/field-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
+    const [team, setTeam] = useState(0);
+    const [userData, setUserData] = useState({});
+    const downloadLink = useRef(null);
+    const auth = getAuth();
+    const [user, loading] = useAuthState(auth);
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
+    const [send, setSend] = useState(false);
 
-    useEffect(() => {
-        reconfig.data.map(field => setInputs(i => { return { ...i, [field['name']]: field['default'] } }));
-    }, [])
+    const fetchTeamName = async () => {
+        const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
+        
+        const doc = await getDocs(q);
+        
+        return doc;
+    }
 
-    function autofillData() {
-        const climbPoints = _ => {
-            switch(inputs['climb-level']) {
-                case 'Traversal Rung':
-                    return 15;
-                case 'High Rung':
-                    return 10;
-                case 'Mid Rung':
-                    return 6;
-                case 'Low Rung':
-                    return 4;
-                default:
-                    return 0;
+    useEffect(_ => {
+        if (loading) return
+        if (!user) return navigate('/signin')
+        fetchTeamName().then(doc => setUserData(doc.docs[0].data()));
+    }, [user, loading]);
+
+    useEffect(_ => {
+        let defaultInputs = {};
+        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default.toString() : '');
+        setInputs(defaultInputs);
+    }, [user]); 
+
+    const autofillData = _ => {
+        setSend(true);
+
+        const exitedCommunity = _ => {
+            const points = inputs['auton-path']['path-point'];
+            for (let i = 0; i < points.length; i++) {
+                if (
+                    (points[i].x < 0.6 && points[i].x > 0.4) ||
+                    (points[i].x < 0.8 && points[i].x > 0.2 && points[i].y > 0.15 && points[i].y < 0.5) ||
+                    (points[i].x < 0.71 && points[i].x < 0.29 && points[i].y > 0.5)
+                ) return 3;
             }
+            return 0;
+        }
+
+        const powerGrid = _ => {
+            let sum = 0;
+
+            inputs['power-grid'].map(node => {
+                if (node.substr(2) < 9) sum += node.charAt(1) === 'T' ? 6 : 5;
+                else if (node.substr(2) < 18) sum += node.charAt(1) === 'T' ? 4 : 3;
+                else sum += node.charAt(1) === 'T' ? 3 : 2;
+            })
+
+            return sum;
         }
 
         setInputs(i => {
             return {
                 ...i,
-                'points-scored' :
-                    (inputs['exited-tarmac'] ? 2 : 0) +
-                    4 * inputs['auton-upper'] +
-                    2 * inputs['auton-lower'] +
-                    2 * inputs['teleop-shots']['upper'].length +
-                    inputs['teleop-shots']['lower'].length +
-                    climbPoints(),
-                'teleop-accuracy' : 
-                    inputs['teleop-shots']['upper'].length / 
-                    inputs['teleop-shots']['missed'].length,
-                'auton-accuracy' :
-                    inputs['auton-upper'] /
-                    inputs['auton-missed']
+                'exited-community':
+                    exitedCommunity() === 3,
+                'points-scored':
+                    (parseInt(exitedCommunity()) +
+                        parseInt(inputs['auton-charge-station']) +
+                        parseInt(powerGrid()) +
+                        parseInt(inputs['endgame-charge-station'])).toString()
             };
         });
     }
 
-    const sendData = async () => {
+    useEffect(_ => console.log(userData), [userData]);
+    const sendData = async _ => {
+        const docRef = doc(db, 'recon', userData.teamName);
 
-        autofillData();
+        let result = Promise.race([
+            updateDoc(docRef, { [team]: arrayUnion({...inputs, author: user.uid}) }),
+            new Promise((_, rej) => {
+                const timeoutId = setTimeout(_ => {
+                    clearTimeout(timeoutId);
+                    rej("Request timed out; allow Download")
+                }, 2000)
+            })
+        ]);
 
-        const collecRef = collection(db, "recon");
-        const payload = inputs;
-
-        await addDoc(collecRef, payload);
+        result.then(_, _ => {
+            const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.uid });
+            const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
+            const url = URL.createObjectURL(jsonBlob);
+            downloadLink.current.href = url;
+            downloadLink.current.style.display = 'block';
+        });
+        setSend(false);
     }
 
     const changeInputs = (event, data) => {
+        if (event && event.target.name === 'team') {
+            setTeam(parseInt(event.target.value));
+            return;
+        }
         if (!data) {
             const target = event.target;
 
             const name = target.name;
-            let value = null;
-
+            let value;
             switch (target.type) {
-                case "number":
-                    value = parseInt(target.value);
-                    break;
                 case "checkbox":
                     value = target.checked;
                     break;
@@ -82,26 +129,32 @@ function ScoutForm() {
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
+
     }
+
+    useEffect(_ => { if (send) sendData(); }, [inputs]);
 
     return (<>
         <form id='scout-form'>
 
-            {reconfig.data.map(field => {
+            {reconfig.data.map((field, i) => {
                 return (!field.auto ?
                     <FormInput
                         name={field.name}
                         type={field.type}
                         onChange={changeInputs}
+                        lines={field.lines}
                         options={field.options}
                         dataLabels={field['data-labels']}
                         imageSrc={canvasImage}
+                        id={`input-${i}`}
                     /> : <></>
                 );
             })}
 
             <div id='submit-button-container'>
-                <button type='button' id='submit-button' onClick={sendData}>SUBMIT</button>
+                <button type='button' id='submit-button' onClick={autofillData}>SUBMIT</button>
+                <a type='button' style={{ display: 'none', textDecoration: 'none' }} href='#' ref={downloadLink} id='submit-button' download onClick={autofillData}>DOWNLOAD DATA</a>
             </div>
         </form>
     </>
@@ -115,6 +168,6 @@ function Scout() {
             <ScoutForm />
         </div>
     );
-    }
+}
 
 export default Scout;

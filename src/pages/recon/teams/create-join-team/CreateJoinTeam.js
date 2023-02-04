@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import './CreateJoinTeam.css';
+import './create-join-team.css';
 import db from '../../../../firebase.config';
 import FormInput from '../../../../components/form-input/FormInput';
-import { doc, getDoc, getFirestore, collection, setDoc, addDoc } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, collection, setDoc, addDoc, updateDoc, query, where, getDocs } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import Invite from '../../../../components/Invite/invite';
 import 'react-toastify/dist/ReactToastify.css';
 
 function CreateJoinTeam() {
   const auth = getAuth();
-  const [user] = useAuthState(auth)
+  const [user, loading] = useAuthState(auth)
   const navigate = useNavigate()
-  const usersRef = collection(db, "users");
+  const [invite, setInvite] = useState({})
   
   const [inputs, setInputs] = useState({
     'teamNumber': 0,
     'teamName': "",
-    'adminUser': null
+    'regional': null,
+    'owner': null,
+    'admins': [],
+    'users': []
   });
 
   if(!user) {
@@ -26,32 +30,36 @@ function CreateJoinTeam() {
   }
 
   const sendData = async () => {
-    const collecRef = collection(db, "recon-teams");
     const payload = inputs;
-    console.log(payload)
+    const collecRef = collection(db, "teams");
+    const usersDocRef = doc(db, "users", user.uid);
+    const teamDofRef = doc(db, "teams", payload.teamName);
 
-    const docRef = doc(db, "recon-teams", payload.teamName);
-    const docSnap = await getDoc(docRef);
+    const teamDocSnap = await getDoc(teamDofRef);
 
-    if(docSnap.exists()) {
+    if(teamDocSnap.exists()) {
         toast("A team with this name already exists!");
     } else {
-        payload.adminUser = user.uid;
-        console.log(payload)
-        await setDoc(doc(collecRef, payload.teamName), {
+        // This is where I gave up. malding
+        payload.owner = user.uid;
+        payload.users = [user.uid]
+        setDoc(doc(collecRef, payload.teamName), {
             ...payload
         })
-        await setDoc(doc(usersRef, user.uid), {
-        team: payload.teamName
-    }, { merge: true })
-    }
-  }
+        await setDoc(doc(collection(db, 'recon'), payload.teamName), {});
+        updateDoc(usersDocRef, {
+          team: payload.teamName
+        })
+        }
+        navigate('/recon/manage-team')
+        toast("Team " + payload.teamName + " successfully created!");
+      }
+
 
   const changeInputs = (e) => {
     const target = e.currentTarget;
 
     const name = target.id;
-    console.log(name)
     let value = null;
 
     switch (target.type) {
@@ -68,6 +76,19 @@ function CreateJoinTeam() {
     setInputs(values => ({ ...values, [name]: value }));
   }
 
+  const fetchInvite = async () => {
+    const q = query(collection(db, "invites"), where("email", "==", user?.email));
+    const doc1 = await getDocs(q);
+
+    return doc1.docs[0]
+  }
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/signin");
+    fetchInvite().then(res => setInvite(res.data()))
+  }, [user, loading]);
+
   return (
   <>
     <div className='container'>
@@ -75,7 +96,9 @@ function CreateJoinTeam() {
         <FormInput inputId='teamNumber' type='number' name='Team' onChange={changeInputs} />
         <FormInput inputId='teamName' type='textarea' name='Team Name' onChange={changeInputs} />
         <button type='button' onClick={sendData}>SUBMIT</button>
-        <ToastContainer />
+      </form>
+      <form>
+        {user && invite ? <Invite user={user} invite={invite}/> : <></>}
       </form>
     </div>
   </>

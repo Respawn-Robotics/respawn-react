@@ -12,13 +12,26 @@
         },
         {
             "name": "alliance",
-            "type": "select",
+            "type": "togglebutton",
             "options": [
-                "Red",
-                "Blue"
+                {
+                    "mode": "Alliance",
+                    "color": "#000000",
+                    "value": 0,
+                    "title": true
+                },
+                {
+                    "mode": "Red",
+                    "value": 1,
+                    "color": "#B32D00"
+                },
+                {
+                    "mode": "Blue",
+                    "value": 2,
+                    "color": "#0000B3"
+                }
             ],
-            "default": "None",
-            "hidden": true
+            "default": -1
         },
         {
             "name": "points-scored",
@@ -27,94 +40,156 @@
             "auto": true
         },
         {
-            "name": "starting-position",
-            "type": "select",
+            "name": "preset-pieces",
+            "type": "array",
             "options": [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8
+                {
+                    "type": "togglebutton",
+                    "options": [
+                        {
+                            "mode": "Piece",
+                            "color": "#B7B7B7",
+                            "value": 0,
+                            "title": true
+                        },
+                        {
+                            "mode": "Cone",
+                            "value": 1,
+                            "color": "#CCCC00"
+                        },
+                        {
+                            "mode": "Cube",
+                            "value": 2,
+                            "color": "#A216A2"
+                        }
+                    ],
+                    "default": -1
+                },
+                {
+                    "type": "togglebutton",
+                    "options": [
+                        {
+                            "mode": "Piece",
+                            "color": "#B7B7B7",
+                            "value": 0,
+                            "title": true
+                        },
+                        {
+                            "mode": "Cone",
+                            "value": 1,
+                            "color": "#CCCC00"
+                        },
+                        {
+                            "mode": "Cube",
+                            "value": 2,
+                            "color": "#A216A2"
+                        }
+                    ],
+                    "default": -1
+                },
+                {
+                    "type": "togglebutton",
+                    "options": [
+                        {
+                            "mode": "Piece",
+                            "color": "#B7B7B7",
+                            "value": 0,
+                            "title": true
+                        },
+                        {
+                            "mode": "Cone",
+                            "value": 1,
+                            "color": "#CCCC00"
+                        },
+                        {
+                            "mode": "Cube",
+                            "value": 2,
+                            "color": "#A216A2"
+                        }
+                    ],
+                    "default": -1
+                },
+                {
+                    "type": "togglebutton",
+                    "options": [
+                        {
+                            "mode": "Piece",
+                            "color": "#B7B7B7",
+                            "value": 0,
+                            "title": true
+                        },
+                        {
+                            "mode": "Cone",
+                            "value": 1,
+                            "color": "#CCCC00"
+                        },
+                        {
+                            "mode": "Cube",
+                            "value": 2,
+                            "color": "#A216A2"
+                        }
+                    ],
+                    "default": -1
+                }
             ],
-            "default": -1,
-            "hidden": true
+            "default": [-1, -1, -1, -1],
+            "additional": true
         },
         {
-            "name": "exited-tarmac",
+            "name": "exited-community",
             "type": "checkbox",
             "default": false,
-            "hidden": true
+            "auto": true,
+            "additional": true
         },
         {
-            "name": "auton-upper",
-            "type": "number",
-            "default": -1
-        },
-        {
-            "name": "auton-lower",
-            "type": "number",
-            "default": -1
-        },
-        {
-            "name": "auton-missed",
-            "type": "number",
-            "default": -1,
-            "hidden": true
-        },
-        {
-            "name": "auton-accuracy",
-            "type": "number",
-            "default": -1,
-            "auto": true
-        },
-        {
-            "name": "teleop-shots",
+            "name": "auton-path",
             "type": "clickarea",
-            "data-labels": [{
-                    "label": "upper",
-                    "color": "#00ff00"
-                },
+            "image-index": 0,
+            "lines": true,
+            "options": [
                 {
-                    "label": "lower",
-                    "color": "#00ffff"
-                },
-                {
-                    "label": "missed",
-                    "color": "#ffff00"
+                    "label": "path-point",
+                    "color": "#0099FF"
                 }
-            ]
+            ],
+            "default": {
+                "path-point": []
+            },
+            "additional": true
         },
         {
-            "name": "teleop-accuracy",
-            "type": "number",
-            "default": -1,
-            "auto": true
-        },
-        {
-            "name": "climb-level",
+            "name": "auton-charge-station",
             "type": "select",
             "options": [
-                "Did Not Climb",
-                "Low Rung",
-                "Mid Rung",
-                "High Rung",
-                "Traversal Rung"
+                {"label" : "None", "value" : 0},
+                {"label" : "Docked", "value" : 8},
+                {"label" : "Docked + Engaged", "value" : 12}
             ],
-            "default": "None"
+            "default": 0
         },
         {
-            "name": "climb-time",
-            "type": "number",
-            "default": -1
+            "name": "power-grid",
+            "type": "grid",
+            "default": [],
+            "additional": true
+        },
+        {
+            "name": "endgame-charge-station",
+            "type": "select",
+            "options": [
+                {"label" : "None", "value" : 0},
+                {"label" : "Parked", "value" : 2},
+                {"label" : "Docked", "value" : 6},
+                {"label" : "Docked + Engaged", "value" : 10}
+            ],
+            "default": 0
         },
         {
             "name": "additional-comments",
             "type": "textarea",
             "default": "None",
-            "hidden": true
+            "additional": true
         }
     ]
 }
