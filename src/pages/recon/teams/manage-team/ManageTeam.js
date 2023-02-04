@@ -2,17 +2,12 @@ import React, { useState, useEffect } from "react";
 import './manage-team.css';
 import User from "../../../../components/user/User";
 import FormInput from "../../../../components/form-input/FormInput";
-import { query, collection, where, getDocs, doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
+import { updateDoc, arrayUnion, query, collection, where, getDocs, doc, getDoc, onSnapshot, setDoc, arrayRemove, deleteDoc } from 'firebase/firestore';
 import db from '../../../../firebase.config';
 import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
-
-function useForceUpdate(){
-    const [value, setValue] = useState(0); 
-    return () => setValue(value => value + 1); 
-}
 
 function ManageTeam() {
     const auth = getAuth();
@@ -55,6 +50,17 @@ function ManageTeam() {
         return userArray
     }
 
+    const deleteTeam = () => {
+        const teamDocRef = doc(db, "teams", team.teamName);
+        users.forEach(user => {
+            updateDoc(doc(db, "users", user.uid), {
+                team: ""
+            })
+        })
+        deleteDoc(teamDocRef)
+        toast("Successfuly deleted " + team.teamName + "!")
+    }
+
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/signin");
@@ -81,8 +87,6 @@ function ManageTeam() {
     }, [user, loading]);
 
     const changeInputs = (e) => {
-        console.log(currentUserRank)
-
         const target = e.currentTarget;
 
         const name = target.id;
@@ -120,6 +124,44 @@ function ManageTeam() {
         }
     }
 
+    const promoteUser = (uid, userData) => {
+        const teamDocRef = doc(db, "teams", team.teamName);
+        updateDoc(teamDocRef, {
+            admins: arrayUnion(uid)
+        })
+
+        toast("Successfuly promoted " + userData.displayName + "!")
+    }
+
+    const demoteUser = (uid, userData) => {
+        
+        const teamDocRef = doc(db, "teams", team.teamName);
+        updateDoc(teamDocRef, {
+            admins: arrayRemove(uid)
+        })
+
+        toast("Successfuly demoted " + userData.displayName + "!")
+    }
+
+    const kickUser = (uid, userData) => {
+        const teamDocRef = doc(db, "teams", team.teamName);
+        const usersDocRef = doc(db, "users", userData.uid);
+        updateDoc(teamDocRef, {
+            admins: arrayRemove(uid)
+        })
+
+        updateDoc(teamDocRef, {
+            users: arrayRemove(uid)
+        })
+
+        updateDoc(usersDocRef, {
+            team: ""
+        })
+
+        toast("Successfuly kicked " + userData.displayName + "!")
+    }
+
+
     return <>
         {team ?
             <>
@@ -149,7 +191,15 @@ function ManageTeam() {
                         }
                         scoutData={scoutingData}
                         currentUserRank={currentUserRank}
+                        kickUser={kickUser}
+                        promoteUser={promoteUser}
+                        demoteUser={demoteUser}
+                        deleteTeam={deleteTeam}
                     />)}
+                </div>
+                <div className="delete-team-button">
+                    <button id='submit-button' onClick={deleteTeam}>DELETE TEAM</button>
+                    <h2>WARNING: THIS CANNOT BE UNDONE</h2>
                 </div>
             </>
             
