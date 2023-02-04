@@ -1,3 +1,11 @@
+.delete-button {
+    font-family: "roboto-slab-extrabold";
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    color: red;
+}
+
 #search-container {
     display: flex;
     flex-direction: column;
