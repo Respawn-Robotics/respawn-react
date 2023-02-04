@@ -80,7 +80,7 @@ function StudentLeaders() {
                     <div className='team-lead-card'>
                         <img src={anuj} alt="Student Leader" className='leader-image' />
                         <h2 className='card-title'>CAD Team<br />Co-Lead</h2>
-                        <h2 className='card-name'>Anuj Timishina</h2>
+                        <h2 className='card-name'>Anuj Timshina</h2>
                     </div>
                     <div className='team-lead-card'>
                         <img src={nathan} alt="Student Leader" className='leader-image' />

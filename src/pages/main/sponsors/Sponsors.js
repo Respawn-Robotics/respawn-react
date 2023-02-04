@@ -7,7 +7,7 @@ import belcan_logo from './media/belcan_logo.svg';
 import eightyacres_logo from './media/eightyacres_logo.png';
 import polezero_logo from './media/polezero_logo.png';
 import yaskawa_logo from './media/yaskawa_logo.png';
-import pg_logo from './media/pg_logo.png';
+import pg_logo from './media/pg_core_logo.png';
 import bilstein_logo from './media/bilstein_logo.png';
 import baxter_logo from './media/baxter_logo.png';
 import genehaas_logo from './media/genehaas_logo.png';
