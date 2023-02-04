@@ -1,20 +1,21 @@
-# Official FRC Team 325: Respawn Robotics Website Source Code
+# Respawn React v0.1
+[Live Website](www.respawnrobotics.com)
+## Index
+- [Introduction](#introduction)
+- [Techstack](#techstack)
+- [Respawn Recon](#respawn-recon)
+    - [Major Features](#major-features)
+<hr>
 
-Our website uses the [React.js](https://reactjs.org/) framework
+### Introduction
+Respawn Reactis the offical website developed by students of FRC team Respawn Robotics 325. On this website we host information about our team, sponsors and our scouting platform [Respawn Recon](#respawn-recon).
 
-### About this repository
+### Techstack
+- JavaScript Framework: [React](https://reactjs.org/)
+- Hosting: [Firebase Hosting](https://firebase.google.com/docs/hosting)
+- Database: [Firestore](https://firebase.google.com/docs/firestore)
 
-This repository can be copied and used by anyone freely. It's sole purpose is for anyone curious to see the development process or how the final product was made.
-
-### How to modify the source code/create your own React App
-
-Before you start writing code, you need to install [Node.js](https://nodejs.org/). Follow the instructions they provide to install.
-
-#### If you want to edit our React App
-
-1. Clone the repository locally.
-2. In the main directory, run **`npm install`** to install all the modules defined in **package.json**.
-3. Start editing individual page files found in **/src/pages/** or component files found in **/src/components**.
-
-Now that you have your project, you can run **`npm start`** and go to [localhost:3000](http://localhost:3000) to view your webpage.
-Any additional information about React.js can be found in their [documentation](https://reactjs.org/docs/getting-started.html).
+## Respawn Recon
+Respawn Recon is created by Respawn Robotics to make scouting and data compilation easier during competitions. This is the second year of using this system and the first year it is being expanded to the public. 
+- Learn more about it [here](https://github.com/Respawn-Robotics/respawn-react/wiki/respawn-recon)
+- View it live [here](www.respawnrobotics.com/recon)
