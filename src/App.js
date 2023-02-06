@@ -14,7 +14,11 @@ import Home from './pages/main/home/Home';
 import Sponsors from './pages/main/sponsors/Sponsors';
 import About from './pages/main/about/About';
 import First from './pages/main/first/First';
-import Outreach from './pages/main/outreach/Outreach';
+import RespawnReact from './pages/main/pillars/respawn-react/RespawnReact';
+import RespawnRecon from './pages/main/pillars/respawn-recon/RespawnRecon';
+import RespawnReach from './pages/main/pillars/respawn-reach/RespawnReach';
+import RespawnRepository from './pages/main/pillars/respawn-repository/RespawnRepository';
+import RespawnRewind from './pages/main/pillars/respawn-rewind/RespawnRewind';
 
 // Recon
 import Dashboard from './pages/recon/dashboard/Dashboard';
@@ -43,7 +47,11 @@ function App() {
           <Route path={paths.main['sponsors']} element={<Sponsors />} />
           <Route path={paths.main['about']} element={<About />} />
           <Route path={paths.main['first']} element={<First />} />
-          <Route path={paths.main.pillars['reach']} element={<Outreach />} />
+          <Route path={paths.main.pillars['react']} element={<RespawnReact />} />
+          <Route path={paths.main.pillars['recon']} element={<RespawnRecon />} />
+          <Route path={paths.main.pillars['reach']} element={<RespawnReach />} />
+          <Route path={paths.main.pillars['repository']} element={<RespawnRepository />} />
+          <Route path={paths.main.pillars['rewind']} element={<RespawnRewind />} />
           <Route path={paths.main['cad']} element={<CADContainer />} />
         </Route>
         {/* Recon */}

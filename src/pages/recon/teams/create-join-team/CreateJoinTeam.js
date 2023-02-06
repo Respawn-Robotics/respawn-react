@@ -7,7 +7,7 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
-import Invite from '../../../../components/Invite/Invite';
+import Invite from '../../../../components/invite/Invite';
 import 'react-toastify/dist/ReactToastify.css';
 
 function CreateJoinTeam() {
