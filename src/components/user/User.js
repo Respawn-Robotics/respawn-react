@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './user.css';
-import { query, collection, where, getDocs, doc, getDoc, onSnapshot, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import db from '../../firebase.config'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
@@ -9,12 +9,7 @@ function Users({currentUserRank, userData, rank, scoutData}) {
     const [userScouts, setUserScouts] = useState([]);
     const teamDocRef = doc(db, "teams", userData.team);
     const navigate = useNavigate()
-    const [rankState, setRankState] = useState("")
     const usersDocRef = doc(db, "users", userData.uid);
-
-    useEffect(_ => {
-        setRankState(rank)
-    }, [rank])
 
     const promoteUser = uid => {
         updateDoc(teamDocRef, {
