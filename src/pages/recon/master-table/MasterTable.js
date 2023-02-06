@@ -35,6 +35,7 @@ function MasterTable() {
         let avg = {};
 
         Object.keys(data).map(team => {
+            if (data[team].length < 1) return;
             avg[team] = {};
             data[team].map(entry => {
                 reconfig['data'].map(field => {

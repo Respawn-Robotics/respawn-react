@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import './teams.css';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import db from '../../../firebase.config';
 import reconfig from '../../../recon.config';
 import { onSnapshot, doc, query, collection, where, getDocs, updateDoc, arrayRemove } from 'firebase/firestore';
@@ -95,21 +96,21 @@ function TeamMatches({ database, teamNum, admin, tName }) {
             case 'auton-path':
                 if (canvasRefs.current.length > 0) {
                     const canvas = canvasRefs.current[key];
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
-                    let prevX = data[0].points[0].x;
-                    let prevY = data[0].points[0].y;
-                    data[0].points.map(p => {
+                    const ctx = canvas?.getContext('2d');
+                    ctx?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
+                    let prevX = data[0]?.points[0]?.x;
+                    let prevY = data[0]?.points[0]?.y;
+                    data[0]?.points.map(p => {
                         if (ctx) {
                             ctx.fillStyle = 'lime';
                             ctx.strokeStyle = 'lime';
                         }
 
-                        ctx.beginPath();
-                        ctx.arc(p.x * 300, p.y * 150, 3, 0, 2 * Math.PI);
-                        ctx.moveTo(prevX * 300, prevY * 150);
-                        ctx.lineTo(p.x * 300, p.y * 150);
-                        ctx.stroke();
+                        ctx?.beginPath();
+                        ctx?.arc(p.x * 300, p.y * 150, 3, 0, 2 * Math.PI);
+                        ctx?.moveTo(prevX * 300, prevY * 150);
+                        ctx?.lineTo(p.x * 300, p.y * 150);
+                        ctx?.stroke();
 
                         prevX = p.x;
                         prevY = p.y;
@@ -141,11 +142,15 @@ function TeamMatches({ database, teamNum, admin, tName }) {
     }
 
     const deleteEntry = match => {
-        updateDoc(doc(db, 'recon', tName), {[teamNum] : arrayRemove(match)});
+        toast.promise(updateDoc(doc(db, 'recon', tName), {[teamNum] : arrayRemove(match)}), {
+            pending: "Deleting...",
+            success: "Deleted successfully!",
+            pending: "Deleting failed!"
+        });
     }
 
     return <>
-        <img src={backImage} ref={imageRef} hidden />
+        <img src={backImage} ref={imageRef} hidden='hidden' />
         <h1 id='team-number'>{teamNum}</h1>
         {Object.keys(teamAvg).length > 0 && <div id='averages-container'>
             <div className='average-box'>
@@ -187,7 +192,7 @@ function TeamMatches({ database, teamNum, admin, tName }) {
             <tbody>
                 {data?.map((entry, k) => <>
                     <tr key={`main-${k}`} className='match-entry'>
-                        {admin && <td className='entry-data data-point-author' onClick={_ => deleteEntry(entry)}><button>x</button></td>}
+                        {admin && <td className='entry-data data-point-author' onClick={_ => deleteEntry(entry)}><button className='delete-button'>X</button></td>}
                         {reconfig['data'].map((f, i) => (f.name !== 'team' && !f.additional) ? <td className={`entry-data data-point-${i}`}>
                             {displayData(f.name, dataFormat(f, entry[f.name]))}
                         </td> : '')}
@@ -254,7 +259,7 @@ function Teams() {
         fetchTeamName().then(userData => {
             onSnapshot(doc(db, 'recon',
                 userData.docs[0].data().teamName), doc => setData(doc.data()));
-            setTeamName(userData.docs[0].data());
+            setTeamName(userData.docs[0].data().teamName);
         });
     }, [user, loading]);
 

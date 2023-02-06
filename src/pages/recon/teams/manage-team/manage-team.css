@@ -28,6 +28,7 @@ o {
     margin-top: 15vh;
 }
 
+
 #send-invite-form {
     margin-top: 5vh;
     display: flex;
@@ -44,4 +45,16 @@ o {
     text-align: center;
     font-size: 3em;
     color: white;
+}
+
+.delete-team-button {
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.delete-team-button h2 {
+    color: red;
+    font-family: "roboto-slab-extrabold";
 }
