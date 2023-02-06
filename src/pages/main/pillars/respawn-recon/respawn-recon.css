@@ -20,15 +20,27 @@
 
 .feature-image {
     display: flex;
+    align-items: center;
     justify-content: center;
+    margin: 0 20px;
+    height: 100%;
     width: 50%;
 }
 
-.feature-image > img {
+.feature-image > img.vertical-image {
     border: 10px solid var(--respawn-blue);
     border-radius: 20px;
     padding: 15px;
-    height: 100%;
+    object-fit: contain;
+    width: 50%;
+}
+
+.feature-image > img.horizontal-image {
+    border: 10px solid var(--respawn-blue);
+    border-radius: 20px;
+    padding: 15px;
+    object-fit: contain;
+    max-width: 100%;
 }
 
 .feature-text {

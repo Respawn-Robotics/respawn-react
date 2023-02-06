@@ -1,0 +1,25 @@
+[debug] [2023-02-06T21:51:55.686Z] ----------------------------------------------------------------------
+[debug] [2023-02-06T21:51:55.688Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\explo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2023-02-06T21:51:55.688Z] CLI Version:   11.22.0
+[debug] [2023-02-06T21:51:55.688Z] Platform:      win32
+[debug] [2023-02-06T21:51:55.688Z] Node Version:  v18.13.0
+[debug] [2023-02-06T21:51:55.689Z] Time:          Mon Feb 06 2023 16:51:55 GMT-0500 (Eastern Standard Time)
+[debug] [2023-02-06T21:51:55.690Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-06T21:51:55.756Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-06T21:51:55.757Z] > authorizing via signed-in user (respawnrobotics@gmail.com)
+[debug] [2023-02-06T21:51:55.757Z] [iam] checking project respawnreact-4bf3a for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-02-06T21:51:55.759Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/respawnreact-4bf3a:testIamPermissions [none]
+[debug] [2023-02-06T21:51:55.759Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/respawnreact-4bf3a:testIamPermissions x-goog-quota-user=projects/respawnreact-4bf3a
+[debug] [2023-02-06T21:51:55.760Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/respawnreact-4bf3a:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-06T21:51:55.952Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/respawnreact-4bf3a:testIamPermissions 200
+[debug] [2023-02-06T21:51:55.952Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/respawnreact-4bf3a:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-06T21:51:55.954Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/respawnreact-4bf3a [none]
+[debug] [2023-02-06T21:51:56.113Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/respawnreact-4bf3a 200
+[debug] [2023-02-06T21:51:56.114Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/respawnreact-4bf3a {"projectId":"respawnreact-4bf3a","projectNumber":"1018368592805","displayName":"respawnreact","name":"projects/respawnreact-4bf3a","resources":{"hostingSite":"respawnreact-4bf3a"},"state":"ACTIVE","etag":"1_22bb159d-46b8-4d50-8375-56113537e0cb"}
+[info] 
+[info] === Deploying to 'respawnreact-4bf3a'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2023-02-06T21:51:56.126Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/respawnreact-4bf3a/versions [none]
+[debug] [2023-02-06T21:51:56.126Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/respawnreact-4bf3a/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
