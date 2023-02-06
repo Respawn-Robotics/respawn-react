@@ -27,7 +27,8 @@ import Matches from './pages/recon/matches/Matches';
 import ManageTeam from './pages/recon/teams/manage-team/ManageTeam';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { Canvas } from '@react-three/fiber';
+import CADContainer from './pages/cad/CADContainer';
 function App() {
   return <>
     <ToastContainer />
@@ -43,6 +44,7 @@ function App() {
           <Route path={paths.main['about']} element={<About />} />
           <Route path={paths.main['first']} element={<First />} />
           <Route path={paths.main.pillars['reach']} element={<Outreach />} />
+          <Route path={paths.main['cad']} element={<CADContainer />} />
         </Route>
         {/* Recon */}
         <Route path={paths.recon['dashboard']} element={<Navbar type='recon' />}>

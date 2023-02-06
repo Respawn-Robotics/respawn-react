@@ -13,7 +13,8 @@
             "repository": "/pillars/repository",
             "reach": "/pillars/reach",
             "reflect": "/pillars/reflect"
-        }
+        },
+        "cad": "/cad"
     },
     "recon": {
         "dashboard": "/recon",
