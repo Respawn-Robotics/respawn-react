@@ -40,7 +40,8 @@ function Invite({ user, invite }) {
   return (
     <>  {invite ? <>
         <h1 className='header'>Invite</h1>
-        <h1 className='header'>From team <o>{invite.team}</o></h1>
+        <h1 className='header'>From team:</h1>
+        <h1 className='header'><o>{invite.team}</o></h1>
         <div className='button-container'>
           <button className='accept-button' onClick={acceptInvite}>ACCEPT</button>
           <button className='deny-button' onClick={denyInvite}>DENY</button>

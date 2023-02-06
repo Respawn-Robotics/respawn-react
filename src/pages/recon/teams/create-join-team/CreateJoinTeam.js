@@ -14,7 +14,7 @@ function CreateJoinTeam() {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth)
   const navigate = useNavigate()
-  const [invite, setInvite] = useState({})
+  const [invite, setInvite] = useState(null)
   
   const [inputs, setInputs] = useState({
     'teamNumber': 0,
@@ -98,9 +98,14 @@ function CreateJoinTeam() {
         <FormInput inputId='teamName' type='textarea' name='Team Name' onChange={changeInputs} />
         <button id='submit-button' type='button' onClick={sendData}>SUBMIT</button>
       </form>
+      {invite ? 
       <div id='invite-container'>
-        {user && invite && <Invite user={user} invite={invite}/>}
+        {user && <Invite user={user} invite={invite}/>}
+      </div> :
+      <div>
+        <h1 className='header'>No invites.</h1>
       </div>
+      }
     </div>
   </>
   );
