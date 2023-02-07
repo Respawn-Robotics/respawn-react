@@ -4,8 +4,7 @@ import './respawn-rewind.css';
 function RespawnRewind() {
     return <>
     <p id='bruh'>
-        We use 3d xperience !!!
-        WE BETTA !!!!!!
+        ITS REWIND TIME
     </p>
     </>
 }

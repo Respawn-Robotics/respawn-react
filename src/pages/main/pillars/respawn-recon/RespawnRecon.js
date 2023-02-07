@@ -3,6 +3,8 @@ import './respawn-recon.css';
 
 import ReconUI from './media/recon-ui.png';
 import TeamsUI from './media/teams-ui.png';
+import OfflineJSON from './media/offline-json.png';
+import ManageUI from './media/manage-team-ui.png';
 
 function RespawnRecon() {
     return <>
@@ -28,6 +30,9 @@ function RespawnRecon() {
                     <li>Download JSON file containing scout data and upload to database once internet is available</li>
                 </ul>
             </div>
+            <div className="feature-image">
+                <img className="vertical-image" src={OfflineJSON} />
+            </div>
         </div>
         <div className="recon-feature-container">
             <div className="feature-image">
@@ -42,13 +47,16 @@ function RespawnRecon() {
             </div>
         </div>
         <div className="recon-feature-container">
-        <div className="feature-text">
+            <div className="feature-text">
                 <p>Account management system for creating and deleting scouts</p>
                 <ul>
                     <li>Create an account and scouting team</li>
                     <li>Invite users to team and promote / demote them to admins</li>
                     <li>Review scouts and delete bad data</li>
                 </ul>
+            </div>
+            <div className="feature-image">
+                <img className="horizontal-image" src={ManageUI} />
             </div>
         </div>
     </>

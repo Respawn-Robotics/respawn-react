@@ -158,7 +158,7 @@ function Navbar({ type }) {
                             <NavItem type='link' className='hamburger-link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                             <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
                                 <NavItem type='link' className='menu-link' link={paths.main.pillars['react']}>REACT</NavItem>
-                                <NavItem type='link' className='menu-link' link={paths.main['pillars']}>RECON</NavItem>
+                                <NavItem type='link' className='menu-link' link={paths.main.pillars['recon']}>RECON</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.main.pillars['reach']}>REACH</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.main.pillars['repository']}>REPOSITORY</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.main.pillars['rewind']}>REWIND</NavItem>
