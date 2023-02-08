@@ -1,0 +1,15 @@
+#rewind-intro {
+    font-family: "roboto-slab-extrabold";
+    color: white;
+    margin-top: 10vh;
+    text-align: center;
+}
+
+#rewind-intro > h1 {
+    font-size: 4rem;
+}
+
+#rewind-intro > h3 {
+    font-family: "roboto-slab";
+    font-size: 2rem;
+}

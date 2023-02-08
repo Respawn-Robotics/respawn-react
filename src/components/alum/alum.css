@@ -1,8 +1,21 @@
 .alum-container {
     display: flex;
+    width: 100%;
+}
+
+.alum-picture {
+    width: 30%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.alum-picture > img {
+    width: 100%;
 }
 
 .alum-text-content {
+    width: 70%;
     color: white;
+    text-align: center;
     font-family: "roboto-slab";
 }
