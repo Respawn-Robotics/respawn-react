@@ -26,7 +26,7 @@ function Users({currentUserRank, userData, rank, scoutData, kickUser, promoteUse
                 {(rank != "Owner") && <> 
                 {(rank == "Admin") && <button className='manage-user' onClick={_ => demoteUser(userData.uid, userData)}>Demote User</button>}
                 {(rank != "Admin") && <button className='manage-user' onClick={_ => promoteUser(userData.uid, userData)}>Promote User</button>} 
-                <button className='manage-user' onClick={_ => kickUser(userData.uid)}>Kick User</button>
+                <button className='manage-user' onClick={_ => kickUser(userData.uid, userData)}>Kick User</button>
                 </>}
             </>}            
         </div>
