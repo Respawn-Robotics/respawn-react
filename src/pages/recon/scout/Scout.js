@@ -89,6 +89,14 @@ function ScoutForm() {
         });
     }
 
+    const showDownload = _ => {
+        const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
+        const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
+        const url = URL.createObjectURL(jsonBlob);
+        downloadLink.current.href = url;
+        downloadLink.current.style.display = 'block';
+    }
+
     const sendData = async _ => {
         console.log(database)
         if (!database[team] || database[team].map(en => en.match).indexOf(inputs.match) === -1) {
@@ -112,22 +120,15 @@ function ScoutForm() {
                     navigate('/recon');
                 }, rej => {
                     toast(rej, { type: 'error' });
-                    const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
-                    const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
-                    const url = URL.createObjectURL(jsonBlob);
-                    downloadLink.current.href = url;
-                    downloadLink.current.style.display = 'block';
+                    showDownload();
                 });
             } catch (error) {
                 toast("Request timed out; try downloading the scout and uploading it when you have a connection.", { type: 'error' });
-                const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
-                const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
-                const url = URL.createObjectURL(jsonBlob);
-                downloadLink.current.href = url;
-                downloadLink.current.style.display = 'block';
+                showDownload();
             }
         } else {
-            toast('A scout for the same team in the same match already exists!', { type: 'error' });
+            toast('A scout for the same team in the same match already exists! If you believe this is an error, download the data and contact a team admin.', { type: 'error' });
+            showDownload();
         }
         setSend(false);
     }

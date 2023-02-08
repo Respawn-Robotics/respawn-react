@@ -65,12 +65,13 @@ function ManageTeam() {
         if (loading) return;
         if (!user) return navigate("/signin");
         isUserAdmin().then(res => {
-            if(res == false) setCurrentUserRank("Admin")
+            if(res === false) setCurrentUserRank("Admin")
         })
         isUserOwner().then(res => {
-            if(res == false) setCurrentUserRank("Owner")
+            if(res === false) setCurrentUserRank("Owner")
         })
         fetchTeam().then(res => {
+            if (!res) navigate("/recon/create-join-team")
             setTeam(res.data())
             onSnapshot(doc(db, 'recon', res.data().teamName), doc => setScoutingData(doc.data()));
             fetchTeamUsers(res.data()).then(u => setUsers(u.sort((a, b) => {
@@ -143,9 +144,9 @@ function ManageTeam() {
         toast("Successfuly demoted " + userData.displayName + "!")
     }
 
-    const kickUser = (uid, userData) => {
+    const kickUser = (uid) => {
         const teamDocRef = doc(db, "teams", team.teamName);
-        const usersDocRef = doc(db, "users", userData.uid);
+        const usersDocRef = doc(db, "users", uid);
         updateDoc(teamDocRef, {
             admins: arrayRemove(uid)
         })
@@ -153,12 +154,11 @@ function ManageTeam() {
         updateDoc(teamDocRef, {
             users: arrayRemove(uid)
         })
-
+        
         updateDoc(usersDocRef, {
             team: ""
         })
-
-        toast("Successfuly kicked " + userData.displayName + "!")
+        toast("Successfully kicked user!");
     }
 
 
@@ -197,10 +197,10 @@ function ManageTeam() {
                         deleteTeam={deleteTeam}
                     />)}
                 </div>
-                <div className="delete-team-button">
+                {(currentUserRank === "Owner") && <div className="delete-team-button">
                     <button id='submit-button' onClick={deleteTeam}>DELETE TEAM</button>
                     <h2>WARNING: THIS CANNOT BE UNDONE</h2>
-                </div>
+                </div>}
             </>
             
             : <> Loading... </>}

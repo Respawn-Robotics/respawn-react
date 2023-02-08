@@ -1,6 +1,6 @@
 import React from 'react';
-import './outreach.css';
-import ImageSlider from '../../../components/image-slider/ImageSlider';
+import './respawn-reach.css';
+import ImageSlider from '../../../../components/image-slider/ImageSlider';
 import reach11 from "./media/reach 11.jpg";
 import reach5 from "./media/reach 5.jpg";
 import reach6 from "./media/reach 6.jpg";
@@ -8,7 +8,7 @@ import reach7 from "./media/reach7.jpg";
 import reach8 from "./media/reach8.jpg";
 import reach10 from "./media/reach10.jpg";
 
-function Outreach() {
+function RespawnReach() {
     return (
         <>
             <div className='slider-container'>
@@ -63,4 +63,4 @@ function Outreach() {
     );
 }
 
-export default Outreach;
+export default RespawnReach;

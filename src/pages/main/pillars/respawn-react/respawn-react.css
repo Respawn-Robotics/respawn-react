@@ -1,0 +1,82 @@
+#react-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+    color: white;
+    font-family: "roboto-slab";
+}
+
+#react-intro > h1 {
+    font-size: 2.5rem;
+}
+
+#react-intro > p {
+    width: min(100%, 65rem);
+    padding: 0 1ch;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#react-intro a {
+    text-decoration: none;
+    font-size: inherit;
+    color: var(--respawn-blue-lighter);
+}
+
+.react-container {
+    display: flex;
+    width: 100%;
+}
+
+.react-container > .image-content {
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    padding: 50px;
+}
+
+.react-container > .image-content > img {
+    object-fit: contain;
+    height: 100%;
+}
+
+.react-container > .text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5em;
+    width: 70%;
+    font-family: "roboto-slab";
+    color: white;
+    text-align: center;
+}
+
+.react-container > .text-content > h2 {
+    font-family: "roboto-slab-extrabold";
+    font-size: 2rem;
+}
+
+.react-container > .text-content > hr {
+    width: 80%;
+    border: 2px solid var(--respawn-orange);
+}
+
+.react-container > .text-content > p {
+    font-size: 1.25rem;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .react-container {
+        flex-direction: column;
+    }
+
+    .react-container > .text-content {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .react-container > .image-content {
+        width: 100%;
+    }
+}

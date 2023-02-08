@@ -65,7 +65,7 @@ function Navbar({ type }) {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
 
         const doc = await getDocs(q);
-        
+
         return doc.docs[0] != undefined;
     }
 
@@ -89,9 +89,9 @@ function Navbar({ type }) {
     }, []);
 
     useEffect(() => {
-        if(loading) return;
+        if (loading) return;
         userInTeam().then(res => setTeam(res))
-      }, [user, loading]);
+    }, [user, loading]);
 
     switch (type) {
         case 'recon':
@@ -109,11 +109,11 @@ function Navbar({ type }) {
                         {(!loading && team) ? <NavItem type='dropdown' label={user.displayName}>
                             <NavItem type='link' className='dropdown-link' link={paths.recon['manage-team']}>MANAGE TEAM</NavItem>
                             <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
-                        </NavItem> : 
-                        <> <NavItem type='dropdown' label={user?.displayName}>
-                        <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
-                        <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
-                        </NavItem> </>}
+                        </NavItem> :
+                            <> <NavItem type='dropdown' label={user?.displayName}>
+                                <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
+                                <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                            </NavItem> </>}
 
                     </> : <>
                         <NavItem type='hamburger'>
@@ -125,9 +125,9 @@ function Navbar({ type }) {
                                 <NavItem type='link' className='menu-link' link={paths.recon['manage-team']}>MANAGE TEAM</NavItem>
                                 <NavItem type='link' className='menu-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
                             </NavItem> : <> <NavItem type='dropdown' label={user?.displayName}>
-                        <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
-                        <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
-                        </NavItem> </>}
+                                <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
+                                <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
+                            </NavItem> </>}
                         </NavItem>
                     </>}
                 </nav>
@@ -145,8 +145,11 @@ function Navbar({ type }) {
                         <NavItem type='link' link={paths.main['first']}><i>FIRST</i></NavItem>
                         <NavItem type='link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                         <NavItem type='dropdown' label='PILLARS OF RESPAWN'>
-                            <NavItem type='link' className='dropdown-link' link={paths.recon['dashboard']}>RECON</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.main.pillars['react']}>REACT</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.main.pillars['recon']}>RECON</NavItem>
                             <NavItem type='link' className='dropdown-link' link={paths.main.pillars['reach']}>REACH</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.main.pillars['repository']}>REPOSITORY</NavItem>
+                            <NavItem type='link' className='dropdown-link' link={paths.main.pillars['rewind']}>REWIND</NavItem>
                         </NavItem>
                     </> : <>
                         <NavItem type='hamburger'>
@@ -154,8 +157,11 @@ function Navbar({ type }) {
                             <NavItem type='link' className='hamburger-link' link={paths.main['first']}><i>FIRST</i></NavItem>
                             <NavItem type='link' className='hamburger-link' link={paths.main['sponsors']}>SPONSORS</NavItem>
                             <NavItem type='menu' className='hamburger-link' label='PILLARS OF RESPAWN'>
-                                <NavItem type='link' className='menu-link' link={paths.recon['dashboard']}>RECON</NavItem>
+                                <NavItem type='link' className='menu-link' link={paths.main.pillars['react']}>REACT</NavItem>
+                                <NavItem type='link' className='menu-link' link={paths.main.pillars['recon']}>RECON</NavItem>
                                 <NavItem type='link' className='menu-link' link={paths.main.pillars['reach']}>REACH</NavItem>
+                                <NavItem type='link' className='menu-link' link={paths.main.pillars['repository']}>REPOSITORY</NavItem>
+                                <NavItem type='link' className='menu-link' link={paths.main.pillars['rewind']}>REWIND</NavItem>
                             </NavItem>
                         </NavItem>
                     </>}
