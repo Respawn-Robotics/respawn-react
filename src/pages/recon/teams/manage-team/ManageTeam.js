@@ -65,12 +65,13 @@ function ManageTeam() {
         if (loading) return;
         if (!user) return navigate("/signin");
         isUserAdmin().then(res => {
-            if(res == false) setCurrentUserRank("Admin")
+            if(res === false) setCurrentUserRank("Admin")
         })
         isUserOwner().then(res => {
-            if(res == false) setCurrentUserRank("Owner")
+            if(res === false) setCurrentUserRank("Owner")
         })
         fetchTeam().then(res => {
+            if (!res) navigate("/recon/create-join-team")
             setTeam(res.data())
             onSnapshot(doc(db, 'recon', res.data().teamName), doc => setScoutingData(doc.data()));
             fetchTeamUsers(res.data()).then(u => setUsers(u.sort((a, b) => {
@@ -153,10 +154,11 @@ function ManageTeam() {
         updateDoc(teamDocRef, {
             users: arrayRemove(uid)
         })
-
+        
         updateDoc(usersDocRef, {
             team: ""
         })
+        toast("Successfully kicked user!");
     }
 
 
