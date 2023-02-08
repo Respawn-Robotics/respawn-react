@@ -1,4 +1,54 @@
-#bruh {
+#repository-intro {
+    margin-top: 5vh;
+    text-align: center;
     color: white;
+    font-family: "roboto-slab";
+}
+
+#repository-intro > h1 {
     font-size: 3rem;
+}
+
+.repository-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.repository-container > .image-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 50px;
+}
+
+.repository-container > .image-content > img {
+    object-fit: contain;
+    max-height: 5em;
+    max-width: 100%;
+}
+
+.repository-container > .text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 15px;
+    font-family: "roboto-slab";
+    color: white;
+    text-align: center;
+}
+
+.repository-container > .text-content > h2 {
+    font-family: "roboto-slab-extrabold";
+    font-size: 2rem;
+}
+
+.repository-container > .text-content > hr {
+    width: 80%;
+    border: 2px solid var(--respawn-orange);
+}
+
+.repository-container > .text-content > p {
+    font-size: 1.25rem;
 }

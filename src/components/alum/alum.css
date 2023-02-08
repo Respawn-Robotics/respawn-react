@@ -1,8 +1,64 @@
 .alum-container {
     display: flex;
+    height: 15rem;
+    padding: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.alum-picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+}
+
+.alum-picture > img {
+    height: 100%;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 .alum-text-content {
     color: white;
+    font-size: 2rem;
+    padding: 0 2ch;
     font-family: "roboto-slab";
+}
+
+.alum-text-content > h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.alum-text-content > h2 {
+    font-size: 1.2rem;
+}
+
+.alum-text-content > p {
+    font-size: 0.8rem;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .alum-container {
+        height: fit-content;
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .alum-text-content {
+        margin-top: 2vh;
+        width: 100%;
+        text-align: center;
+    }
+
+    .alum-text-content > h2 {
+        margin-top: 0;
+    }
+
+    .alum-picture {
+        width: 100%;
+        height: 20vh;
+        justify-content: center;
+    }
 }
