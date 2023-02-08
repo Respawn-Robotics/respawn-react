@@ -143,9 +143,9 @@ function ManageTeam() {
         toast("Successfuly demoted " + userData.displayName + "!")
     }
 
-    const kickUser = (uid, userData) => {
+    const kickUser = (uid) => {
         const teamDocRef = doc(db, "teams", team.teamName);
-        const usersDocRef = doc(db, "users", userData.uid);
+        const usersDocRef = doc(db, "users", uid);
         updateDoc(teamDocRef, {
             admins: arrayRemove(uid)
         })
@@ -157,8 +157,6 @@ function ManageTeam() {
         updateDoc(usersDocRef, {
             team: ""
         })
-
-        toast("Successfuly kicked " + userData.displayName + "!")
     }
 
 
@@ -197,10 +195,10 @@ function ManageTeam() {
                         deleteTeam={deleteTeam}
                     />)}
                 </div>
-                <div className="delete-team-button">
+                {(currentUserRank === "Owner") && <div className="delete-team-button">
                     <button id='submit-button' onClick={deleteTeam}>DELETE TEAM</button>
                     <h2>WARNING: THIS CANNOT BE UNDONE</h2>
-                </div>
+                </div>}
             </>
             
             : <> Loading... </>}
