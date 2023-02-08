@@ -9,6 +9,7 @@ import ManageUI from './media/manage-team-ui.png';
 function RespawnRecon() {
     return <>
         <h1 id='recon-intro'>Our World Class Scouting App: <a href='/recon'>Respawn Recon</a></h1>
+        <h2 id='recon-intro'>View it <a href='/recon'>here</a>.</h2>
         <div className="recon-feature-container">
             <div className="feature-image">
                 <img className="vertical-image" src={ReconUI} />

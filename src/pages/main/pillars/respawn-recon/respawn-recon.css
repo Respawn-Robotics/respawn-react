@@ -1,9 +1,17 @@
-#recon-intro {
-    margin: 10vh 0 20vh;
+#recon-intro {  
     color: white;
     text-align: center;
     font-family: "roboto-slab-bold";
     font-size: 2.5rem;
+}
+
+h1#recon-intro {
+    margin: 10vh 0 0;
+}
+
+h2#recon-intro {
+    margin: 5vh 0 20vh;
+    font-size: 2rem;
 }
 
 #recon-intro a {
@@ -65,8 +73,12 @@
 }
 
 @media (max-aspect-ratio: 1/1) {
-    #recon-intro {
-        margin: 10vh 0 5vh;
+    h1#recon-intro {
+        margin: 10vh 0 0;
+    }
+
+    h2#recon-intro {
+        margin: 5vh 0 5vh;
     }
 
     .recon-feature-container {
