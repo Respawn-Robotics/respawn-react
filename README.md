@@ -7,7 +7,6 @@
 <hr>
 
 ### Introduction
-![Respawn Robotics Image](./src/media/respawn_logo.png)
 Respawn React is the offical website developed by students of FRC team Respawn Robotics 325. On this website we host information about our team, sponsors and our scouting platform [Respawn Recon](#respawn-recon).
 
 ### Techstack
