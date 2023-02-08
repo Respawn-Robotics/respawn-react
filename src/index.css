@@ -1,8 +1,10 @@
 :root {
   --respawn-dark-blue: #1e2837;
   --respawn-blue: #2f6074;
+  --respawn-blue-lighter: #43a1c7;
   --respawn-blue-darker: #2b4651;
   --respawn-orange: #e96824;
+
 
   --toastify-color-light: #32a5d2 !important;
   --toastify-text-color-light: white !important;

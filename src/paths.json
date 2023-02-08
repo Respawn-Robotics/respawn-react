@@ -9,10 +9,11 @@
         "first": "/first",
         "sponsors": "/sponsors",
         "pillars": {
+            "react": "/pillars/react",
             "recon": "/pillars/recon",
             "repository": "/pillars/repository",
             "reach": "/pillars/reach",
-            "reflect": "/pillars/reflect"
+            "rewind": "/pillars/rewind"
         },
         "cad": "/cad"
     },

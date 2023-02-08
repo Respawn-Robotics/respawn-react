@@ -1,0 +1,8 @@
+.alum-container {
+    display: flex;
+}
+
+.alum-text-content {
+    color: white;
+    font-family: "roboto-slab";
+}
