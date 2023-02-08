@@ -55,6 +55,10 @@
     font-family: "roboto-slab";
 }
 
+.feature-text > p {
+    font-size: 2rem;
+}
+
 .feature-text * {
     font-size: 1.5rem;
     line-height: 3rem;

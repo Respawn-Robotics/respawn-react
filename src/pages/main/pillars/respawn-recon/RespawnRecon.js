@@ -16,9 +16,11 @@ function RespawnRecon() {
             <div className="feature-text">
                 <p>Intuitive and visually appealing scouting form</p>
                 <ul>
-                    <li>Record robots starting positions and autonomous paths</li>
-                    <li>Click on an interactive grid to record where a robot scored</li>
-                    <li>Provide additional important information about robot to team</li>
+                    <o>
+                        <li>Record robots starting positions and autonomous paths</li>
+                        <li>Click on an interactive grid to record where a robot scored</li>
+                        <li>Provide additional important information about robot to team</li>
+                    </o>
                 </ul>
             </div>
         </div>
@@ -26,8 +28,10 @@ function RespawnRecon() {
             <div className="feature-text">
                 <p>Capabilities for both online and offline scouting</p>
                 <ul>
-                    <li>Ability to upload instantly if internet is available</li>
-                    <li>Download JSON file containing scout data and upload to database once internet is available</li>
+                    <o>
+                        <li>Ability to upload instantly if internet is available</li>
+                        <li>Download JSON file containing scout data and upload to database once internet is available</li>
+                    </o>
                 </ul>
             </div>
             <div className="feature-image">
@@ -41,8 +45,10 @@ function RespawnRecon() {
             <div className="feature-text">
                 <p>Hosting of all scouting data online in the cloud</p>
                 <ul>
-                    <li>View all of your team's uploaded scouts in one place</li>
-                    <li>Fast searching for individual robot data</li>
+                    <o>
+                        <li>View all of your team's uploaded scouts in one place</li>
+                        <li>Fast searching for individual robot data</li>
+                    </o>
                 </ul>
             </div>
         </div>
@@ -50,9 +56,11 @@ function RespawnRecon() {
             <div className="feature-text">
                 <p>Account management system for creating and deleting scouts</p>
                 <ul>
-                    <li>Create an account and scouting team</li>
-                    <li>Invite users to team and promote / demote them to admins</li>
-                    <li>Review scouts and delete bad data</li>
+                    <o>
+                        <li>Create an account and scouting team</li>
+                        <li>Invite users to team and promote / demote them to admins</li>
+                        <li>Review scouts and delete bad data</li>
+                    </o>
                 </ul>
             </div>
             <div className="feature-image">

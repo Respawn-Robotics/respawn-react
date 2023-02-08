@@ -1,11 +1,10 @@
 import React from "react";
 import './respawn-rewind.css';
+import Alum from "../../../../components/alum/Alum";
 
 function RespawnRewind() {
     return <>
-    <p id='bruh'>
-        ITS REWIND TIME
-    </p>
+        <h1>WIP</h1>
     </>
 }
 

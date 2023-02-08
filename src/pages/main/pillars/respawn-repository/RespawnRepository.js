@@ -3,10 +3,10 @@ import './respawn-repository.css';
 
 function Repository() {
     return <>
-    <p id='bruh'>
-        We use 3d xperience !!!
-        WE BETTA !!!!!!
-    </p>
+    <h1>
+        WIP
+    </h1>
+
     </>
 }
 
