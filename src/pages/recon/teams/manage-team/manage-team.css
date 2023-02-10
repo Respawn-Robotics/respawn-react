@@ -41,6 +41,45 @@ o {
     width: max(30%, 20rem);
 }
 
+#custom-inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#custom-inputs > h1 {
+    color: white;
+    font-family: "roboto-slab";
+    font-size: 2rem;
+}
+
+#custom-fields {
+    width: min(90%, 30rem);
+    height: 55vh;
+    overflow-y: scroll;
+}
+
+#custom-inputs > button {
+    margin-top: 5vh;
+    width: 15ch;
+    padding: 1ch;
+    font-family: "roboto-slab";
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: var(--respawn-orange);
+    color: white;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+#custom-inputs > button:hover {
+    background-color: white;
+    color: gray;
+    border-color: gray;
+}
+
 .no-data-message {
     text-align: center;
     font-size: 3em;

@@ -171,7 +171,6 @@ function ScoutForm() {
                         onChange={changeInputs}
                         lines={field.lines}
                         options={field.options}
-                        dataLabels={field['data-labels']}
                         imageSrc={canvasImage}
                         id={`input-${i}`}
                     /> : <></>
