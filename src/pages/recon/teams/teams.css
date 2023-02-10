@@ -156,6 +156,19 @@ button.entry-data {
     background-color: gray;
 }
 
+/* -----------------------Charts----------------------- */
+#charts-container {
+    display: grid;
+    margin: 5vh 0 10vh;
+    padding: 0 2vw;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+}
+
+
 /* -----------------------Alliance----------------------- */
 
 .team-color {
