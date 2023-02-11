@@ -17,4 +17,5 @@ Respawn React is the offical website developed by students of FRC team Respawn R
 ## Respawn Recon
 Respawn Recon is created by Respawn Robotics to make scouting and data compilation easier during competitions. This is the second year of using this system and the first year it is being expanded to the public. 
 - Learn more about it [here](https://github.com/Respawn-Robotics/respawn-react/wiki/respawn-recon)
+- View our [changelog](https://github.com/Respawn-Robotics/respawn-react/wiki/Respawn-Recon-Changelog)
 - View it live [here](https://www.respawnrobotics.com/recon)
