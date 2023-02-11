@@ -3,6 +3,7 @@ import './master-table.css';
 
 import db from '../../../firebase.config';
 import reconfig from '../../../recon.config';
+import FormInput from "../../../components/form-input/FormInput";
 import { onSnapshot, doc, query, collection, where, getDocs } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -12,6 +13,7 @@ function MasterTable() {
     const [data, setData] = useState([]);
     const [averages, setAverages] = useState({});
     const [sortField, setField] = useState('points-scored');
+    const [numericalFields, setNumericalFields] = useState([]);
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
@@ -24,54 +26,53 @@ function MasterTable() {
         return doc;
     }
 
+    const getNumericalInputs = inputs => {
+        return inputs
+            .filter(f =>
+                f.type === 'checkbox' ||
+                f.type === 'number' ||
+                f.type === 'select' ||
+                f.type === 'togglebutton' ||
+                f.type === '0' ||
+                f.type === '1' 
+            )
+            .map(f => {
+                return f.name;
+            });
+    }
+
     useEffect(_ => {
         if (loading) return
         if (!user) return navigate('/signin')
-        fetchTeamName().then(userData => onSnapshot(doc(db, 'recon',
-            userData.docs[0].data().teamName), doc => setData(doc.data())));
+        fetchTeamName().then(userData => {
+            setNumericalFields(i => i.concat(getNumericalInputs(userData.docs[0].data().fields)));
+            onSnapshot(doc(db, 'recon',
+                userData.docs[0].data().teamName), doc => setData(doc.data()))
+        });
     }, [user, loading]);
 
     useEffect(_ => {
-        let avg = {};
+        setNumericalFields(getNumericalInputs(reconfig.data))
+    }, []);
 
-        Object.keys(data).map(team => {
-            if (data[team].length < 1) return;
-            avg[team] = {};
-            data[team].map(entry => {
-                reconfig['data'].map(field => {
-                    if (field.name === 'team' || field.name === 'match') return;
-                    switch (field.type) {
-                        case 'number':
-                            if (!avg[team][field.name]) {
-                                avg[team][field.name] = entry[field.name] / data[team].length;
-                                return;
-                            }
-                            avg[team][field.name] += entry[field.name] / data[team].length;
-                            return;
-                        case 'select':
-                            if (!avg[team][field.name]) {
-                                avg[team][field.name] = entry[field.name] / data[team].length;
-                                return;
-                            }
-                            avg[team][field.name] += entry[field.name] / data[team].length;
-                            return;
-                        default:
-                            return;
-                    }
-                })
-            })
-        })
-
-        Object.keys(avg).map(a => {
-            a = avg[a];
-
-            a['points-scored'] = a['points-scored'].toFixed(1);
-            a['auton-charge-station'] = a['auton-charge-station'].toFixed(1);
-            a['endgame-charge-station'] = a['endgame-charge-station'].toFixed(1);
-
-            a['power-grid'] = (a['points-scored'] - a['auton-charge-station'] - a['endgame-charge-station']).toFixed(1);
-        });
-
+    useEffect(_ => {
+        const avg = Object.keys(data).reduce((averages, teamNum) => {
+            console.log(numericalFields)
+            averages[teamNum] = numericalFields
+            .filter(f =>
+                f !== 'team' &&
+                f !== 'match' &&
+                f !== 'alliance'
+            )
+            .reduce((result, field) => {
+                result[field] = (data[teamNum].reduce((sum, m) => sum +
+                    (typeof m[field] === 'boolean' || typeof m[field] === 'number' ? m[field] : parseInt(m[field]))
+                , 0) / data[teamNum].length).toFixed(1);
+                return result;
+            }, {});
+            return averages;
+        }, {});
+        console.log(avg)
         setAverages(avg);
     }, [data]);
 
