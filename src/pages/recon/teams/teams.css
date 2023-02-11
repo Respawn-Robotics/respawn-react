@@ -156,6 +156,34 @@ button.entry-data {
     background-color: gray;
 }
 
+.additional-fields {
+    display: flex;
+    padding: 15px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--respawn-blue-darker);
+}
+
+.additional-field {
+    background-color: var(--respawn-blue);
+    width: min(90%, 15rem);
+    text-align: center;
+    color: white;
+    font-family: "roboto-slab";
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 0.5ch 2ch;
+}
+
+.additional-field.field-textarea {
+    width: 70%;
+}
+
+.additional-field > h1 {
+    font-size: 1.3rem;
+}
+
 /* -----------------------Alliance----------------------- */
 
 .team-color {

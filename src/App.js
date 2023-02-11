@@ -1,6 +1,8 @@
 import { React } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import paths from './paths.json';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
@@ -20,6 +22,9 @@ import RespawnReach from './pages/main/pillars/respawn-reach/RespawnReach';
 import RespawnRepository from './pages/main/pillars/respawn-repository/RespawnRepository';
 import RespawnRewind from './pages/main/pillars/respawn-rewind/RespawnRewind';
 
+// CAD
+import CADContainer from './pages/cad/CADContainer';
+
 // Recon
 import Dashboard from './pages/recon/dashboard/Dashboard';
 import Scout from './pages/recon/scout/Scout';
@@ -29,10 +34,9 @@ import CreateJoinTeam from './pages/recon/teams/create-join-team/CreateJoinTeam'
 import Teams from './pages/recon/teams/Teams';
 import Matches from './pages/recon/matches/Matches';
 import ManageTeam from './pages/recon/teams/manage-team/ManageTeam';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Canvas } from '@react-three/fiber';
-import CADContainer from './pages/cad/CADContainer';
+import ManageInputs from './pages/recon/scout/manage-inputs/ManageInputs';
+
+
 function App() {
   return <>
     <ToastContainer />
@@ -64,6 +68,7 @@ function App() {
           <Route path={paths.recon['teams']} element={<Teams />} />
           <Route path={paths.recon['matches']} element={<Matches />} />
           <Route path={paths.recon['manage-team']} element={<ManageTeam />} />
+          <Route path={paths.recon['manage-inputs']} element={<ManageInputs />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import backImage from '../scout/media/field-image.png';
 
 
-function TeamMatches({ database, teamNum, admin, tName }) {
+function TeamMatches({ database, teamNum, admin, tName, fields }) {
     const [teamAvg, setTeamAvg] = useState({});
     const entryRefs = useRef([]);
     const canvasRefs = useRef([]);
@@ -142,7 +142,7 @@ function TeamMatches({ database, teamNum, admin, tName }) {
     }
 
     const deleteEntry = match => {
-        toast.promise(updateDoc(doc(db, 'recon', tName), {[teamNum] : arrayRemove(match)}), {
+        toast.promise(updateDoc(doc(db, 'recon', tName), { [teamNum]: arrayRemove(match) }), {
             pending: "Deleting...",
             success: "Deleted successfully!",
             pending: "Deleting failed!"
@@ -208,6 +208,37 @@ function TeamMatches({ database, teamNum, admin, tName }) {
                                     {displayData(f.name, dataFormat(f, entry[f.name]), k)}
                                 </div> : '')}
                             </div>
+                            <div className='additional-fields'>
+                                {fields.map(f => {
+                                    switch (f.type) {
+                                        case '0':
+                                            return <div className='additional-field'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{entry[f.name]}</p>
+                                            </div>
+                                        case '1':
+                                            return <div className='additional-field'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{entry[f.name]}</p>
+                                            </div>
+                                        case '2':
+                                            return <div className='additional-field'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{f.options[entry[f.name]]}</p>
+                                            </div>
+                                        case '3':
+                                            return <div className='additional-field'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{entry[f.name]}</p>
+                                            </div>
+                                        case '4':
+                                            return <div className='additional-field field-textarea'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{entry[f.name]}</p>
+                                            </div>
+                                    }
+                                })}
+                            </div>
                         </td>
                     </tr>
                 </>
@@ -219,6 +250,7 @@ function TeamMatches({ database, teamNum, admin, tName }) {
 
 function Teams() {
     const [data, setData] = useState([]);
+    const [customFields, setCustomFields] = useState([]);
     const [team, setTeam] = useState(0);
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
@@ -228,9 +260,7 @@ function Teams() {
 
     const fetchTeamName = async () => {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
-
         const doc = await getDocs(q);
-
         return doc;
     }
 
@@ -257,6 +287,7 @@ function Teams() {
             if (res == false) setIsAdmin(true)
         });
         fetchTeamName().then(userData => {
+            setCustomFields(userData.docs[0].data().fields);
             onSnapshot(doc(db, 'recon',
                 userData.docs[0].data().teamName), doc => setData(doc.data()));
             setTeamName(userData.docs[0].data().teamName);
@@ -274,6 +305,7 @@ function Teams() {
             teamNum={team}
             admin={isAdmin}
             tName={teamName}
+            fields={customFields}
         />
     </>
 }

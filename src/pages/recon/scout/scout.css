@@ -35,7 +35,13 @@
     grid-column: 1 / span 3;
 }
 
+.custom-input {
+    margin-top: 2vh;
+    grid-column: 1 / span 3;
+}
+
 #submit-button-container {
+    margin-top: 5vh;
     grid-column: 1 / span 3;
     display: flex;
     justify-content: center;

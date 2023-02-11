@@ -19,7 +19,7 @@ function NavItem({ type, className, id, label, link, children }) {
 
         case 'dropdown':
             return (
-                <div className={className ? className : 'navbar-section dropdown'}>
+                <div className={className ? className : 'navbar-section dropdown'} id={id}>
                     <p className='nav-link'>{label}</p>
                     <div className='dropdown-content'>{children}</div>
                 </div>
@@ -124,7 +124,7 @@ function Navbar({ type }) {
                             {(!loading && team) ? <NavItem type='menu' className='hamburger-link' label={user.displayName}>
                                 <NavItem type='link' className='menu-link' link={paths.recon['manage-team']}>MANAGE TEAM</NavItem>
                                 <NavItem type='link' className='menu-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
-                            </NavItem> : <> <NavItem type='dropdown' label={user?.displayName}>
+                            </NavItem> : <> <NavItem type='menu' className='hamburger-link' label={user?.displayName}>
                                 <NavItem type='link' className='dropdown-link' link={paths.recon['create-join-team']}>CREATE / JOIN TEAM</NavItem>
                                 <NavItem type='link' className='dropdown-link' id='sign-out' link={paths.authentication['signout']}>SIGN OUT</NavItem>
                             </NavItem> </>}
