@@ -51,8 +51,6 @@ function ArrayInputs({ name, onChange, options }) {
     const updateInput = (e, data, index) => {
         if (!data) {
             const target = e.target;
-
-            const name = target.name;
             let value = null;
 
             switch (target.type) {
@@ -82,7 +80,7 @@ function ArrayInputs({ name, onChange, options }) {
     )
 }
 
-function FormInput({ name, type, onChange, options, lines, imageSrc, dataLabels, className, id, inputClassName, inputId, value }) {
+function FormInput({ name, type, onChange, options, imageSrc, dataLabels, className, id, inputClassName, inputId, value }) {
     return (
         <div className={`input-container${className === undefined ? '' : ` ${className}`}`} id={id}>
             <label className='form-label'>{name.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, (c) => c.toUpperCase())}</label>

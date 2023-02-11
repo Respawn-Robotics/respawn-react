@@ -62,7 +62,6 @@ function ManageInputs() {
     const [user, loading] = useAuthState(auth)
     const navigate = useNavigate()
     const [currentUserRank, setCurrentUserRank] = useState("")
-    const [customFields, setCustomFields] = useState([]);
     const [team, setTeam] = useState()
     const [inputs, setInputs] = useState({})
     const [currentOptionName, setCurrentOptionName] = useState("")

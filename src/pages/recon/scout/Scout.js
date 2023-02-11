@@ -14,7 +14,7 @@ import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
     const [team, setTeam] = useState(0);
-    const [userData, setUserData] = useState({});
+    const [teamData, setTeamData] = useState({});
     const [database, setDatabase] = useState({});
     const downloadLink = useRef(null);
     const auth = getAuth();
@@ -35,11 +35,13 @@ function ScoutForm() {
         if (loading) return
         if (!user) return navigate('/signin')
         fetchTeamName().then(document => {
-            setUserData(document.docs[0].data())
+            setTeamData(document.docs[0].data())
             onSnapshot(doc(db, 'recon',
                 document.docs[0].data().teamName), d => setDatabase(d.data()));
         });
     }, [user, loading]);
+
+    useEffect(_ => console.log(teamData), [teamData])
 
     useEffect(_ => {
         let defaultInputs = {};
@@ -101,7 +103,7 @@ function ScoutForm() {
         console.log(database)
         if (!database[team] || database[team].map(en => en.match).indexOf(inputs.match) === -1) {
             try {
-                const docRef = doc(db, 'recon', userData.teamName);
+                const docRef = doc(db, 'recon', teamData.teamName);
                 let result = toast.promise(Promise.race([
                     updateDoc(docRef, { [team]: arrayUnion({ ...inputs, author: user.displayName }) }),
                     new Promise((_, rej) => {
@@ -176,6 +178,49 @@ function ScoutForm() {
                     /> : <></>
                 );
             })}
+            {teamData.fields ? teamData.fields?.map(field => {
+                switch (field.type) {
+                    case '0':
+                        return <FormInput
+                            name={field.name}
+                            type='checkbox'
+                            onChange={changeInputs}
+                            className='custom-input'
+                        />;
+                    case '1':
+                        return <FormInput
+                            name={field.name}
+                            type='number'
+                            onChange={changeInputs}
+                            className='custom-input'
+                        />;
+                    case '2':
+                        return <FormInput
+                            name={field.name}
+                            type='select'
+                            onChange={changeInputs}
+                            options={field.options.map((o, i) => {return {
+                                label: o,
+                                value: i
+                            }})}
+                            className='custom-input'
+                        />;
+                    case '3':
+                        return <FormInput
+                            name={field.name}
+                            type='text'
+                            onChange={changeInputs}
+                            className='custom-input'
+                        />;
+                    case '4':
+                        return <FormInput
+                            name={field.name}
+                            type='textarea'
+                            onChange={changeInputs}
+                            className='custom-input'
+                        />;
+                }
+            }) : <></>}
 
             <div id='submit-button-container'>
                 <button type='button' id='submit-button' onClick={autofillData}>SUBMIT</button>
