@@ -9,7 +9,7 @@ import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import backImage from '../scout/media/field-image.png';
-import {SimpleLineChart, SimpleRadialChart} from "../../../lib/charts.js";
+import { SimpleLineChart, SimpleRadialChart } from "../../../lib/charts.js";
 import { ResponsiveContainer } from "recharts";
 
 
@@ -20,7 +20,8 @@ function TeamMatches({ database, teamNum, admin, tName }) {
     const canvasRefs = useRef([]);
     const imageRef = useRef(null);
     const [data, setData] = useState([]);
-    useEffect(_ => setData(database ? database[teamNum] : []), [teamNum])
+
+    useEffect(_ => setData(database ? database[teamNum]?.sort((a, b) => parseInt(a['match']) < parseInt(b['match']) ? -1 : 1) : []), [teamNum]);
 
     useEffect(_ => {
         let avg = {};
@@ -56,7 +57,7 @@ function TeamMatches({ database, teamNum, admin, tName }) {
             formattedChartData.push({
                 'name': "Match " + entry['match'],
                 'points': parseInt(entry['points-scored'])
-            }) 
+            })
         })
         return formattedChartData;
     }
@@ -156,7 +157,7 @@ function TeamMatches({ database, teamNum, admin, tName }) {
     }
 
     const deleteEntry = match => {
-        toast.promise(updateDoc(doc(db, 'recon', tName), {[teamNum] : arrayRemove(match)}), {
+        toast.promise(updateDoc(doc(db, 'recon', tName), { [teamNum]: arrayRemove(match) }), {
             pending: "Deleting...",
             success: "Deleted successfully!",
             pending: "Deleting failed!"
@@ -166,40 +167,44 @@ function TeamMatches({ database, teamNum, admin, tName }) {
     return <>
         <img src={backImage} ref={imageRef} hidden='hidden' />
         <h1 id='team-number'>{teamNum}</h1>
-        {Object.keys(teamAvg).length > 0 && 
-        <>
-            <div id='averages-container'>
-                <div className='average-box'>
-                    <h2>Average Points/Match</h2>
-                    <h1>{teamAvg['points-scored'].toFixed(1)}</h1>
-                </div>
-                <div className='average-box'>
-                    <h2>Average Endgame Charge Points</h2>
-                    <h1>{teamAvg['endgame-charge-station'].toFixed(1)}</h1>
-                </div>
-                <div className='average-box'>
-                    <h2>Average Power Grid</h2>
-                    <h1>{(teamAvg['points-scored'] - teamAvg['auton-charge-station'] - teamAvg['endgame-charge-station']).toFixed(1)}</h1>
-                </div>
-                <div className='average-box'>
-                    <h2>Preset Piece Patterns</h2>
-                    <div id='avg-preset-pieces'>
-                        <h1 className={`avg-piece ${(teamAvg['preset-pieces'][0] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][0] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][0] - 1) / 1 : (teamAvg['preset-pieces'][0] - 1) / 1).toFixed(2) * 100}%</h1>
-                        <h1 className={`avg-piece ${(teamAvg['preset-pieces'][1] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][1] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][1] - 1) / 1 : (teamAvg['preset-pieces'][1] - 1) / 1).toFixed(2) * 100}%</h1>
-                        <h1 className={`avg-piece ${(teamAvg['preset-pieces'][2] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][2] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][2] - 1) / 1 : (teamAvg['preset-pieces'][2] - 1) / 1).toFixed(2) * 100}%</h1>
-                        <h1 className={`avg-piece ${(teamAvg['preset-pieces'][3] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][3] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][3] - 1) / 1 : (teamAvg['preset-pieces'][3] - 1) / 1).toFixed(2) * 100}%</h1>
+        {Object.keys(teamAvg).length > 0 &&
+            <>
+                <div id='averages-container'>
+                    <div className='average-box'>
+                        <h2>Average Points/Match</h2>
+                        <h1>{teamAvg['points-scored'].toFixed(1)}</h1>
+                    </div>
+                    <div className='average-box'>
+                        <h2>Average Endgame Charge Points</h2>
+                        <h1>{teamAvg['endgame-charge-station'].toFixed(1)}</h1>
+                    </div>
+                    <div className='average-box'>
+                        <h2>Average Power Grid</h2>
+                        <h1>{(teamAvg['points-scored'] - teamAvg['auton-charge-station'] - teamAvg['endgame-charge-station']).toFixed(1)}</h1>
+                    </div>
+                    <div className='average-box'>
+                        <h2>Preset Piece Patterns</h2>
+                        <div id='avg-preset-pieces'>
+                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][0] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][0] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][0] - 1) / 1 : (teamAvg['preset-pieces'][0] - 1) / 1).toFixed(2) * 100}%</h1>
+                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][1] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][1] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][1] - 1) / 1 : (teamAvg['preset-pieces'][1] - 1) / 1).toFixed(2) * 100}%</h1>
+                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][2] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][2] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][2] - 1) / 1 : (teamAvg['preset-pieces'][2] - 1) / 1).toFixed(2) * 100}%</h1>
+                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][3] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][3] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][3] - 1) / 1 : (teamAvg['preset-pieces'][3] - 1) / 1).toFixed(2) * 100}%</h1>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id='averages-container'>
-                <ResponsiveContainer width="99%" aspect={2} maxHeight={300} className='charts-box'>
-                    <SimpleLineChart data={formatChartData(data)}/>
-                </ResponsiveContainer>
-                <ResponsiveContainer width="99%" aspect={2} maxHeight={300} className='charts-box'>
-                    <SimpleRadialChart />
-                </ResponsiveContainer>
-            </div>
-        </>
+                <div className='column' id='charts-container'>
+                    <div className='chart-container'>
+                        <ResponsiveContainer width="100%" aspect={2} maxHeight={300} className='charts-box'>
+                            <SimpleLineChart data={formatChartData(data)} />
+                        </ResponsiveContainer>
+                    </div>
+                    <div className='chart-container'>
+                        <ResponsiveContainer width="100%" aspect={2} maxHeight={300} className='charts-box'>
+                            <SimpleRadialChart />
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+            </>
         }
         <table id='match-list'>
             <thead>
@@ -292,7 +297,7 @@ function Teams() {
     return <>
         <div id='search-container'>
             <label htmlFor='searchbar' id='search-heading'>Search for a team:</label>
-            <input id='searchbar' type='number' onChange={changeTeam}></input>
+            <input id='searchbar' type='number' inputMode='numeric' pattern="\d*" onChange={changeTeam}></input>
         </div>
         <TeamMatches
             database={data}

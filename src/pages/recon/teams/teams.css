@@ -131,6 +131,7 @@ button.entry-data {
 }
 
 .average-box {
+    border: 2px solid white;
     background-color: var(--respawn-blue);
     color: white;
     border-radius: 15px;
@@ -157,20 +158,22 @@ button.entry-data {
 }
 
 /* -----------------------Charts----------------------- */
+
 #charts-container {
-    display: grid;
-    margin: 5vh 0 10vh;
-    padding: 0 2vw;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    padding: 10px;
     gap: 10px;
+}
+
+.chart-container {
+    display: flex;
+    border-radius: 20px;
+    border: 2px solid white;
+    padding: 3ch;
     width: 100%;
-    flex-direction: row;
-    align-items: center;
+    background-color: var(--respawn-blue-darker);
 }
 
 .charts-box {
-    color: white;
-    border-radius: 15px;
     font-family: "roboto-slab";
     text-align: center;
 }
