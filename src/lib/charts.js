@@ -22,9 +22,9 @@ function SimpleLineChart({ width, height, data }) {
         bottom: 5
       }}
     >
-      <XAxis dataKey="name" stroke="#FFFFFF" padding={{ left: 30, right: 30 }}/>
-      <YAxis stroke="#FFFFFF"/>
-      <Tooltip /> 
+      <XAxis dataKey="name" stroke="#FFFFFF" padding={{ left: 30, right: 30 }} />
+      <YAxis stroke="#FFFFFF" />
+      <Tooltip />
       <Legend />
       <Line
         type="linear"
@@ -35,54 +35,15 @@ function SimpleLineChart({ width, height, data }) {
   );
 }
 
-function SimpleRadialChart ({ width, height }) {
-  let data = [
-    {
-      subject: 'Math',
-      A: 120,
-      B: 110,
-      fullMark: 150,
-    },
-    {
-      subject: 'Chinese',
-      A: 98,
-      B: 130,
-      fullMark: 150,
-    },
-    {
-      subject: 'English',
-      A: 86,
-      B: 130,
-      fullMark: 150,
-    },
-    {
-      subject: 'Geography',
-      A: 99,
-      B: 100,
-      fullMark: 150,
-    },
-    {
-      subject: 'Physics',
-      A: 85,
-      B: 90,
-      fullMark: 150,
-    },
-    {
-      subject: 'History',
-      A: 65,
-      B: 85,
-      fullMark: 150,
-    },
-  ];
-
+function SimpleRadialChart({ width, height, data }) {
   return (
     <RadarChart
       width={width}
       height={height}
       data={data}
     >
-      <PolarGrid stroke="#FFFFFF"/>
-      <PolarAngleAxis dataKey="subject" stroke="#FFFFFF"/>
+      <PolarGrid stroke="#FFFFFF" />
+      <PolarAngleAxis dataKey="subject" stroke="#FFFFFF" />
       <Radar
         name="Mike"
         dataKey="A"

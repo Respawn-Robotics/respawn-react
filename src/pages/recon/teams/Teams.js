@@ -51,15 +51,18 @@ function TeamMatches({ database, teamNum, admin, tName }) {
         console.log(formatChartData(data));
     }, [data]);
 
-    const formatChartData = (data) => {
-        let formattedChartData = [];
-        data?.map(entry => {
-            formattedChartData.push({
-                'name': "Match " + entry['match'],
-                'points': parseInt(entry['points-scored'])
-            })
-        })
-        return formattedChartData;
+    const formatChartData = (data, type) => {
+        switch (type) {
+            case 'line':
+                return data?.map(entry => {
+                    return {
+                        'name': "Match " + entry['match'],
+                        'points': parseInt(entry['points-scored'])
+                    }
+                });
+            
+            case 'radial':
+        }
     }
 
     const dataFormat = (field, value) => {
@@ -195,12 +198,12 @@ function TeamMatches({ database, teamNum, admin, tName }) {
                 <div className='column' id='charts-container'>
                     <div className='chart-container'>
                         <ResponsiveContainer width="100%" aspect={2} maxHeight={300} className='charts-box'>
-                            <SimpleLineChart data={formatChartData(data)} />
+                            <SimpleLineChart data={formatChartData(data, 'line')} />
                         </ResponsiveContainer>
                     </div>
                     <div className='chart-container'>
                         <ResponsiveContainer width="100%" aspect={2} maxHeight={300} className='charts-box'>
-                            <SimpleRadialChart />
+                            <SimpleRadialChart data={formatChartData(data, 'radial')} />
                         </ResponsiveContainer>
                     </div>
                 </div>
