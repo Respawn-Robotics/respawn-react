@@ -13,7 +13,7 @@ import canvasImage from './media/field-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
 function ScoutForm() {
-    const [team, setTeam] = useState(0);
+    const [team, setTeam] = useState();
     const [teamData, setTeamData] = useState({});
     const [database, setDatabase] = useState({});
     const downloadLink = useRef(null);
@@ -25,11 +25,15 @@ function ScoutForm() {
 
     const fetchTeamName = async () => {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
-
         const doc = await getDocs(q);
-
         return doc;
     }
+
+    useEffect(_ => {
+        let defaultInputs = {};
+        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default : '');
+        setInputs(defaultInputs);
+    }, [user]);
 
     useEffect(_ => {
         if (loading) return
@@ -41,13 +45,18 @@ function ScoutForm() {
         });
     }, [user, loading]);
 
-    useEffect(_ => console.log(teamData), [teamData])
+    const validateData = _ => {
+        let inputsFilled = true;
+        if (!team) return false;
+        Object.keys(inputs).forEach(i => {
+            if (inputs[i] === '') {
+                inputsFilled = false;
+            }
+        });
+        return inputsFilled;
+    }
 
-    useEffect(_ => {
-        let defaultInputs = {};
-        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default : '');
-        setInputs(defaultInputs);
-    }, [user]);
+    useEffect(_ => console.log(validateData()), [inputs]);
 
     const autofillData = _ => {
         setSend(true);
@@ -100,7 +109,6 @@ function ScoutForm() {
     }
 
     const sendData = async _ => {
-        console.log(database)
         if (!database[team] || database[team].map(en => en.match).indexOf(inputs.match) === -1) {
             try {
                 const docRef = doc(db, 'recon', teamData.teamName);
