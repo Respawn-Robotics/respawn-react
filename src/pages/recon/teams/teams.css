@@ -168,6 +168,12 @@ button.entry-data {
     align-items: center;
 }
 
+.charts-box {
+    color: white;
+    border-radius: 15px;
+    font-family: "roboto-slab";
+    text-align: center;
+}
 
 /* -----------------------Alliance----------------------- */
 

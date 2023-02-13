@@ -9,7 +9,8 @@ import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import backImage from '../scout/media/field-image.png';
-import SimpleLineChart from "../../../lib/charts.js";
+import {SimpleLineChart, SimpleRadialChart} from "../../../lib/charts.js";
+import { ResponsiveContainer } from "recharts";
 
 
 function TeamMatches({ database, teamNum, admin, tName }) {
@@ -43,13 +44,22 @@ function TeamMatches({ database, teamNum, admin, tName }) {
                         avg[field.name] = (avg[field.name] ? avg[field.name] : 0) + (value / data.length);
                 }
             })
-
-            console.log(data)
-
         });
 
         setTeamAvg(avg);
+        console.log(formatChartData(data));
     }, [data]);
+
+    const formatChartData = (data) => {
+        let formattedChartData = [];
+        data?.map(entry => {
+            formattedChartData.push({
+                'name': "Match " + entry['match'],
+                'points': parseInt(entry['points-scored'])
+            }) 
+        })
+        return formattedChartData;
+    }
 
     const dataFormat = (field, value) => {
         if (!value) return;
@@ -181,8 +191,13 @@ function TeamMatches({ database, teamNum, admin, tName }) {
                     </div>
                 </div>
             </div>
-            <div id="charts-container">
-                <SimpleLineChart />
+            <div id='averages-container'>
+                <ResponsiveContainer width="99%" aspect={2} maxHeight={300} className='charts-box'>
+                    <SimpleLineChart data={formatChartData(data)}/>
+                </ResponsiveContainer>
+                <ResponsiveContainer width="99%" aspect={2} maxHeight={300} className='charts-box'>
+                    <SimpleRadialChart />
+                </ResponsiveContainer>
             </div>
         </>
         }
