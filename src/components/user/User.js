@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import './user.css';
-import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
-import db from '../../firebase.config'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify';
 
 function Users({currentUserRank, userData, rank, scoutData, kickUser, promoteUser, demoteUser}) {
     const [userScouts, setUserScouts] = useState([]);
 
     useEffect(_ => {
+        console.log(scoutData, userData.displayName)
         let tempArray = 0;
-        Object.keys(scoutData)?.map(teamScouted => scoutData[teamScouted].map(entry => {
-            if (entry.author === userData.uid) tempArray++;
+        Object.keys(scoutData)?.forEach(teamScouted => scoutData[teamScouted].forEach(entry => {
+            if (entry.author === userData.displayName) tempArray++;
         }));
         setUserScouts(tempArray);
     }, [scoutData]);

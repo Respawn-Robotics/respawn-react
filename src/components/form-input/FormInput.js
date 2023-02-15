@@ -39,7 +39,7 @@ function Input({ name, type, onChange, options, lines, imageSrc, className, id, 
         case "array":
             return <ArrayInputs name={name} onChange={onChange} options={options} />;
         default:
-            return <input type={type} name={name} className={`form-input ${className}`} id={id} onChange={onChange} />;
+            return <input type={type} required name={name} className={`form-input ${className}`} id={id} onChange={onChange} />;
     }
 }
 
