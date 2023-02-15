@@ -38,7 +38,6 @@
 
 * {
   box-sizing: border-box;
-  font-size: 1vw;
 }
 
 body {
@@ -55,10 +54,6 @@ i {
 }
 
 @media screen and (max-aspect-ratio: 1/1) {
-  * {
-    font-size: 2vh;
-  }
-
   body {
     padding-bottom: 35vh;
   }
