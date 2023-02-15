@@ -1,14 +1,15 @@
 #master-table {
-    display: table;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     margin-top: 15vh;
     border-collapse: collapse;
-    width: 100%;
 }
 
 .master-table-cell {
     color: white;
-    width: 0;
     border-bottom: 1px white solid;
+    padding: 1ch 0;
     text-align: center;
     font-family: "roboto-slab";
     text-align: center;
@@ -18,14 +19,34 @@
     text-align: center;
     font-family: "roboto-slab-bold";
     border-bottom: 2px white solid;
-    background-color: var(--respawn-dark-blue);
     cursor: pointer;
 }
 
 .master-table-row {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, 10rem);
+    justify-content: center;
+}
+
+#master-charts-container {
+    display: none;
+    padding: 10px;
+    width: 90%;
+    gap: 10px;
+}
+
+.master-chart-container {
+    display: flex;
+    border-radius: 20px;
+    border: 2px solid white;
+    padding: 3ch;
+    width: 100%;
     background-color: var(--respawn-blue-darker);
 }
 
-.master-table-row:nth-child(even) {
-    background-color: var(--respawn-blue);
+.master-charts-box {
+    font-family: "roboto-slab";
+    color: var(--respawn-blue);
+    font-size: 80%;
 }
