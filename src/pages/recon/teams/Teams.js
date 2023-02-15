@@ -9,11 +9,11 @@ import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import backImage from '../scout/media/field-image.png';
-import { SimpleLineChart, SimpleRadialChart } from "../../../lib/charts.js";
+import { SimpleLineChart } from "../../../lib/charts.js";
 import { ResponsiveContainer } from "recharts";
 
 
-function TeamMatches({ database, teamNum, admin, tName }) {
+function TeamMatches({ database, teamNum, admin, tName, fields }) {
     const [teamAvg, setTeamAvg] = useState({});
     const [chartData, setChartData] = useState(null);
     const entryRefs = useRef([]);
@@ -48,7 +48,6 @@ function TeamMatches({ database, teamNum, admin, tName }) {
         });
 
         setTeamAvg(avg);
-        console.log(formatChartData(data));
     }, [data]);
 
     const formatChartData = (data, type) => {
@@ -57,11 +56,48 @@ function TeamMatches({ database, teamNum, admin, tName }) {
                 return data?.map(entry => {
                     return {
                         'name': "Match " + entry['match'],
-                        'points': parseInt(entry['points-scored'])
+                        'Points': parseInt(entry['points-scored'])
                     }
                 });
-            
+
             case 'radial':
+                return [{
+                    "label": "bruh",
+                    "A": 110,
+                    "B": 150,
+                    "fullMark": 200
+                },
+                {
+                    "label": "Chinese",
+                    "A": 98,
+                    "B": 130,
+                    "fullMark": 200
+                },
+                {
+                    "label": "English",
+                    "A": 86,
+                    "B": 130,
+                    "fullMark": 200
+                },
+                {
+                    "label": "Geography",
+                    "A": 99,
+                    "B": 100,
+                    "fullMark": 200
+                },
+                {
+                    "label": "Physics",
+                    "A": 85,
+                    "B": 90,
+                    "fullMark": 200
+                },
+                {
+                    "label": "History",
+                    "A": 65,
+                    "B": 85,
+                    "fullMark": 200
+                }
+                ]
         }
     }
 
@@ -175,37 +211,30 @@ function TeamMatches({ database, teamNum, admin, tName }) {
                 <div id='averages-container'>
                     <div className='average-box'>
                         <h2>Average Points/Match</h2>
-                        <h1>{teamAvg['points-scored'].toFixed(1)}</h1>
+                        <h1><o>{teamAvg['points-scored'].toFixed(1)}</o></h1>
                     </div>
                     <div className='average-box'>
                         <h2>Average Endgame Charge Points</h2>
-                        <h1>{teamAvg['endgame-charge-station'].toFixed(1)}</h1>
+                        <h1><o>{teamAvg['endgame-charge-station'].toFixed(1)}</o></h1>
                     </div>
                     <div className='average-box'>
                         <h2>Average Power Grid</h2>
-                        <h1>{(teamAvg['points-scored'] - teamAvg['auton-charge-station'] - teamAvg['endgame-charge-station']).toFixed(1)}</h1>
+                        <h1><o>{(teamAvg['points-scored'] - teamAvg['auton-charge-station'] - teamAvg['endgame-charge-station']).toFixed(1)}</o></h1>
                     </div>
                     <div className='average-box'>
                         <h2>Preset Piece Patterns</h2>
                         <div id='avg-preset-pieces'>
-                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][0] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][0] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][0] - 1) / 1 : (teamAvg['preset-pieces'][0] - 1) / 1).toFixed(2) * 100}%</h1>
-                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][1] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][1] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][1] - 1) / 1 : (teamAvg['preset-pieces'][1] - 1) / 1).toFixed(2) * 100}%</h1>
-                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][2] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][2] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][2] - 1) / 1 : (teamAvg['preset-pieces'][2] - 1) / 1).toFixed(2) * 100}%</h1>
-                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][3] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{(((teamAvg['preset-pieces'][3] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][3] - 1) / 1 : (teamAvg['preset-pieces'][3] - 1) / 1).toFixed(2) * 100}%</h1>
+                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][0] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{((((teamAvg['preset-pieces'][0] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][0] - 1) / 1 : (teamAvg['preset-pieces'][0] - 1)) * 100).toFixed(0)}%</h1>
+                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][1] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{((((teamAvg['preset-pieces'][1] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][1] - 1) / 1 : (teamAvg['preset-pieces'][1] - 1)) * 100).toFixed(0)}%</h1>
+                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][2] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{((((teamAvg['preset-pieces'][2] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][2] - 1) / 1 : (teamAvg['preset-pieces'][2] - 1)) * 100).toFixed(0)}%</h1>
+                            <h1 className={`avg-piece ${(teamAvg['preset-pieces'][3] - 1) / 1 < 0.5 ? 'piece-cone' : 'piece-cube'}`}>{((((teamAvg['preset-pieces'][3] - 1) / 1) < 0.5 ? 1 - (teamAvg['preset-pieces'][3] - 1) / 1 : (teamAvg['preset-pieces'][3] - 1)) * 100).toFixed(0)}%</h1>
                         </div>
                     </div>
                 </div>
-                <div className='column' id='charts-container'>
-                    <div className='chart-container'>
-                        <ResponsiveContainer width="100%" aspect={2} maxHeight={300} className='charts-box'>
-                            <SimpleLineChart data={formatChartData(data, 'line')} />
-                        </ResponsiveContainer>
-                    </div>
-                    <div className='chart-container'>
-                        <ResponsiveContainer width="100%" aspect={2} maxHeight={300} className='charts-box'>
-                            <SimpleRadialChart data={formatChartData(data, 'radial')} />
-                        </ResponsiveContainer>
-                    </div>
+                <div className='chart-container'>
+                    <ResponsiveContainer width="100%" aspect={2} maxHeight={300} className='charts-box'>
+                        <SimpleLineChart data={formatChartData(data, 'line')} />
+                    </ResponsiveContainer>
                 </div>
             </>
         }
@@ -241,6 +270,37 @@ function TeamMatches({ database, teamNum, admin, tName }) {
                                     {displayData(f.name, dataFormat(f, entry[f.name]), k)}
                                 </div> : '')}
                             </div>
+                            <div className='additional-fields'>
+                                {fields.map(f => {
+                                    switch (f.type) {
+                                        case '0':
+                                            return <div className='additional-field'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{entry[f.name]}</p>
+                                            </div>
+                                        case '1':
+                                            return <div className='additional-field'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{entry[f.name]}</p>
+                                            </div>
+                                        case '2':
+                                            return <div className='additional-field'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{f.options[entry[f.name]]}</p>
+                                            </div>
+                                        case '3':
+                                            return <div className='additional-field'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{entry[f.name]}</p>
+                                            </div>
+                                        case '4':
+                                            return <div className='additional-field field-textarea'>
+                                                <h1>{f.name}:</h1>
+                                                <p>{entry[f.name]}</p>
+                                            </div>
+                                    }
+                                })}
+                            </div>
                         </td>
                     </tr>
                 </>
@@ -252,6 +312,7 @@ function TeamMatches({ database, teamNum, admin, tName }) {
 
 function Teams() {
     const [data, setData] = useState([]);
+    const [customFields, setCustomFields] = useState([]);
     const [team, setTeam] = useState(0);
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
@@ -261,9 +322,7 @@ function Teams() {
 
     const fetchTeamName = async () => {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
-
         const doc = await getDocs(q);
-
         return doc;
     }
 
@@ -290,6 +349,7 @@ function Teams() {
             if (res == false) setIsAdmin(true)
         });
         fetchTeamName().then(userData => {
+            setCustomFields(userData.docs[0].data().fields);
             onSnapshot(doc(db, 'recon',
                 userData.docs[0].data().teamName), doc => setData(doc.data()));
             setTeamName(userData.docs[0].data().teamName);
@@ -307,6 +367,7 @@ function Teams() {
             teamNum={team}
             admin={isAdmin}
             tName={teamName}
+            fields={customFields}
         />
     </>
 }

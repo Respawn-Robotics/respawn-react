@@ -1,0 +1,72 @@
+#custom-field-creation {
+    display: flex;
+    margin-top: 10vh;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+}
+
+#custom-field-creation > h1 {
+    color: white;
+    font-family: "roboto-slab-bold";
+    font-size: 1.5rem;
+}
+
+#options-editor {
+    display: flex;
+    color: white;
+    font-family: "roboto-slab";
+    flex-direction: column;
+}
+
+#options-adder {
+    display: flex;
+    column-gap: 10px;
+}
+
+.indv-option {
+    margin-bottom: 2ch;
+}
+
+.remove-option {
+    font-family: "roboto-slab-extrabold";
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: red;
+}
+
+#manage-custom-fields {
+    width: 100%;
+    margin-top: 10vh;
+}
+
+#manage-custom-fields > h1 {
+    color: white;
+    font-family: "roboto-slab-bold";
+    font-size: 1.5rem;
+}
+
+.custom-field {
+    display: flex;
+    color: white;
+    width: 100%;
+    margin-bottom: 2vh;
+    font-family: "roboto-slab";
+    padding: 3ch;
+    background-color: var(--respawn-blue);
+    border-radius: 10px;
+    border: 5px solid var(--respawn-blue-lighter);
+}
+
+.field-control-panel {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.field-control-panel > button {
+    font-size: 2rem;
+}
+

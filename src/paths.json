@@ -27,6 +27,7 @@
         "match-log" : "/recon/matches/:match",
         "teams" : "/recon/teams",
         "team-stats" : "/recon/teams/:team",
-        "manage-team" : "/recon/manage-team"
+        "manage-team" : "/recon/manage-team",
+        "manage-inputs" : "/recon/manage-inputs"
     }
 }

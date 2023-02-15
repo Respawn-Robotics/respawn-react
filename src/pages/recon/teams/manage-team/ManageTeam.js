@@ -9,6 +9,46 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
 
+function CustomField({ field }) {
+    const FieldText = ({ field }) => {
+        switch (field.type) {
+            case '0':
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Checkbox</h2>
+                </div>;
+            case '1':
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Number</h2>
+                </div>;
+            case '2':
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Select</h2>
+                    <h3>Options:</h3>
+                    <ul>
+                        {field.options.map(o => <li key={o}>{o}</li>)}
+                    </ul>
+                </div>;
+            case '4':
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Extended Response</h2>
+                </div>;
+            default:
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Short Response</h2>
+                </div>;
+        }
+    }
+
+    return <div className='custom-field'>
+        <FieldText field={field} />
+    </div>
+}
+
 function ManageTeam() {
     const auth = getAuth();
     const [user, loading] = useAuthState(auth)
@@ -65,10 +105,10 @@ function ManageTeam() {
         if (loading) return;
         if (!user) return navigate("/signin");
         isUserAdmin().then(res => {
-            if(res === false) setCurrentUserRank("Admin")
+            if (res === false) setCurrentUserRank("Admin")
         })
         isUserOwner().then(res => {
-            if(res === false) setCurrentUserRank("Owner")
+            if (res === false) setCurrentUserRank("Owner")
         })
         fetchTeam().then(res => {
             if (!res) navigate("/recon/create-join-team")
@@ -105,7 +145,7 @@ function ManageTeam() {
 
         }
         setInputs(values => ({ ...values, [name]: value }));
-      }
+    }
 
     const sendData = async () => {
         const payload = inputs;
@@ -114,7 +154,7 @@ function ManageTeam() {
         const invitesSnap = await getDoc(invitesDocRef);
 
         payload.team = team.teamName;
-        if(invitesSnap.exists()) {
+        if (invitesSnap.exists()) {
             toast("That user has already been invited!");
         } else {
             setDoc(invitesDocRef, {
@@ -135,7 +175,7 @@ function ManageTeam() {
     }
 
     const demoteUser = (uid, userData) => {
-        
+
         const teamDocRef = doc(db, "teams", team.teamName);
         updateDoc(teamDocRef, {
             admins: arrayRemove(uid)
@@ -154,7 +194,7 @@ function ManageTeam() {
         updateDoc(teamDocRef, {
             users: arrayRemove(uid)
         })
-        
+
         updateDoc(usersDocRef, {
             team: ""
         })
@@ -167,11 +207,20 @@ function ManageTeam() {
             <>
                 <h1 className='header' id='team-name'>Team Name: <o>{team.teamName}</o></h1>
                 {(currentUserRank === "Admin" || currentUserRank === "Owner") &&
-                <form id='send-invite-form'>
-                    <h1 className='header'>Send Invite:</h1>
-                    <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email}/>
-                    <button id='submit-button' type='button' onClick={sendData}>SUBMIT</button>
-                </form>}
+                    <div className='column'>
+                        <form id='send-invite-form'>
+                            <h1 className='header'>Send Invite:</h1>
+                            <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email} />
+                            <button id='submit-button' type='button' onClick={sendData}>SUBMIT</button>
+                        </form>
+                        <div id='custom-inputs'>
+                            <h1>Custom Scout Fields:</h1>
+                            <div id='custom-fields'>
+                                {team.fields ? team.fields.map(f => <CustomField field={f} />) : <p>No custom fields created yet.</p>}
+                            </div>
+                            <button onClick={_ => navigate('/recon/manage-inputs')}>Manage</button>
+                        </div>
+                    </div>}
                 <h1 className='header'>Users:</h1>
                 <div id='users-container'>
                     <div id='user-headings'>
@@ -186,8 +235,8 @@ function ManageTeam() {
                         admin={(currentUserRank === "Admin" || currentUserRank === "Owner")}
                         rank={
                             team.owner === i.uid ? 'Owner' :
-                            team.admins.includes(i.uid) ? 'Admin' :
-                            'User'
+                                team.admins.includes(i.uid) ? 'Admin' :
+                                    'User'
                         }
                         scoutData={scoutingData}
                         currentUserRank={currentUserRank}
@@ -202,7 +251,7 @@ function ManageTeam() {
                     <h2>WARNING: THIS CANNOT BE UNDONE</h2>
                 </div>}
             </>
-            
+
             : <> Loading... </>}
 
     </>

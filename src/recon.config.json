@@ -182,12 +182,6 @@
                 {"label" : "Docked + Engaged", "value" : 10}
             ],
             "default": "0"
-        },
-        {
-            "name": "additional-comments",
-            "type": "textarea",
-            "default": "None",
-            "additional": true
         }
     ]
 }

@@ -17,8 +17,8 @@ function SimpleLineChart({ width, height, data }) {
       data={data}
       margin={{
         top: 5,
-        right: 30,
-        left: 20,
+        right: 30, 
+        left: 0,
         bottom: 5
       }}
     >
@@ -28,7 +28,7 @@ function SimpleLineChart({ width, height, data }) {
       <Legend />
       <Line
         type="linear"
-        dataKey="points"
+        dataKey="Points"
         stroke="#e96824"
       />
     </LineChart>
@@ -43,14 +43,16 @@ function SimpleRadialChart({ width, height, data }) {
       data={data}
     >
       <PolarGrid stroke="#FFFFFF" />
-      <PolarAngleAxis dataKey="subject" stroke="#FFFFFF" />
+      <PolarAngleAxis dataKey="label" stroke="#FFFFFF" />
+      <PolarRadiusAxis type="number" angle={90} domain={[0, 100]} />
       <Radar
-        name="Mike"
+        name="Rating"
         dataKey="A"
         stroke="#e96824"
         fill="#e96824"
         fillOpacity={0.65}
       />
+      <Tooltip />
     </RadarChart>
   )
 }
