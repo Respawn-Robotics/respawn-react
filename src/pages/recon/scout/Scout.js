@@ -45,19 +45,6 @@ function ScoutForm() {
         });
     }, [user, loading]);
 
-    const validateData = _ => {
-        let inputsFilled = true;
-        if (!team) return false;
-        Object.keys(inputs).forEach(i => {
-            if (inputs[i] === '') {
-                inputsFilled = false;
-            }
-        });
-        return inputsFilled;
-    }
-
-    useEffect(_ => console.log(validateData()), [inputs]);
-
     const autofillData = _ => {
         setSend(true);
 

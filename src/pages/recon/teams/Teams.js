@@ -25,7 +25,6 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
 
     useEffect(_ => {
         let avg = {};
-
         data?.map(entry => {
             reconfig['data'].map(field => {
                 if (field.name === 'team' || field.name === 'match') return;
@@ -42,7 +41,7 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
                     case 'grid':
                         break;
                     default:
-                        avg[field.name] = (avg[field.name] ? avg[field.name] : 0) + (value / data.length);
+                        avg[field.name] = (avg[field.name] ?? 0) + (value / data.length);
                 }
             })
         });
@@ -59,45 +58,6 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
                         'Points': parseInt(entry['points-scored'])
                     }
                 });
-
-            case 'radial':
-                return [{
-                    "label": "bruh",
-                    "A": 110,
-                    "B": 150,
-                    "fullMark": 200
-                },
-                {
-                    "label": "Chinese",
-                    "A": 98,
-                    "B": 130,
-                    "fullMark": 200
-                },
-                {
-                    "label": "English",
-                    "A": 86,
-                    "B": 130,
-                    "fullMark": 200
-                },
-                {
-                    "label": "Geography",
-                    "A": 99,
-                    "B": 100,
-                    "fullMark": 200
-                },
-                {
-                    "label": "Physics",
-                    "A": 85,
-                    "B": 90,
-                    "fullMark": 200
-                },
-                {
-                    "label": "History",
-                    "A": 65,
-                    "B": 85,
-                    "fullMark": 200
-                }
-                ]
         }
     }
 

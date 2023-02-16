@@ -121,7 +121,7 @@ function MasterTable() {
         chartRefs.current[i].style.display = chartRefs.current[i].hidden ? 'flex' : 'none';
     }
 
-    return <> {console.log(averages)}{Object.keys(averages ?? {})[0] ?
+    return <> {Object.keys(averages ?? {})[0] ?
         <div id='master-table'>
             <div className='master-table-row'>
                 <div className='master-table-cell master-table-heading'>Team</div>
