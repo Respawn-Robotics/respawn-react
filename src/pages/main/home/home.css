@@ -1,0 +1,173 @@
+.center-horizontal {
+    display: flex;
+    justify-content: center;
+}
+
+.center-vertical {
+    display: flex;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    
+}
+
+.column > * {
+    flex: 1 1 0px;
+}
+
+.our-mission-container {
+    background: transparent;
+    height: auto;
+}
+
+p.our-mission {
+    font-family: "roboto-slab";
+    color: white;
+    text-align: center;
+    padding: 0px 3%;
+    font-size: 25px;
+    display: flex;
+    background: transparent;
+}
+
+h1.our-mission {
+    font-family: "roboto-slab-extrabold";
+    margin-bottom: 0;
+    font-size: 3rem;
+    text-align: center;
+    color: var(--respawn-orange);
+
+}
+
+.heading-underline {
+    height: 0.3rem;
+    width: 70%;
+    margin: 1rem auto 3rem;
+    border-width: 0;
+    background-color: var(--respawn-orange);
+}
+
+.image-slider-container{
+    height: 75vh;
+    width: 100%;
+    background: black;
+}
+
+.school-slider-container{
+    margin: 5rem 0;
+    width: min(500px, 100%);
+    aspect-ratio: 3.5/1;
+}
+
+.join-program{
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 100%;
+    margin: 2rem 0 5rem;
+    padding: 0 2rem 1.5rem;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, var(--respawn-dark-blue) 100%), url("./media/picture8.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.joinUs-text{
+    color: white;
+    background: transparent;
+    display: table;
+    text-align: center;
+    margin: auto;
+    margin-top: 1%;
+}
+
+#joinUs-title{
+    font-size: 2.5rem;
+    font-family: roboto-slab-bold;
+    margin-top: 1.5%;
+}
+
+#joinUs-sentence{
+    font-size: 1.5rem;
+    font-family: roboto-slab;
+}
+
+.moreinfo-button{
+    position: relative;
+    text-align: center;
+    background-color: var(--respawn-blue);
+    border-style: solid;
+    border-width: 2.5px;
+    border-color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.moreinfo-button:hover {
+    background-color: var(--respawn-orange);
+    transform: scale(1.1);
+}
+
+.moreinfo-text{
+    font-family: 'roboto-slab-bold';
+    color: white;
+    font-size: 1.25rem;
+    text-decoration: none;
+    transition: all .2s ease-in-out;
+}
+
+.associate-schools{
+    width: 100%;
+    height: 8vw;
+    background-color: transparent;
+    text-align: center;
+    display: flex;
+    background: transparent;
+    margin-top: -5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.associateText{
+    font-family: "roboto-slab-bold";
+    color: white;
+    font-size: 2.5em;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+    p.our-mission {
+        padding: 0 15%;
+    }
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+    .column {
+        flex-direction: column;
+    }
+
+    .column > * {
+        padding: 5%;
+    }
+
+    h1.our-mission {
+        font-size: 3rem;
+    }
+
+    p.our-mission {
+        font-size: 1.25rem;
+    }
+
+    .school-slider-container{
+        margin: 10rem 0;
+    }
+}

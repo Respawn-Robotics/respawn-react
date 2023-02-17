@@ -1,0 +1,27 @@
+#sign-in-button {
+    background-color: var(--respawn-blue);
+    color: white;
+    font-family: "roboto-slab";
+    font-size: 2rem;
+    padding: 1ch;
+    border: 2px solid white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+#sign-in-button:hover {
+    background-color: var(--respawn-orange);
+}
+
+.header {
+    text-align: center;
+    color: white;
+    font-size: 3rem;
+    font-family: "roboto-slab-extrabold";
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}

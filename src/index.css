@@ -1,0 +1,63 @@
+:root {
+  --respawn-dark-blue: #1e2837;
+  --respawn-blue: #2f6074;
+  --respawn-blue-lighter: #43a1c7;
+  --respawn-blue-darker: #2b4651;
+  --respawn-orange: #e96824;
+
+
+  --toastify-color-light: #32a5d2 !important;
+  --toastify-text-color-light: white !important;
+  --toastify-font-family: "roboto-slab" !important;
+  --toastify-color-progress-light: linear-gradient(
+    to right,
+    #e96824,
+    #ff9b65
+    ) !important;
+}
+
+@font-face {
+  font-family: "roboto-slab";
+  src: url("./media/fonts/roboto-slab/roboto-slab-regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "roboto-slab-bold";
+  src: url("./media/fonts/roboto-slab/roboto-slab-bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "roboto-slab-extrabold";
+  src: url("./media/fonts/roboto-slab/roboto-slab-extrabold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "bank-gothic";
+  src: url("./media/fonts/bank-gothic/bank-gothic-medium.ttf") format("truetype");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  background-color: var(--respawn-dark-blue);
+  min-height: 99vh;
+  margin: 0;
+  padding-bottom: 20vh;
+}
+
+i {
+  font-size: 1em;
+  margin: 0 0.25ch 0 0;
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+  body {
+    padding-bottom: 35vh;
+  }
+}
+
+
+

@@ -1,0 +1,9 @@
+.no-data-message{
+    font-family: "roboto-slab-extrabold";
+    margin-bottom: 0;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 20%;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}

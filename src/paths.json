@@ -1,0 +1,33 @@
+{
+    "authentication" : {
+        "signin": "/signin",
+        "signout": "/signout"
+    },
+    "main" : {
+        "home": "/",
+        "about": "/about",
+        "first": "/first",
+        "sponsors": "/sponsors",
+        "pillars": {
+            "react": "/pillars/react",
+            "recon": "/pillars/recon",
+            "repository": "/pillars/repository",
+            "reach": "/pillars/reach",
+            "rewind": "/pillars/rewind"
+        },
+        "cad": "/cad"
+    },
+    "recon": {
+        "dashboard": "/recon",
+        "scout": "/recon/scout",
+        "master-table" : "/recon/master-table",
+        "create-join-team": "/recon/create-join-team",
+        "profile": "/recon/profile",
+        "matches" : "/recon/matches",
+        "match-log" : "/recon/matches/:match",
+        "teams" : "/recon/teams",
+        "team-stats" : "/recon/teams/:team",
+        "manage-team" : "/recon/manage-team",
+        "manage-inputs" : "/recon/manage-inputs"
+    }
+}

@@ -1,0 +1,66 @@
+#scout-form-container {
+    padding-top: 10vh;
+}
+
+#scout-form {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    align-items: center;
+}
+
+#input-4 {
+    grid-column: 1 / span 3;
+    padding: 2vh 0 0;
+}
+
+#input-6 {
+    grid-column: 1 / span 3;
+    padding: 2vh 5% 3vh;
+}
+
+#input-7 {
+    grid-column: 1 / span 3;
+}
+
+#input-8 {
+    grid-column: 1 / span 3;
+    padding: 2vh 5%;
+}
+
+#input-9 {
+    grid-column: 1 / span 3;
+}
+
+#input-10 {
+    grid-column: 1 / span 3;
+}
+
+.custom-input {
+    margin-top: 2vh;
+    grid-column: 1 / span 3;
+}
+
+#submit-button-container {
+    margin-top: 5vh;
+    grid-column: 1 / span 3;
+    display: flex;
+    justify-content: center;
+}
+
+#submit-button {
+    font-family: "roboto-slab";
+    color: white;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+    padding: 2ch;
+    background-color: var(--respawn-orange);
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: 0.25s;
+}
+
+#submit-button:hover {
+    background-color: var(--respawn-blue-darker);
+    color: var(--respawn-orange);
+}

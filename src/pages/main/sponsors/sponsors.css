@@ -1,0 +1,152 @@
+#sponsors-body{
+    padding-top: 10vh;
+    background: fixed;
+    background-image: 
+    linear-gradient(
+        rgba(0,0,0,0.5),
+        rgba(0,0,0,.5)
+    ),
+    url("./media/background.jpg");
+    background-size: cover;
+    background-position: 50% 70%;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.smaller-text{
+    font-size: 1.25rem;
+    font-family:'roboto-slab';
+    color: white;
+    text-align: center;
+    width: min(25em, 90%);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
+}
+
+.title-text {
+    font-size: 2rem;
+    font-family: 'roboto-slab-bold';
+    margin: 5rem 0 0 0;
+    color: white;
+    text-align: center;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.sponsors-section {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sponsors-logos {
+    background-color: var(--respawn-dark-blue);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 40vh;
+}
+
+.logo {
+    flex-basis: auto;
+    max-height: 100%;
+    max-width: 100%;
+    padding: 2ch;
+}
+
+#hydrotech {
+    max-width: 90%;
+}
+
+#bilstein {
+    max-width: 80%;
+}
+
+#genehaas,
+#polezero,
+#belcan {
+    max-height: 75%;
+    max-width: 40%;
+}
+
+#baxter {
+    background-color: white;
+    max-height: 25%;
+    max-width: 50%;
+}
+
+#pngcore,
+#eightyacres {
+    max-height: 40%;
+}
+
+#yaskawa {
+    max-height: 25%;
+}
+
+#sponsor-section {
+    background-color: var(--respawn-dark-blue);
+    display: flex;
+    height: 35rem;
+}
+
+#why-sponsor-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 1em 0;
+    height: auto;
+}
+
+#why-sponsor{
+    font-size: 2.5rem;
+    font-family: 'roboto-slab-bold';
+    color: white;
+    text-align:center;
+    display: block;
+    padding: none;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.sponsorpacket-container{
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+}
+
+#sponsorship-packet {
+    height: 100%;
+    width: 100%;
+    border: none;
+    padding: 0 10% 10%;
+}
+
+.sponsorship-text {
+    text-align: center;
+    font-family: "roboto-slab-bold";
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+a.sponsorship-text {
+    color: var(--respawn-orange);
+    text-decoration: underline;
+}
+
+#packet-image{
+    height: auto;
+    width: 250px;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    #sponsor-section {
+        height: 70rem;
+        flex-direction: column;
+    }
+}

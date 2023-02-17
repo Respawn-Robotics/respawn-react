@@ -1,0 +1,99 @@
+#users-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#user-headings {
+    display: grid;
+    grid-template-columns: 3fr 3fr 3fr 2fr 2fr 2fr;
+}
+
+#users-header {
+    margin-top: 10vh;
+}
+
+o {
+    font-size: inherit;
+    color: var(--respawn-orange);
+}
+
+#user-headings > h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: white;
+    font-family: "roboto-slab-extrabold";
+}
+
+#team-name {
+    margin-top: 15vh;
+}
+
+
+#send-invite-form {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+#email {
+    width: max(30%, 20rem);
+}
+
+#custom-inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#custom-inputs > h1 {
+    color: white;
+    font-family: "roboto-slab";
+    font-size: 2rem;
+}
+
+#custom-fields {
+    width: min(90%, 30rem);
+    height: 55vh;
+    overflow-y: scroll;
+}
+
+#custom-inputs > button {
+    margin-top: 5vh;
+    width: 15ch;
+    padding: 1ch;
+    font-family: "roboto-slab";
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: var(--respawn-orange);
+    color: white;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+#custom-inputs > button:hover {
+    background-color: white;
+    color: gray;
+    border-color: gray;
+}
+
+.no-data-message {
+    text-align: center;
+    font-size: 3em;
+    color: white;
+}
+
+.delete-team-button {
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.delete-team-button h2 {
+    color: red;
+    font-family: "roboto-slab-extrabold";
+}

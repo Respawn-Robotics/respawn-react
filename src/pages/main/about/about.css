@@ -1,0 +1,42 @@
+.image-container {
+    height: 75vh;
+    width: 100%;
+    background-image: url('./media/pic1.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 0 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.about-us-text-container {
+    padding: 0 5%;
+}
+
+.about-us-text {
+    color: white;
+    text-align: center;
+}
+
+h1.about-us-text {
+    font-family: "roboto-slab-bold";
+    font-size: 2rem;
+}
+
+p.about-us-text {
+    font-family: "roboto-slab";
+    font-size: 1.2rem;
+}
+
+#team-photo {
+    width: 100%;
+    object-fit: cover;
+}
+
+#student-leaders-container{
+    margin-top: 5vh;
+}
+
+#mentors-container{
+    margin-top: 10vh;
+}

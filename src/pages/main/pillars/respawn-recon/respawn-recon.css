@@ -1,0 +1,110 @@
+#recon-intro {  
+    color: white;
+    text-align: center;
+    font-family: "roboto-slab-bold";
+    font-size: 2.5rem;
+}
+
+h1#recon-intro {
+    margin: 10vh 0 0;
+}
+
+h2#recon-intro {
+    margin: 5vh 0 20vh;
+    font-size: 2rem;
+}
+
+#recon-intro a {
+    color: var(--respawn-blue-lighter);
+    font-size: inherit;
+    text-decoration: none;
+}
+
+.recon-feature-container {
+    position: relative;
+    display: flex;
+    margin: 15vh 0;
+    height: 65vh;
+    width: 100%;
+}
+
+.feature-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    height: 100%;
+    width: 50%;
+}
+
+.feature-image > img.vertical-image {
+    border: 10px solid var(--respawn-blue);
+    border-radius: 20px;
+    padding: 15px;
+    object-fit: contain;
+    width: 50%;
+}
+
+.feature-image > img.horizontal-image {
+    border: 10px solid var(--respawn-blue);
+    border-radius: 20px;
+    padding: 15px;
+    object-fit: contain;
+    max-width: 100%;
+}
+
+.feature-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 0 5ch;
+    justify-content: center;
+    color: white;
+    font-family: "roboto-slab";
+}
+
+.feature-text > p {
+    font-size: 2rem;
+}
+
+.feature-text * {
+    font-size: 1.5rem;
+    line-height: 3rem;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    h1#recon-intro {
+        margin: 10vh 0 0;
+    }
+
+    h2#recon-intro {
+        margin: 5vh 0 5vh;
+    }
+
+    .recon-feature-container {
+        margin: 0;
+        height: 85vh;
+        flex-direction: column;
+    }
+
+    .feature-image {
+        height: 50%;
+        width: 100%;
+        margin: 0;
+    }
+
+    .feature-image > img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .feature-text * {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    .feature-text > p {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+}
