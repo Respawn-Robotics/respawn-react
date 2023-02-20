@@ -24,7 +24,7 @@ function Input({ name, type, onChange, options, lines, imageSrc, className, id, 
                 <select name={name} className={`form-input ${className}`} id={id} onChange={onChange}>
                     {options.map((option, index) => {
                         return (
-                            <option className={`select-option ${className}-option`} id={`${id}-option-${index}`} value={option.value}>{option.label}</option>
+                            <option className={`select-option ${className}-option`} id={`${id}-option-${index}`} value={option.value} selected={value === option.value ? 'selected' : ''}>{option.label}</option>
                         );
                     })}
                 </select>

@@ -10,6 +10,14 @@
     grid-template-rows: 5ch;
 }
 
+.user-display > h3,
+.user-display > p {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .manage-user {
     background-color: var(--respawn-orange);
     color: white;

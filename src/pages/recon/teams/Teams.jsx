@@ -231,7 +231,7 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
                                 </div> : '')}
                             </div>
                             <div className='additional-fields'>
-                                {fields.map(f => {
+                                {fields?.map(f => {
                                     switch (f.type) {
                                         case '0':
                                             return <div className='additional-field'>
@@ -277,6 +277,7 @@ function Teams() {
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
     const [teamName, setTeamName] = useState();
+    const [regional, setRegional] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
 
@@ -310,8 +311,9 @@ function Teams() {
         });
         fetchTeamName().then(userData => {
             setCustomFields(userData.docs[0].data().fields);
+            setRegional(userData.docs[0].data().regional);
             onSnapshot(doc(db, 'recon',
-                userData.docs[0].data().teamName), doc => setData(doc.data()));
+                `${userData.docs[0].data().teamName}-${userData.docs[0].data().regional}`), doc => setData(doc.data()));
             setTeamName(userData.docs[0].data().teamName);
         });
     }, [user, loading]);
@@ -326,7 +328,7 @@ function Teams() {
             database={data}
             teamNum={team}
             admin={isAdmin}
-            tName={teamName}
+            tName={`${teamName}-${regional}`}
             fields={customFields}
         />
     </>
