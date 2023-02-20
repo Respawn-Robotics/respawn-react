@@ -68,7 +68,7 @@ function MasterTable() {
             if (userData.docs[0].data().team === '') return navigate('/create-join-team')
             setNumericalFields(i => i.concat(getNumericalInputs(userData.docs[0].data().fields ?? [])));
             onSnapshot(doc(db, 'recon',
-                userData.docs[0].data().teamName), doc => setData(
+                `${userData.docs[0].data().teamName}-${userData.docs[0].data().regional}`), doc => setData(
                     Object.keys(doc.data())
                         .reduce((sortedData, team) => {
                             sortedData[team] = doc.data()[team]

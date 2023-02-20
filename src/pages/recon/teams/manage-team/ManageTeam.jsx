@@ -53,13 +53,12 @@ function ManageTeam() {
     const auth = getAuth();
     const [user, loading] = useAuthState(auth)
     const navigate = useNavigate()
-    const [currentUserRank, setCurrentUserRank] = useState("")
+    const [currentUserRank, setCurrentUserRank] = useState("");
+    const [teamRegionals, setTeamRegionals] = useState([])
     const [scoutingData, setScoutingData] = useState({});
     const [team, setTeam] = useState(null)
     const [users, setUsers] = useState([])
-    const [inputs, setInputs] = useState({
-        email: ""
-    })
+    const [inputs, setInputs] = useState({ email: "" })
 
     const isUserAdmin = async () => {
         const q = query(collection(db, "teams"), where("admins", "array-contains", user.uid));
@@ -111,8 +110,25 @@ function ManageTeam() {
             if (res === false) setCurrentUserRank("Owner")
         })
         fetchTeam().then(res => {
-            if (!res) navigate("/recon/create-join-team")
-            setTeam(res.data())
+            if (!res) navigate("/recon/create-join-team");
+            setTeam(res.data());
+            (async num => {
+                fetch(`https://www.thebluealliance.com/api/v3/team/frc${num}/events/2023`, {
+                    method: 'GET',
+                    headers: {
+                        'X-TBA-Auth-Key': import.meta.env.VITE_tbaApiKey,
+                    }
+                })
+                    .then(async data => {
+                        setTeamRegionals((await data.json())
+                            .map(reg => {
+                                return {
+                                    name: reg.name,
+                                    id: reg.event_code
+                                }
+                            }));
+                    });
+            })(res.data().teamNumber);
             onSnapshot(doc(db, 'recon', res.data().teamName), doc => setScoutingData(doc.data()));
             fetchTeamUsers(res.data()).then(u => setUsers(u.sort((a, b) => {
                 if (res.data().owner === a.uid) return -1;
@@ -126,6 +142,8 @@ function ManageTeam() {
             })))
         });
     }, [user, loading]);
+
+    useEffect(_ => console.log(teamRegionals), [teamRegionals])
 
     const changeInputs = (e) => {
         const target = e.currentTarget;
@@ -184,6 +202,15 @@ function ManageTeam() {
         toast("Successfuly demoted " + userData.displayName + "!")
     }
 
+    const updateRegional = reg => {
+        if (reg === "-1") return;
+        const teamDocRef = doc(db, "teams", team.teamName);
+        updateDoc(teamDocRef, {
+            regional: reg
+        });
+        toast("Successfully updated regional!");
+    }
+
     const kickUser = (uid) => {
         const teamDocRef = doc(db, "teams", team.teamName);
         const usersDocRef = doc(db, "users", uid);
@@ -206,7 +233,22 @@ function ManageTeam() {
         {team ?
             <>
                 <h1 className='header' id='team-name'>Team Name: <o>{team.teamName}</o></h1>
-                {(currentUserRank === "Admin" || currentUserRank === "Owner") &&
+                {(currentUserRank === "Admin" || currentUserRank === "Owner") && <>
+                    <div id="regional-selection">
+                        <FormInput 
+                            name='select-regional'
+                            type='select'
+                            options={[{
+                                label: 'Select...',
+                                value: -1
+                            }, ...teamRegionals.map(reg => {return {
+                                label: reg.name,
+                                value: reg.id
+                            }})]}
+                            value={team.regional}
+                            onChange={e => updateRegional(e.target.value)}
+                        />
+                    </div>
                     <div className='column'>
                         <form id='send-invite-form'>
                             <h1 className='header'>Send Invite:</h1>
@@ -220,7 +262,8 @@ function ManageTeam() {
                             </div>
                             <button onClick={_ => navigate('/recon/manage-inputs')}>Manage</button>
                         </div>
-                    </div>}
+                    </div>
+                </>}
                 <h1 className='header'>Users:</h1>
                 <div id='users-container'>
                     <div id='user-headings'>

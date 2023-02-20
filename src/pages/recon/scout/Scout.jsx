@@ -3,7 +3,7 @@ import './scout.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import reconfig from '../../../recon.config';
-import { doc, updateDoc, arrayUnion, onSnapshot } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, onSnapshot, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { query, collection, where, getDocs } from 'firebase/firestore';
@@ -36,12 +36,20 @@ function ScoutForm() {
     }, [user]);
 
     useEffect(_ => {
+        // console.log(database)
+    }, [teamData])
+
+    useEffect(_ => {
         if (loading) return
         if (!user) return navigate('/signin')
         fetchTeamName().then(document => {
             setTeamData(document.docs[0].data())
             onSnapshot(doc(db, 'recon',
-                document.docs[0].data().teamName), d => setDatabase(d.data()));
+                `${document.docs[0].data().teamName}-${document.docs[0].data().regional}`), 
+                d => {
+                    if (!d._document) (async _ => await setDoc(doc(db, 'recon', `${document.docs[0].data().teamName}-${document.docs[0].data().regional}`), {}))();
+                    setDatabase(d.data())
+                });
         });
     }, [user, loading]);
 
@@ -98,7 +106,7 @@ function ScoutForm() {
     const sendData = async _ => {
         if (!database[team] || database[team].map(en => en.match).indexOf(inputs.match) === -1) {
             try {
-                const docRef = doc(db, 'recon', teamData.teamName);
+                const docRef = doc(db, 'recon', `${teamData.teamName}-${teamData.regional}`);
                 let result = toast.promise(Promise.race([
                     updateDoc(docRef, { [team]: arrayUnion({ ...inputs, author: user.displayName }) }),
                     new Promise((_, rej) => {
@@ -194,10 +202,12 @@ function ScoutForm() {
                             name={field.name}
                             type='select'
                             onChange={changeInputs}
-                            options={field.options.map((o, i) => {return {
-                                label: o,
-                                value: i
-                            }})}
+                            options={field.options.map((o, i) => {
+                                return {
+                                    label: o,
+                                    value: i
+                                }
+                            })}
                             className='custom-input'
                         />;
                     case '3':
