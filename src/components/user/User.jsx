@@ -6,7 +6,7 @@ function Users({currentUserRank, userData, rank, scoutData, kickUser, promoteUse
 
     useEffect(_ => {
         let tempArray = 0;
-        Object.keys(scoutData)?.forEach(teamScouted => scoutData[teamScouted].forEach(entry => {
+        Object.keys(scoutData ?? {})?.forEach(teamScouted => scoutData[teamScouted].forEach(entry => {
             if (entry.author === userData.displayName) tempArray++;
         }));
         setUserScouts(tempArray);

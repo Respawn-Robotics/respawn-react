@@ -96,9 +96,21 @@ button.entry-data {
     display: none;
 }
 
+.additional-display {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.additional-display > h1 {
+    font-size: 1rem;
+}
+
 .additional-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     row-gap: 15px;
     width: 100%;
     min-height: 35vh;
@@ -149,6 +161,7 @@ button.entry-data {
 
 .avg-piece {
     display: flex;
+    width: 20%;
     align-items: center;
     border-radius: 5px;
     border: 2px solid black;
@@ -235,7 +248,7 @@ button.entry-data {
 }
 
 .preset-piece {
-    width: 25%;
+    width: 20%;
     margin: 0 1%;
     aspect-ratio: 1 / 1;
     background-color: black;
@@ -253,9 +266,9 @@ button.entry-data {
 }
 
 
-/* -----------------------Auton Path----------------------- */
+/* -----------------------Canvases----------------------- */
 
-.auton-path-canvas {
+.canvas-display {
     width: 100%;
     height: 100%;
 }
@@ -265,6 +278,7 @@ button.entry-data {
 .power-grid-display {
     display: grid;
     height: 100%;
+    width: 100%;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(3, 1fr);
     column-gap: 5px;
@@ -274,11 +288,11 @@ button.entry-data {
 
 .power-grid-node {
     display: flex;
-    width: 4ch;
     aspect-ratio: 1/1;
     justify-content: center;
     align-items: center;
     font-family: 'roboto-slab';
+    font-size: 1.5vw;
     color: white;
     border: 2px black solid;
     border-radius: 25%;
@@ -295,3 +309,13 @@ button.entry-data {
 }
 
 /* -----------------------Data Points----------------------- */
+
+@media (max-aspect-ratio: 1/1) {
+    .average-box h1 {
+        font-size: 0.75rem;
+    }
+
+    .power-grid-node {
+        font-size: 3vw;
+    }
+}

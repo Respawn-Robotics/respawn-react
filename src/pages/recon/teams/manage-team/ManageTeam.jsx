@@ -58,7 +58,7 @@ function ManageTeam() {
     const [scoutingData, setScoutingData] = useState({});
     const [team, setTeam] = useState(null)
     const [users, setUsers] = useState([])
-    const [inputs, setInputs] = useState({ email: "" })
+    const [inputs, setInputs] = useState({ email: "" });
 
     const isUserAdmin = async () => {
         const q = query(collection(db, "teams"), where("admins", "array-contains", user.uid));
@@ -129,7 +129,7 @@ function ManageTeam() {
                             }));
                     });
             })(res.data().teamNumber);
-            onSnapshot(doc(db, 'recon', res.data().teamName), doc => setScoutingData(doc.data()));
+            onSnapshot(doc(db, 'recon', `${res.data().teamName}-${res.data().regional}`), doc => setScoutingData(doc.data()));
             fetchTeamUsers(res.data()).then(u => setUsers(u.sort((a, b) => {
                 if (res.data().owner === a.uid) return -1;
                 if (res.data().owner === b.uid) return 1;
@@ -159,7 +159,7 @@ function ManageTeam() {
                 value = target.checked;
                 break;
             default:
-                value = target.value;
+                value = target.value.toLocaleLowerCase();
 
         }
         setInputs(values => ({ ...values, [name]: value }));

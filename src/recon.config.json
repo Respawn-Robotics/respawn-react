@@ -167,6 +167,20 @@
             "default": "0"
         },
         {
+            "name": "cycle-path",
+            "type": "clickarea",
+            "image-index": 0,
+            "lines": true,
+            "options": [
+                {
+                    "label": "path-point",
+                    "color": "#0099FF"
+                }
+            ],
+            "default": {},
+            "additional": true
+        },
+        {
             "name": "power-grid",
             "type": "grid",
             "default": [],
