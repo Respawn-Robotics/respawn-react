@@ -26,7 +26,7 @@ const SignIn = () => {
       setDoc(docRef, {
         uid: user.uid,
         displayName: user.displayName,
-        email: user.email,
+        email: user.email.toLocaleLowerCase(),
         dateCreated: Timestamp.fromDate(new Date(user.metadata.creationTime)),
         lastSignInTime: Timestamp.fromDate(new Date(user.metadata.lastSignInTime)),
         team: ""

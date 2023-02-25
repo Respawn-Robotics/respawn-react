@@ -17,9 +17,11 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
     const [teamAvg, setTeamAvg] = useState({});
     const [chartData, setChartData] = useState(null);
     const entryRefs = useRef([]);
-    const canvasRefs = useRef([]);
+    const canvasRefs = useRef({});
     const imageRef = useRef(null);
     const [data, setData] = useState([]);
+
+    const titleify = str => str.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, c => c.toUpperCase());
 
     useEffect(_ => setData(database ? database[teamNum]?.sort((a, b) => parseInt(a['match']) < parseInt(b['match']) ? -1 : 1) : []), [teamNum]);
 
@@ -102,14 +104,13 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
             case 'alliance':
                 return <div className={`team-color color-${data}`}>{data === '1' ? 'RED' : 'BLUE'}</div>
             case 'preset-pieces':
-                return <>
-                    <div className='preset-pieces-container'>
+                return <div className='preset-pieces-container'>
                         {data?.map(d => <div className={`preset-piece piece-${d}`} />)}
-                    </div>
-                </>;
+                    </div>;
             case 'auton-path':
-                if (canvasRefs.current.length > 0) {
-                    const canvas = canvasRefs.current[key];
+            case 'cycle-path':
+                if (Object.keys(canvasRefs.current).length > 0) {
+                    const canvas = canvasRefs.current[`${name}-${key}`];
                     const ctx = canvas?.getContext('2d');
                     ctx?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
                     let prevX = data[0]?.points[0]?.x;
@@ -130,11 +131,9 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
                         prevY = p.y;
                     });
                 }
-                return <>
-                    <canvas ref={e => canvasRefs.current[key] = e} className='auton-path-canvas' />
-                </>
+                return <canvas className='canvas-display' ref={e => canvasRefs.current[`${name}-${key}`] = e} />
             case 'power-grid':
-                return <>
+                return <div className='additional-display'>
                     <div className='power-grid-display'>
                         {data?.map(row => row.map(node => <>
                             <div className={`power-grid-node piece-${node[1]}`}>
@@ -143,9 +142,8 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
                         </>
                         ))}
                     </div>
-                </>
+                </div>
             default:
-
                 return <>{data}</>;
         }
     }
@@ -203,7 +201,7 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
                 <tr id='headings'>
                     {admin && <th className='entries-head'>Delete</th>}
                     {reconfig['data'].map((field, i) => (field.name !== 'team' && !field.additional) ? <th key={`heading-${i}`} className='entries-head'>
-                        {field.name.replace(/(-|_)+/g, " ").toLowerCase().replace(/(^|\s)[a-z]/g, c => c.toUpperCase())}
+                        {titleify(field.name)}
                     </th> : '')}
                     <th className='entries-head'>Author</th>
                     <th>
@@ -227,7 +225,10 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
                         <td colSpan='8' ref={e => entryRefs.current[k] = e}>
                             <div className='additional-info'>
                                 {reconfig['data'].map((f, i) => (f.name !== 'exited-community' && f.additional) ? <div className={`additional-data data-point-${i}`}>
-                                    {displayData(f.name, dataFormat(f, entry[f.name]), k)}
+                                    <div className='additional-display'>
+                                        <h1>{titleify(f.name)}</h1>
+                                        {displayData(f.name, dataFormat(f, entry[f.name]), k)}
+                                    </div>
                                 </div> : '')}
                             </div>
                             <div className='additional-fields'>
