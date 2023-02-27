@@ -23,8 +23,8 @@ function Dashboard() {
     getDisplayName().then(res => setDisplayName(res.displayName))
     fetchTeamName().then(userData => {
       onSnapshot(doc(db, 'recon',
-        userData.docs[0].data().teamName), doc => setDatabase(doc.data()));
-      setName(userData.docs[0].data().teamName);
+        `${userData.docs[0].data().teamName}-${userData.docs[0].data().regional}`), doc => setDatabase(doc.data()));
+      setName(userData.docs[0].data());
     });
   }, [user, loading]);
 
@@ -50,7 +50,7 @@ function Dashboard() {
     let dataNoTeam = structuredClone(data);
     delete dataNoTeam['team'];
     if (!database[data.team] || database[data.team].map(en => en.match).indexOf(data.match) === -1) {
-      const docRef = doc(db, 'recon', name);
+      const docRef = doc(db, 'recon', `${name.teamName}-${name.regional}`);
       toast.promise(updateDoc(docRef, { [data.team]: arrayUnion(dataNoTeam) }), {
         pending: 'Uploading...',
         success: 'Uploaded!',
