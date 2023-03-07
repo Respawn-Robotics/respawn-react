@@ -12,7 +12,7 @@ import db from '../../../firebase.config';
 import canvasImage from './media/field-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
-function ScoutForm() {
+function Scout({values}) {
     const [team, setTeam] = useState();
     const [teamData, setTeamData] = useState({});
     const [database, setDatabase] = useState({});
@@ -20,7 +20,12 @@ function ScoutForm() {
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState(
+        reconfig.data.reduce((acc, cur) => {
+            if (cur.name !== 'team') acc[cur.name] = cur.default;
+            return acc;
+        }, {})
+    );
     const [send, setSend] = useState(false);
 
     const fetchTeamName = async () => {
@@ -30,20 +35,10 @@ function ScoutForm() {
     }
 
     useEffect(_ => {
-        let defaultInputs = {};
-        reconfig.data.map(field => field.name !== 'team' ? defaultInputs[field.name] = field.default : '');
-        setInputs(defaultInputs);
-    }, [user]);
-
-    useEffect(_ => {
-        // console.log(database)
-    }, [teamData])
-
-    useEffect(_ => {
         if (loading) return
         if (!user) return navigate('/signin')
         fetchTeamName().then(document => {
-            setTeamData(document.docs[0].data())
+            setTeamData(document.docs[0].data()) 
             onSnapshot(doc(db, 'recon',
                 `${document.docs[0].data().teamName}-${document.docs[0].data().regional}`), 
                 d => {
@@ -156,32 +151,33 @@ function ScoutForm() {
                     value = target.value;
 
             }
-
+ 
             setInputs(values => ({ ...values, [name]: value }));
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
     }
 
-    useEffect(_ => { if (send) sendData(); }, [inputs]);
-
-    return (<>
+    useEffect(_ => { console.log(inputs); if (send) sendData(); }, [inputs]);
+ 
+    return (<div id='scout-form-container'>
         <form id='scout-form'>
-
             {reconfig.data.map((field, i) => {
                 return (!field.auto ?
                     <FormInput
                         name={field.name}
                         type={field.type}
                         onChange={changeInputs}
-                        lines={field.lines}
+                        lines={field.lines} 
                         options={field.options}
                         imageSrc={canvasImage}
-                        id={`input-${i}`}
+                        id={`input-${i}`}   
+                        value={values ? values[field.name] : undefined}
+                        key={`input-${i}`}
                     /> : <></>
                 );
             })}
-            {teamData.fields ? teamData.fields?.map(field => {
+            {teamData.fields ? teamData.fields?.map((field, i) => {
                 switch (field.type) {
                     case '0':
                         return <FormInput
@@ -189,6 +185,7 @@ function ScoutForm() {
                             type='checkbox'
                             onChange={changeInputs}
                             className='custom-input'
+                            key={`custom-${i}`}
                         />;
                     case '1':
                         return <FormInput
@@ -196,6 +193,7 @@ function ScoutForm() {
                             type='number'
                             onChange={changeInputs}
                             className='custom-input'
+                            key={`custom-${i}`}
                         />;
                     case '2':
                         return <FormInput
@@ -209,6 +207,7 @@ function ScoutForm() {
                                 }
                             })}
                             className='custom-input'
+                            key={`custom-${i}`}
                         />;
                     case '3':
                         return <FormInput
@@ -216,6 +215,7 @@ function ScoutForm() {
                             type='text'
                             onChange={changeInputs}
                             className='custom-input'
+                            key={`custom-${i}`}
                         />;
                     case '4':
                         return <FormInput
@@ -223,6 +223,7 @@ function ScoutForm() {
                             type='textarea'
                             onChange={changeInputs}
                             className='custom-input'
+                            key={`custom-${i}`}
                         />;
                 }
             }) : <></>}
@@ -232,17 +233,9 @@ function ScoutForm() {
                 <a type='button' style={{ display: 'none', textDecoration: 'none' }} href='#' ref={downloadLink} id='submit-button' download onClick={autofillData}>DOWNLOAD DATA</a>
             </div>
         </form>
-    </>
+    </div>
     )
 
-}
-
-function Scout() {
-    return (
-        <div id='scout-form-container'>
-            <ScoutForm />
-        </div>
-    );
 }
 
 export default Scout;

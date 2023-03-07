@@ -13,7 +13,7 @@ import { SimpleLineChart } from "../../../lib/charts";
 import { ResponsiveContainer } from "recharts";
 
 
-function TeamMatches({ database, teamNum, admin, tName, fields }) {
+function TeamMatches({ database, teamNum, admin, tName, fields, nav }) {
     const [teamAvg, setTeamAvg] = useState({});
     const [chartData, setChartData] = useState(null);
     const entryRefs = useRef([]);
@@ -105,8 +105,8 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
                 return <div className={`team-color color-${data}`}>{data === '1' ? 'RED' : 'BLUE'}</div>
             case 'preset-pieces':
                 return <div className='preset-pieces-container'>
-                        {data?.map(d => <div className={`preset-piece piece-${d}`} />)}
-                    </div>;
+                    {data?.map(d => <div className={`preset-piece piece-${d}`} />)}
+                </div>;
             case 'auton-path':
             case 'cycle-path':
                 if (Object.keys(canvasRefs.current).length > 0) {
@@ -161,6 +161,8 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
         });
     }
 
+    const editEntry = entry => nav(`/recon/edit/${teamNum}-${entry}`);    
+
     return <>
         <img src={backImage} ref={imageRef} hidden='hidden' />
         <h1 id='team-number'>{teamNum}</h1>
@@ -199,7 +201,10 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
         <table id='match-list'>
             <thead>
                 <tr id='headings'>
-                    {admin && <th className='entries-head'>Delete</th>}
+                    {admin && <>
+                        <th className='entries-head'>Delete</th>
+                        <th className='entries-head'>Edit</th>
+                    </>}
                     {reconfig['data'].map((field, i) => (field.name !== 'team' && !field.additional) ? <th key={`heading-${i}`} className='entries-head'>
                         {titleify(field.name)}
                     </th> : '')}
@@ -212,7 +217,10 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
             <tbody>
                 {data?.map((entry, k) => <>
                     <tr key={`main-${k}`} className='match-entry'>
-                        {admin && <td className='entry-data data-point-author' onClick={_ => deleteEntry(entry)}><button className='delete-button'>X</button></td>}
+                        {admin && <>
+                            <td className='entry-data data-point-author' onClick={_ => deleteEntry(entry)}><button className='delete-button'>X</button></td>
+                            <td className='entry-data data-point-author' onClick={_ => editEntry(entry.match)}><button className='edit-button'>EDIT</button></td>
+                        </>}
                         {reconfig['data'].map((f, i) => (f.name !== 'team' && !f.additional) ? <td className={`entry-data data-point-${i}`}>
                             {displayData(f.name, dataFormat(f, entry[f.name]))}
                         </td> : '')}
@@ -222,7 +230,7 @@ function TeamMatches({ database, teamNum, admin, tName, fields }) {
                         </td>
                     </tr>
                     <tr key={`additional-${k}`} className='entry-additional'>
-                        <td colSpan='8' ref={e => entryRefs.current[k] = e}>
+                        <td colSpan='9' ref={e => entryRefs.current[k] = e}>
                             <div className='additional-info'>
                                 {reconfig['data'].map((f, i) => (f.name !== 'exited-community' && f.additional) ? <div className={`additional-data data-point-${i}`}>
                                     <div className='additional-display'>
@@ -331,6 +339,7 @@ function Teams() {
             admin={isAdmin}
             tName={`${teamName}-${regional}`}
             fields={customFields}
+            nav={navigate}
         />
     </>
 }

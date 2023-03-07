@@ -35,6 +35,7 @@ import Teams from './pages/recon/teams/Teams';
 import Matches from './pages/recon/matches/Matches';
 import ManageTeam from './pages/recon/teams/manage-team/ManageTeam';
 import ManageInputs from './pages/recon/scout/manage-inputs/ManageInputs';
+import EditEntry from './pages/recon/scout/edit-entry/EditEntry';
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
           <Route path={paths.recon['matches']} element={<Matches />} />
           <Route path={paths.recon['manage-team']} element={<ManageTeam />} />
           <Route path={paths.recon['manage-inputs']} element={<ManageInputs />} />
+          <Route path={paths.recon['edit-entry']} element={<EditEntry />} />
         </Route>
       </Routes>
     </BrowserRouter>

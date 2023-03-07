@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import './click-area.css';
 
-function ClickArea({ name, options, imageSrc, onChange, lines }) {
+function ClickArea({ name, options, imageSrc, onChange, value }) {
 
     const canvasRef = useRef(null);
     const imageRef = useRef(null);
 
-    const [data, setData] = useState(options.reduce((acc, field) => {
-        acc[field['label']] = [];
-        return acc;
-    }, {}));
+    const [data, setData] = useState(
+        options.reduce((acc, field) => {
+            acc[field['label']] = [];
+            return acc;
+        }, {}));
 
     const [dataLabel, setDataLabel] = useState(options[0]);
 
@@ -35,31 +36,36 @@ function ClickArea({ name, options, imageSrc, onChange, lines }) {
             data[field].map(p => {
                 ctx.fillStyle = dataLabel['color'];
                 ctx.strokeStyle = dataLabel['color'];
-                
+
                 ctx.beginPath();
                 ctx.arc(p.x * 300, p.y * 150, 3, 0, 2 * Math.PI);
                 ctx.moveTo(prevX * 300, prevY * 150);
                 ctx.lineTo(p.x * 300, p.y * 150);
                 ctx.stroke();
 
-                
+
                 prevX = p.x;
                 prevY = p.y;
             })
         }
     }
 
+    
     const undo = e => {
         e.preventDefault();
-        setData({[dataLabel['label']]: data[dataLabel['label']].slice(0, -1)})
+        setData({ [dataLabel['label']]: data[dataLabel['label']].slice(0, -1) })
     }
-
+    
     const placePoint = event => {
         const x = event.nativeEvent.offsetX / event.target.offsetWidth;
         const y = event.nativeEvent.offsetY / event.target.offsetHeight;
-
+        
         setData(p => { return { ...p, [dataLabel['label']]: p[dataLabel['label']].concat([{ x: x, y: y }]) } });
     }
+
+    useEffect(_ => {
+        if (value) setData(value);
+    }, [value]);
 
     useEffect(() => {
         imageRef.current.onload = () => drawImage(canvasRef.current.getContext('2d'));
