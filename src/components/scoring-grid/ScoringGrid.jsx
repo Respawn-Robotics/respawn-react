@@ -73,16 +73,31 @@ function ScoringGrid(props) {
         }
     }
 
-    useEffect(_ => {
-        const scored = cells
-            .map((cell, i) => {
-                if (cell['piece'] === 'none') return;
-                return `${cell['piece'] === 'cone' ? '1' : '2'}${cell['auton'] ? 'T' : 'F'}${i}`
-            })
-            .filter(c => c !== undefined);
+    const updateData = _ => {
+        props.onChange(_, { name: 'power-grid', value: cells
+        .map((cell, i) => {
+            if (cell['piece'] === 'none') return;
+            return `${cell['piece'] === 'cone' ? '1' : '2'}${cell['auton'] ? 'T' : 'F'}${i}`
+        })
+        .filter(c => c !== undefined) })
+    }
 
-        props.onChange(_, { name: 'power-grid', value: scored });
-    }, [cells])
+    useEffect(_ => {
+        let tempCells = cells;
+
+        props.value?.forEach(node => {
+            tempCells[parseInt(node.substring(2, node.length))] = {
+                piece: node.charAt(0) === '1' ? 'cone' : 'cube',
+                auton: node.charAt(1) === 'T'
+            }
+        });
+
+        setCells(tempCells);
+        updateData();
+    }, [props.value]);
+
+    useEffect(_ => updateData(), [cells]);
+
 
     return (
         <>
@@ -92,17 +107,21 @@ function ScoringGrid(props) {
                 <span />
             </div>
             <div className='scoring-grid'>
-                {cells.map((_, index) => {
+                {cells.map((cell, index) => {
                     return (
-                        <div coop={index % 9 > 2 && index % 9 < 6 ? 'true' : 'false'} className="scoring-grid-cell option-3" onClick={e => {
-                            return (
-                                index - 18 >= 0 ? toggleBoth(e, index) :
-                                    (index + 2) % 3 === 0 ? toggleCube(e, index) :
-                                        toggleCone(e, index)
-                            );
-                        }
-                        }>
-
+                        <div
+                            coop={index % 9 > 2 && index % 9 < 6 ? 'true' : 'false'}
+                            className={`scoring-grid-cell option-${cell.piece === 'cone' ? 1 : cell.piece === 'cube' ? 2 : 3}`}
+                            onClick={e => {
+                                return (
+                                    index - 18 >= 0 ? toggleBoth(e, index) :
+                                        (index + 2) % 3 === 0 ? toggleCube(e, index) :
+                                            toggleCone(e, index)
+                                );
+                            }
+                            }
+                        >
+                        {cell.auton ? 'A' : ''}
                         </div>
                     );
                 })}

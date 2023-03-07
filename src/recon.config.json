@@ -3,12 +3,12 @@
         {
             "name": "team",
             "type": "number",
-            "default": -1
+            "default": 0
         },
         {
             "name": "match",
             "type": "number",
-            "default": -1
+            "default": 0
         },
         {
             "name": "alliance",
@@ -31,7 +31,7 @@
                     "color": "#0000B3"
                 }
             ],
-            "default": -1
+            "default": 0
         },
         {
             "name": "points-scored",
@@ -63,7 +63,7 @@
                             "color": "#A216A2"
                         }
                     ],
-                    "default": -1
+                    "default": 0
                 },
                 {
                     "type": "togglebutton",
@@ -85,7 +85,7 @@
                             "color": "#A216A2"
                         }
                     ],
-                    "default": -1
+                    "default": 0
                 },
                 {
                     "type": "togglebutton",
@@ -107,7 +107,7 @@
                             "color": "#A216A2"
                         }
                     ],
-                    "default": -1
+                    "default": 0
                 },
                 {
                     "type": "togglebutton",
@@ -129,10 +129,10 @@
                             "color": "#A216A2"
                         }
                     ],
-                    "default": -1
+                    "default": 0
                 }
             ],
-            "default": [-1, -1, -1, -1],
+            "default": [0, 0, 0, 0],
             "additional": true
         },
         {
@@ -153,7 +153,7 @@
                     "color": "#0099FF"
                 }
             ],
-            "default": {},
+            "default": {"path-point" : []},
             "additional": true
         },
         {
@@ -177,7 +177,7 @@
                     "color": "#0099FF"
                 }
             ],
-            "default": {},
+            "default": {"path-point" : []},
             "additional": true
         },
         {

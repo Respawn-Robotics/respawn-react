@@ -6,6 +6,14 @@
     color: red;
 }
 
+.edit-button {
+  font-family: "roboto-slab";
+  color: white;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 #search-container {
     display: flex;
     flex-direction: column;
