@@ -54,8 +54,8 @@ function EditEntry() {
     }, [user, loading]);
 
     return <>
-        <Scout values={Object.keys(database).length > 0 ? {...database[entry[0]][database[entry[0]].map(e => e.match).indexOf(entry[1])], team: entry[0]} : {}} />
-    </> 
+        <Scout edit={true} values={Object.keys(database).length > 0 ? {...database[entry[0]][database[entry[0]]?.map(e => e.match).indexOf(entry[1])], team: entry[0]} : {}} />
+    </>
 }
 
 export default EditEntry;

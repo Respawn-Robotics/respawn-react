@@ -73,16 +73,14 @@ function ScoringGrid(props) {
         }
     }
 
-    useEffect(_ => {
-        const scored = cells
-            .map((cell, i) => {
-                if (cell['piece'] === 'none') return;
-                return `${cell['piece'] === 'cone' ? '1' : '2'}${cell['auton'] ? 'T' : 'F'}${i}`
-            })
-            .filter(c => c !== undefined);
-
-        props.onChange(_, { name: 'power-grid', value: scored });
-    }, [cells]);
+    const updateData = _ => {
+        props.onChange(_, { name: 'power-grid', value: cells
+        .map((cell, i) => {
+            if (cell['piece'] === 'none') return;
+            return `${cell['piece'] === 'cone' ? '1' : '2'}${cell['auton'] ? 'T' : 'F'}${i}`
+        })
+        .filter(c => c !== undefined) })
+    }
 
     useEffect(_ => {
         let tempCells = cells;
@@ -95,7 +93,11 @@ function ScoringGrid(props) {
         });
 
         setCells(tempCells);
-    }, [props.value])
+        updateData();
+    }, [props.value]);
+
+    useEffect(_ => updateData(), [cells]);
+
 
     return (
         <>

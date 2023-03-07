@@ -12,7 +12,7 @@ import db from '../../../firebase.config';
 import canvasImage from './media/field-image.png';
 import FormInput from '../../../components/form-input/FormInput';
 
-function Scout({values}) {
+function Scout({ edit, values }) {
     const [team, setTeam] = useState();
     const [teamData, setTeamData] = useState({});
     const [database, setDatabase] = useState({});
@@ -28,6 +28,8 @@ function Scout({values}) {
     );
     const [send, setSend] = useState(false);
 
+    useEffect(_ => setTeam(values?.team), [values])
+
     const fetchTeamName = async () => {
         const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
         const doc = await getDocs(q);
@@ -38,15 +40,17 @@ function Scout({values}) {
         if (loading) return
         if (!user) return navigate('/signin')
         fetchTeamName().then(document => {
-            setTeamData(document.docs[0].data()) 
+            setTeamData(document.docs[0].data())
             onSnapshot(doc(db, 'recon',
-                `${document.docs[0].data().teamName}-${document.docs[0].data().regional}`), 
+                `${document.docs[0].data().teamName}-${document.docs[0].data().regional}`),
                 d => {
                     if (!d._document) (async _ => await setDoc(doc(db, 'recon', `${document.docs[0].data().teamName}-${document.docs[0].data().regional}`), {}))();
                     setDatabase(d.data())
                 });
         });
     }, [user, loading]);
+
+    useEffect(_ => { if (values) setInputs(values) }, [values])
 
     const autofillData = _ => {
         setSend(true);
@@ -126,12 +130,46 @@ function Scout({values}) {
                 toast("Request timed out; try downloading the scout and uploading it when you have a connection.", { type: 'error' });
                 showDownload();
             }
+        } else if (edit) {
+            let ogAuthor;
+            const docRef = doc(db, 'recon', `${teamData.teamName}-${teamData.regional}`);
+            console.log({
+                [team]: [
+                    ...database[team].filter(entry => {
+                        if (entry.match != inputs.match) {
+                            return true;
+                        }
+                        return false;
+                    })
+                    .map(x => x === undefined ? null : x),
+                    { ...inputs, author: values.author, edited: user.displayName }
+                ]
+            })
+            toast.promise(updateDoc(docRef, {
+                [team]: [
+                    ...database[team].filter(entry => {
+                        if (entry.match != inputs.match) {
+                            ogAuthor = entry.author;
+                            return true;
+                        }
+                        return false;
+                    }),
+                    { ...inputs, author: ogAuthor, edited: user.displayName }
+                ]
+            }),
+                {
+                    pending: 'Updating...',
+                    success: 'Successfully Updated!',
+                    error: 'Edit Failed!'
+                });
         } else {
             toast('A scout for the same team in the same match already exists! If you believe this is an error, download the data and contact a team admin.', { type: 'error' });
             showDownload();
         }
         setSend(false);
     }
+
+    useEffect(_ => { if (send) sendData(); }, [inputs]);
 
     const changeInputs = (event, data) => {
         if (event && event.target.name === 'team') {
@@ -151,15 +189,13 @@ function Scout({values}) {
                     value = target.value;
 
             }
- 
+
             setInputs(values => ({ ...values, [name]: value }));
         } else {
             setInputs(values => ({ ...values, [data.name]: data.value }));
         }
     }
 
-    useEffect(_ => { console.log(inputs); if (send) sendData(); }, [inputs]);
- 
     return (<div id='scout-form-container'>
         <form id='scout-form'>
             {reconfig.data.map((field, i) => {
@@ -168,10 +204,10 @@ function Scout({values}) {
                         name={field.name}
                         type={field.type}
                         onChange={changeInputs}
-                        lines={field.lines} 
+                        lines={field.lines}
                         options={field.options}
                         imageSrc={canvasImage}
-                        id={`input-${i}`}   
+                        id={`input-${i}`}
                         value={values ? values[field.name] : undefined}
                         key={`input-${i}`}
                     /> : <></>
@@ -185,6 +221,7 @@ function Scout({values}) {
                             type='checkbox'
                             onChange={changeInputs}
                             className='custom-input'
+                            value={values ? values[field.name] ?? undefined : undefined}
                             key={`custom-${i}`}
                         />;
                     case '1':
@@ -193,6 +230,7 @@ function Scout({values}) {
                             type='number'
                             onChange={changeInputs}
                             className='custom-input'
+                            value={values ? values[field.name] ?? undefined : undefined}
                             key={`custom-${i}`}
                         />;
                     case '2':
@@ -207,6 +245,7 @@ function Scout({values}) {
                                 }
                             })}
                             className='custom-input'
+                            value={values ? values[field.name] ?? undefined : undefined}
                             key={`custom-${i}`}
                         />;
                     case '3':
@@ -215,6 +254,7 @@ function Scout({values}) {
                             type='text'
                             onChange={changeInputs}
                             className='custom-input'
+                            value={values ? values[field.name] ?? undefined : undefined}
                             key={`custom-${i}`}
                         />;
                     case '4':
@@ -223,6 +263,7 @@ function Scout({values}) {
                             type='textarea'
                             onChange={changeInputs}
                             className='custom-input'
+                            value={values ? values[field.name] ?? undefined : undefined}
                             key={`custom-${i}`}
                         />;
                 }

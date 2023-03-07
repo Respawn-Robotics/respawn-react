@@ -24,7 +24,7 @@ function Input({ name, type, onChange, options, lines, imageSrc, className, id, 
                 <select name={name} className={`form-input ${className}`} id={id} onChange={onChange}>
                     {options.map((option, index) => {
                         return (
-                            <option className={`select-option ${className}-option`} id={`${id}-option-${index}`} selected={value ? options[options.map(o => o.value).indexOf(parseInt(value))].label === option.label ? 'selected' : '' : ''} value={option.value}>{option.label}</option>
+                            <option className={`select-option ${className}-option`} id={`${id}-option-${index}`} selected={(value ?? '') == option.value ? 'selected' : ''} value={option.value}>{option.label}</option>
                         );
                     })}
                 </select>
@@ -39,7 +39,7 @@ function Input({ name, type, onChange, options, lines, imageSrc, className, id, 
         case "array":
             return <ArrayInputs value={value} name={name} onChange={onChange} options={options} />;
         default:
-            return <input value={value} type={type} required name={name} className={`form-input ${className}`} id={id} onChange={onChange} />;
+            return <input defaultValue={value} type={type} required name={name} className={`form-input ${className}`} id={id} onChange={onChange} />;
     }
 }
 
@@ -47,6 +47,9 @@ function ArrayInputs({ name, onChange, options, value }) {
     const [input, setInput] = useState(options.map(o => o['default']));
 
     useEffect(_ => onChange(_, { name: name, value: input }), [input]);
+    useEffect(_ => {
+        if (value) setInput(value);
+    }, [value]);
 
     const updateInput = (e, data, index) => {
         if (!data) {
