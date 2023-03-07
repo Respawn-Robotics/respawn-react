@@ -1,4 +1,4 @@
-# Respawn React v1.2
+# Respawn React v1.3
 [Live Website](www.respawnrobotics.com)
 ## Index
 - [Introduction](#introduction)
