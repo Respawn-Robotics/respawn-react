@@ -1,282 +1,303 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './scout.css';
+import React, { useState, useEffect } from "react";
+import './manage-team.css';
+import User from "../../../../components/user/User";
+import FormInput from "../../../../components/form-input/FormInput";
+import { updateDoc, arrayUnion, query, collection, where, getDocs, doc, getDoc, onSnapshot, setDoc, arrayRemove, deleteDoc } from 'firebase/firestore';
+import db from '../../../../firebase.config';
+import { getAuth } from "firebase/auth";
+import { useNavigate } from 'react-router-dom'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import reconfig from '../../../recon.config';
-import { doc, updateDoc, arrayUnion, onSnapshot, setDoc } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { query, collection, where, getDocs } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
-import db from '../../../firebase.config';
-import canvasImage from './media/field-image.png';
-import FormInput from '../../../components/form-input/FormInput';
 
-function Scout({ edit, values }) {
-    const [team, setTeam] = useState();
-    const [teamData, setTeamData] = useState({});
-    const [database, setDatabase] = useState({});
-    const downloadLink = useRef(null);
-    const auth = getAuth();
-    const [user, loading] = useAuthState(auth);
-    const navigate = useNavigate();
-    const [inputs, setInputs] = useState(
-        reconfig.data.reduce((acc, cur) => {
-            if (cur.name !== 'team') acc[cur.name] = cur.default;
-            return acc;
-        }, {})
-    );
-    const [send, setSend] = useState(false);
-
-    useEffect(_ => setTeam(values?.team), [values])
-
-    const fetchTeamName = async () => {
-        const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
-        const doc = await getDocs(q);
-        return doc;
+function CustomField({ field }) {
+    const FieldText = ({ field }) => {
+        switch (field.type) {
+            case '0':
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Checkbox</h2>
+                </div>;
+            case '1':
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Number</h2>
+                </div>;
+            case '2':
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Select</h2>
+                    <h3>Options:</h3>
+                    <ul>
+                        {field.options.map(o => <li key={o}>{o}</li>)}
+                    </ul>
+                </div>;
+            case '4':
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Extended Response</h2>
+                </div>;
+            default:
+                return <div className='custom-field-text'>
+                    <h1>Name: {field.name}</h1>
+                    <h2>Type: Short Response</h2>
+                </div>;
+        }
     }
 
-    useEffect(_ => {
-        if (loading) return
-        if (!user) return navigate('/signin')
-        fetchTeamName().then(document => {
-            setTeamData(document.docs[0].data())
-            onSnapshot(doc(db, 'recon',
-                `${document.docs[0].data().teamName}-${document.docs[0].data().regional}`),
-                d => {
-                    if (!d._document) (async _ => await setDoc(doc(db, 'recon', `${document.docs[0].data().teamName}-${document.docs[0].data().regional}`), {}))();
-                    setDatabase(d.data())
-                });
+    return <div className='custom-field'>
+        <FieldText field={field} />
+    </div>
+}
+
+function ManageTeam() {
+    const auth = getAuth();
+    const [user, loading] = useAuthState(auth)
+    const navigate = useNavigate()
+    const [currentUserRank, setCurrentUserRank] = useState("");
+    const [teamRegionals, setTeamRegionals] = useState([])
+    const [scoutingData, setScoutingData] = useState({});
+    const [team, setTeam] = useState(null)
+    const [users, setUsers] = useState([])
+    const [inputs, setInputs] = useState({ email: "" });
+
+    const isUserAdmin = async () => {
+        const q = query(collection(db, "teams"), where("admins", "array-contains", user.uid));
+        const doc1 = await getDocs(q);
+        return doc1.empty
+    }
+
+    const isUserOwner = async () => {
+        const q = query(collection(db, "teams"), where("owner", "==", user.uid));
+        const doc1 = await getDocs(q);
+        return doc1.empty
+    }
+
+    const fetchTeam = async () => {
+        const q = query(collection(db, "teams"), where("users", "array-contains", user?.uid));
+        const doc1 = await getDocs(q);
+        return doc1.docs[0]
+    }
+
+    const fetchTeamUsers = async (teamData) => {
+        const q = query(collection(db, "users"), where("team", "==", teamData.teamName.toString()));
+        const docs = await getDocs(q);
+        let userArray = [];
+        docs.forEach(doc => {
+            const data = doc.data()
+            userArray.push(data)
+        })
+        return userArray
+    }
+
+    const deleteTeam = () => {
+        const teamDocRef = doc(db, "teams", team.teamName);
+        users.forEach(user => {
+            updateDoc(doc(db, "users", user.uid), {
+                team: ""
+            })
+        })
+        deleteDoc(teamDocRef)
+        toast("Successfuly deleted " + team.teamName + "!")
+    }
+
+    useEffect(() => {
+        if (loading) return;
+        if (!user) return navigate("/signin");
+        isUserAdmin().then(res => {
+            if (res === false) setCurrentUserRank("Admin")
+        })
+        isUserOwner().then(res => {
+            if (res === false) setCurrentUserRank("Owner")
+        })
+        fetchTeam().then(res => {
+            if (!res) navigate("/recon/create-join-team");
+            setTeam(res.data());
+            (async num => {
+                fetch(`https://www.thebluealliance.com/api/v3/team/frc${num}/events/2023`, {
+                    method: 'GET',
+                    headers: {
+                        'X-TBA-Auth-Key': import.meta.env.VITE_tbaApiKey,
+                    }
+                })
+                    .then(async data => {
+                        setTeamRegionals((await data.json())
+                            .map(reg => {
+                                return {
+                                    name: reg.name,
+                                    id: reg.event_code
+                                }
+                            }));
+                    });
+            })(res.data().teamNumber);
+            onSnapshot(doc(db, 'recon', `${res.data().teamName}-${res.data().regional}`), doc => setScoutingData(doc.data()));
+            fetchTeamUsers(res.data()).then(u => setUsers(u.sort((a, b) => {
+                if (res.data().owner === a.uid) return -1;
+                if (res.data().owner === b.uid) return 1;
+                if (res.data().admins?.includes(a.uid)) {
+                    if (res.data().admins?.includes(b.uid)) return 0;
+                    return -1;
+                }
+                if (res.data().admins?.includes(b.uid)) return 1;
+                return 0;
+            })))
         });
     }, [user, loading]);
 
-    useEffect(_ => { if (values) setInputs(values) }, [values])
+    useEffect(_ => console.log(teamRegionals), [teamRegionals])
 
-    const autofillData = _ => {
-        setSend(true);
+    const changeInputs = (e) => {
+        const target = e.currentTarget;
 
-        const exitedCommunity = _ => {
-            let points = inputs['auton-path']['path-point'];
-            if (!points) return 0;
-            for (let i = 0; i < points.length; i++) {
-                if (
-                    (points[i].x < 0.6 && points[i].x > 0.4) ||
-                    (points[i].x < 0.8 && points[i].x > 0.2 && points[i].y > 0.15 && points[i].y < 0.5) ||
-                    (points[i].x < 0.71 && points[i].x < 0.29 && points[i].y > 0.5)
-                ) return 3;
-            }
-            return 0;
+        const name = target.id;
+        let value = null;
+
+        switch (target.type) {
+            case "number":
+                value = parseInt(target.value);
+                break;
+            case "checkbox":
+                value = target.checked;
+                break;
+            default:
+                value = target.value.toLocaleLowerCase();
+
         }
+        setInputs(values => ({ ...values, [name]: value }));
+    }
 
-        const powerGrid = _ => {
-            let sum = 0;
+    const sendData = async () => {
+        const payload = inputs;
+        const invitesDocRef = doc(db, "invites", inputs.email);
 
-            inputs['power-grid'].map(node => {
-                if (node.substr(2) < 9) sum += node.charAt(1) === 'T' ? 6 : 5;
-                else if (node.substr(2) < 18) sum += node.charAt(1) === 'T' ? 4 : 3;
-                else sum += node.charAt(1) === 'T' ? 3 : 2;
+        const invitesSnap = await getDoc(invitesDocRef);
+
+        payload.team = team.teamName;
+        if (invitesSnap.exists()) {
+            toast("That user has already been invited!");
+        } else {
+            setDoc(invitesDocRef, {
+                ...payload
             })
-
-            return sum;
+            setInputs({ email: "" })
+            toast("Successfully sent invite!");
         }
+    }
 
-        setInputs(i => {
-            return {
-                ...i,
-                'exited-community':
-                    exitedCommunity() === 3,
-                'points-scored':
-                    (parseInt(exitedCommunity()) +
-                        parseInt(inputs['auton-charge-station']) +
-                        parseInt(powerGrid()) +
-                        parseInt(inputs['endgame-charge-station'])).toString()
-            };
+    const promoteUser = (uid, userData) => {
+        const teamDocRef = doc(db, "teams", team.teamName);
+        updateDoc(teamDocRef, {
+            admins: arrayUnion(uid)
+        })
+
+        toast("Successfuly promoted " + userData.displayName + "!")
+    }
+
+    const demoteUser = (uid, userData) => {
+
+        const teamDocRef = doc(db, "teams", team.teamName);
+        updateDoc(teamDocRef, {
+            admins: arrayRemove(uid)
+        })
+
+        toast("Successfuly demoted " + userData.displayName + "!")
+    }
+
+    const updateRegional = reg => {
+        if (reg === "-1") return;
+        const teamDocRef = doc(db, "teams", team.teamName);
+        updateDoc(teamDocRef, {
+            regional: reg
         });
+        toast("Successfully updated regional!");
     }
 
-    const showDownload = _ => {
-        const stringifyJson = JSON.stringify({ ...inputs, team: team, author: user.displayName });
-        const jsonBlob = new Blob([stringifyJson], { type: 'application/json' });
-        const url = URL.createObjectURL(jsonBlob);
-        downloadLink.current.href = url;
-        downloadLink.current.style.display = 'block';
+    const kickUser = (uid) => {
+        const teamDocRef = doc(db, "teams", team.teamName);
+        const usersDocRef = doc(db, "users", uid);
+        updateDoc(teamDocRef, {
+            admins: arrayRemove(uid)
+        })
+
+        updateDoc(teamDocRef, {
+            users: arrayRemove(uid)
+        })
+
+        updateDoc(usersDocRef, {
+            team: ""
+        })
+        toast("Successfully kicked user!");
     }
 
-    const sendData = async _ => {
-        if (!database[team] || database[team].map(en => en.match).indexOf(inputs.match) === -1) {
-            try {
-                const docRef = doc(db, 'recon', `${teamData.teamName}-${teamData.regional}`);
-                let result = toast.promise(Promise.race([
-                    updateDoc(docRef, { [team]: arrayUnion({ ...inputs, author: user.displayName }) }),
-                    new Promise((_, rej) => {
-                        const timeoutId = setTimeout(_ => {
-                            clearTimeout(timeoutId);
-                            rej("Request timed out; try downloading the scout and uploading it when you have a connection.")
-                        }, 2000)
-                    })
-                ]), {
-                    pending: 'Uploading...',
-                    success: 'Uploaded!',
-                    error: 'Upload Failed!'
-                });
 
-                result.then(_ => {
-                    navigate('/recon');
-                }, rej => {
-                    toast(rej, { type: 'error' });
-                    showDownload();
-                });
-            } catch (error) {
-                toast("Request timed out; try downloading the scout and uploading it when you have a connection.", { type: 'error' });
-                showDownload();
-            }
-        } else if (edit) {
-            let ogAuthor;
-            const docRef = doc(db, 'recon', `${teamData.teamName}-${teamData.regional}`);
-            console.log({
-                [team]: [
-                    ...database[team].filter(entry => {
-                        if (entry.match != inputs.match) {
-                            return true;
-                        }
-                        return false;
-                    })
-                    .map(x => x === undefined ? null : x),
-                    { ...inputs, author: values.author, edited: user.displayName }
-                ]
-            })
-            toast.promise(updateDoc(docRef, {
-                [team]: [
-                    ...database[team].filter(entry => {
-                        if (entry.match != inputs.match) {
-                            ogAuthor = entry.author;
-                            return true;
-                        }
-                        return false;
-                    }),
-                    { ...inputs, author: ogAuthor, edited: user.displayName }
-                ]
-            }),
-                {
-                    pending: 'Updating...',
-                    success: 'Successfully Updated!',
-                    error: 'Edit Failed!'
-                });
-        } else {
-            toast('A scout for the same team in the same match already exists! If you believe this is an error, download the data and contact a team admin.', { type: 'error' });
-            showDownload();
-        }
-        setSend(false);
-    }
-
-    useEffect(_ => { if (send) sendData(); }, [inputs]);
-
-    const changeInputs = (event, data) => {
-        if (event && event.target.name === 'team') {
-            setTeam(parseInt(event.target.value));
-            return;
-        }
-        if (!data) {
-            const target = event.target;
-
-            const name = target.name;
-            let value;
-            switch (target.type) {
-                case "checkbox":
-                    value = target.checked;
-                    break;
-                default:
-                    value = target.value;
-
-            }
-
-            setInputs(values => ({ ...values, [name]: value }));
-        } else {
-            setInputs(values => ({ ...values, [data.name]: data.value }));
-        }
-    }
-
-    return (<div id='scout-form-container'>
-        <form id='scout-form'>
-            {reconfig.data.map((field, i) => {
-                return (!field.auto ?
-                    <FormInput
-                        name={field.name}
-                        type={field.type}
-                        onChange={changeInputs}
-                        lines={field.lines}
-                        options={field.options}
-                        imageSrc={canvasImage}
-                        id={`input-${i}`}
-                        value={values ? values[field.name] : undefined}
-                        key={`input-${i}`}
-                    /> : <></>
-                );
-            })}
-            {teamData.fields ? teamData.fields?.map((field, i) => {
-                switch (field.type) {
-                    case '0':
-                        return <FormInput
-                            name={field.name}
-                            type='checkbox'
-                            onChange={changeInputs}
-                            className='custom-input'
-                            value={values ? values[field.name] ?? undefined : undefined}
-                            key={`custom-${i}`}
-                        />;
-                    case '1':
-                        return <FormInput
-                            name={field.name}
-                            type='number'
-                            onChange={changeInputs}
-                            className='custom-input'
-                            value={values ? values[field.name] ?? undefined : undefined}
-                            key={`custom-${i}`}
-                        />;
-                    case '2':
-                        return <FormInput
-                            name={field.name}
+    return <>
+        {team ?
+            <>
+                <h1 className='header' id='team-name'>Team Name: <o>{team.teamName}</o></h1>
+                {(currentUserRank === "Admin" || currentUserRank === "Owner") && <>
+                    <div id="regional-selection">
+                        <FormInput 
+                            name='select-regional'
                             type='select'
-                            onChange={changeInputs}
-                            options={field.options.map((o, i) => {
-                                return {
-                                    label: o,
-                                    value: i
-                                }
-                            })}
-                            className='custom-input'
-                            value={values ? values[field.name] ?? undefined : undefined}
-                            key={`custom-${i}`}
-                        />;
-                    case '3':
-                        return <FormInput
-                            name={field.name}
-                            type='text'
-                            onChange={changeInputs}
-                            className='custom-input'
-                            value={values ? values[field.name] ?? undefined : undefined}
-                            key={`custom-${i}`}
-                        />;
-                    case '4':
-                        return <FormInput
-                            name={field.name}
-                            type='textarea'
-                            onChange={changeInputs}
-                            className='custom-input'
-                            value={values ? values[field.name] ?? undefined : undefined}
-                            key={`custom-${i}`}
-                        />;
-                }
-            }) : <></>}
+                            options={[{
+                                label: 'Select...',
+                                value: -1
+                            }, ...teamRegionals.map(reg => {return {
+                                label: reg.name,
+                                value: reg.id
+                            }})]}
+                            value={team.regional}
+                            onChange={e => updateRegional(e.target.value)}
+                        />
+                    </div>
+                    <div className='column'>
+                        <form id='send-invite-form'>
+                            <h1 className='header'>Send Invite:</h1>
+                            <FormInput inputId='email' type='textarea' name='Email' onChange={changeInputs} value={inputs.email} />
+                            <button id='submit-button' type='button' onClick={sendData}>SUBMIT</button>
+                        </form>
+                        <div id='custom-inputs'>
+                            <h1>Custom Scout Fields:</h1>
+                            <div id='custom-fields'>
+                                {team.fields ? team.fields.map(f => <CustomField field={f} />) : <p>No custom fields created yet.</p>}
+                            </div>
+                            <button onClick={_ => navigate('/recon/manage-inputs')}>Manage</button>
+                        </div>
+                    </div>
+                </>}
+                <h1 className='header'>Users:</h1>
+                <div id='users-container'>
+                    <div id='user-headings'>
+                        <h1>Name</h1>
+                        <h1>Email</h1>
+                        <h1>Rank</h1>
+                        <h1>No. Of Scouts</h1>
+                    </div>
+                    {users.map(i => <User
+                        userData={i}
+                        key={i.uid}
+                        admin={(currentUserRank === "Admin" || currentUserRank === "Owner")}
+                        rank={
+                            team.owner === i.uid ? 'Owner' :
+                                team.admins.includes(i.uid) ? 'Admin' :
+                                    'User'
+                        }
+                        scoutData={scoutingData}
+                        currentUserRank={currentUserRank}
+                        kickUser={kickUser}
+                        promoteUser={promoteUser}
+                        demoteUser={demoteUser}
+                        deleteTeam={deleteTeam}
+                    />)}
+                </div>
+                {(currentUserRank === "Owner") && <div className="delete-team-button">
+                    <button id='submit-button' onClick={deleteTeam}>DELETE TEAM</button>
+                    <h2>WARNING: THIS CANNOT BE UNDONE</h2>
+                </div>}
+            </>
 
-            <div id='submit-button-container'>
-                <button type='button' id='submit-button' onClick={autofillData}>SUBMIT</button>
-                <a type='button' style={{ display: 'none', textDecoration: 'none' }} href='#' ref={downloadLink} id='submit-button' download onClick={autofillData}>DOWNLOAD DATA</a>
-            </div>
-        </form>
-    </div>
-    )
+            : <> Loading... </>}
 
+    </>
 }
 
-export default Scout;
+export default ManageTeam;
