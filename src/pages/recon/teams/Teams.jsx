@@ -109,7 +109,7 @@ function TeamMatches({ database, teamNum, admin, tName, fields, nav }) {
                 </div>;
             case 'auton-path':
             case 'cycle-path':
-                if (Object.keys(canvasRefs.current).length > 0) {
+                if (Object.keys(canvasRefs.current).length > 0 && data) {
                     const canvas = canvasRefs.current[`${name}-${key}`];
                     const ctx = canvas?.getContext('2d');
                     ctx?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height);
