@@ -45,29 +45,45 @@
 }
 
 .scoring-grid-cell.option-3[coop="true"] {
-    padding: 0;
-    border: 2px white solid;
     background-color: #393939;
 }
 
-.auton-toggle {
+.scoring-grid-cell.option-1.supercharged {
+    background-color: #FF0000;
+}
+
+.scoring-grid-cell.option-2.supercharged {
+    background-color: #FF0000;
+}
+
+.scoring-grid-cell.option-3.supercharged {
+    background-color: #000000;
+}
+
+#toggle-list {
+    display: flex;
+    justify-content: space-around;
+    column-gap: 100px;
+}
+
+.power-grid-toggle {
     height: 5vh;
     margin: 2vh 0 0;
 }
 
-.auton-toggle > label {
+.power-grid-toggle > label {
     color: white;
     font-family: "roboto-slab";
 }
 
-.auton-toggle > input {
+.power-grid-toggle > input {
     position: absolute;
     aspect-ratio: 1/1;
     opacity: 0;
     cursor: pointer;
 }
 
-.auton-toggle > span {
+.power-grid-toggle > span {
     padding: 1ch;
     font-size: 0.75rem;
     color: white;
@@ -76,15 +92,15 @@
     background-color: var(--respawn-blue);
 }
 
-.auton-toggle > input:checked ~ span::after {
+.power-grid-toggle > input:checked ~ span::after {
     content: "\2713";
 }
 
-.auton-toggle > input:checked ~ span {
+.power-grid-toggle > input:checked ~ span {
     background-color: var(--respawn-orange);
 }
 
-.auton-toggle > span::after {
+.power-grid-toggle > span::after {
     content: "\2715";
 }
 

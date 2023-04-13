@@ -316,6 +316,10 @@ button.entry-data {
     background-color: purple;
 }
 
+.supercharged {
+    background-color: #FF0000 !important;
+}
+
 /* -----------------------Data Points----------------------- */
 
 @media (max-aspect-ratio: 1/1) {
