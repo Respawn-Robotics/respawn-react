@@ -81,12 +81,13 @@ function TeamMatches({ database, teamNum, admin, tName, fields, nav }) {
                 ];
                 let currentIndex = 0;
                 for (let i = 0; i < 27; i++) {
-                    if (value.length <= currentIndex || parseInt(value[currentIndex].substring(2)) !== i) {
-                        val[Math.floor(i / 9)].push([false, 0]);
+                    if (value.length <= currentIndex || parseInt(value[currentIndex].substring(3)) !== i) {
+                        val[Math.floor(i / 9)].push([false, 0, false]);
                     } else {
                         val[Math.floor(i / 9)].push([
                             value[currentIndex].charAt(1) === 'T' ? true : false,
-                            parseInt(value[currentIndex].charAt(0))
+                            parseInt(value[currentIndex].charAt(0)),
+                            value[currentIndex].charAt(2) === 'S' ? true : false
                         ])
                         currentIndex++;
                     }
@@ -136,7 +137,7 @@ function TeamMatches({ database, teamNum, admin, tName, fields, nav }) {
                 return <div className='additional-display'>
                     <div className='power-grid-display'>
                         {data?.map(row => row.map(node => <>
-                            <div className={`power-grid-node piece-${node[1]}`}>
+                            <div className={`power-grid-node piece-${node[1]} ${node[2] ? 'supercharged' : ''}`}>
                                 {node[0] ? 'A' : ''}
                             </div>
                         </>

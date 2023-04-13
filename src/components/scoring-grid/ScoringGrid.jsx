@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import './scoring-grid.css';
 
 function ScoringGrid(props) {
-    const [cells, setCells] = useState(Array.from({ length: 27 }, _ => { return { piece: 'none', auton: false } }));
+    const [cells, setCells] = useState(Array.from({ length: 27 }, _ => { return { piece: 'none', auton: false, supercharged: false } }));
 
-    const checkbox = useRef(null);
+    const autonToggle = useRef(null);
+    const superchargedToggle = useRef(null);
 
     const updateCell = (index, field, value) => {
         setCells(cells.map((cell, i) =>
@@ -20,9 +21,14 @@ function ScoringGrid(props) {
     }
 
     const toggleCone = (e, i) => {
-        if (checkbox.current.checked) {
+        if (autonToggle.current.checked) {
             updateCell(i, 'auton', !cells[i]['auton']);
             e.target.innerHTML = e.target.innerHTML === '' ? 'A' : '';
+            return;
+        }
+
+        if (superchargedToggle.current.checked) {
+            updateCell(i, 'supercharged', !cells[i]['supercharged']);
             return;
         }
 
@@ -36,9 +42,14 @@ function ScoringGrid(props) {
     }
 
     const toggleCube = (e, i) => {
-        if (checkbox.current.checked) {
+        if (autonToggle.current.checked) {
             updateCell(i, 'auton', !cells[i]['auton']);
             e.target.innerHTML = e.target.innerHTML === '' ? 'A' : '';
+            return;
+        }
+
+        if (superchargedToggle.current.checked) {
+            updateCell(i, 'supercharged', !cells[i]['supercharged']);
             return;
         }
 
@@ -52,9 +63,14 @@ function ScoringGrid(props) {
     }
 
     const toggleBoth = (e, i) => {
-        if (checkbox.current.checked) {
+        if (autonToggle.current.checked) {
             updateCell(i, 'auton', !cells[i]['auton']);
             e.target.innerHTML = e.target.innerHTML === '' ? 'A' : '';
+            return;
+        }
+
+        if (superchargedToggle.current.checked) {
+            updateCell(i, 'supercharged', !cells[i]['supercharged']);
             return;
         }
 
@@ -77,7 +93,7 @@ function ScoringGrid(props) {
         props.onChange(_, { name: 'power-grid', value: cells
         .map((cell, i) => {
             if (cell['piece'] === 'none') return;
-            return `${cell['piece'] === 'cone' ? '1' : '2'}${cell['auton'] ? 'T' : 'F'}${i}`
+            return `${cell['piece'] === 'cone' ? '1' : '2'}${cell['auton'] ? 'T' : 'F'}${cell['supercharged'] ? 'S' : 'N'}${i}`
         })
         .filter(c => c !== undefined) })
     }
@@ -86,9 +102,10 @@ function ScoringGrid(props) {
         let tempCells = cells;
 
         props.value?.forEach(node => {
-            tempCells[parseInt(node.substring(2, node.length))] = {
+            tempCells[parseInt(node.substring(3, node.length))] = {
                 piece: node.charAt(0) === '1' ? 'cone' : 'cube',
-                auton: node.charAt(1) === 'T'
+                auton: node.charAt(1) === 'T',
+                supercharged: node.charAt(2) === 'S'
             }
         });
 
@@ -101,17 +118,24 @@ function ScoringGrid(props) {
 
     return (
         <>
-            <div className='auton-toggle'>
-                <label>Auton: </label>
-                <input type='checkbox' ref={checkbox} />
-                <span />
+            <div id='toggle-list'>
+                <div className='power-grid-toggle'>
+                    <label>Auton: </label>
+                    <input type='checkbox' ref={autonToggle} />
+                    <span />
+                </div>
+                <div className='power-grid-toggle'>
+                    <label>Supercharged: </label>
+                    <input type='checkbox' ref={superchargedToggle} />
+                    <span />
+                </div>
             </div>
             <div className='scoring-grid'>
                 {cells.map((cell, index) => {
                     return (
                         <div
                             coop={index % 9 > 2 && index % 9 < 6 ? 'true' : 'false'}
-                            className={`scoring-grid-cell option-${cell.piece === 'cone' ? 1 : cell.piece === 'cube' ? 2 : 3}`}
+                            className={`scoring-grid-cell option-${cell.piece === 'cone' ? 1 : cell.piece === 'cube' ? 2 : 3} ${cell.supercharged ? 'supercharged' : ''}`}
                             onClick={e => {
                                 return (
                                     index - 18 >= 0 ? toggleBoth(e, index) :

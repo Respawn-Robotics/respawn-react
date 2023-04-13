@@ -73,10 +73,12 @@ function Scout({ edit, values }) {
             let sum = 0;
 
             inputs['power-grid'].map(node => {
-                if (node.substr(2) < 9) sum += node.charAt(1) === 'T' ? 6 : 5;
-                else if (node.substr(2) < 18) sum += node.charAt(1) === 'T' ? 4 : 3;
+                if (node.substr(3) < 9) sum += node.charAt(1) === 'T' ? 6 : 5;
+                else if (node.substr(3) < 18) sum += node.charAt(1) === 'T' ? 4 : 3;
                 else sum += node.charAt(1) === 'T' ? 3 : 2;
-            })
+
+                if (node.charAt(2) === 'S') sum += 3;
+            });
 
             return sum;
         }
