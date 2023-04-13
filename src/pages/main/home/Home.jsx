@@ -11,6 +11,8 @@ import img4 from './media/picture4.jpg';
 import img5 from './media/picture5.jpg';
 import img6 from './media/picture6.jpg';
 import img7 from './media/picture7.jpg';
+import img8 from './media/picture8.jpg';
+import img9 from './media/picture9.jpg';
 
 //Logos
 import butlertech_logo from './media/butlertech_logo.png';
@@ -34,13 +36,15 @@ function Home() {
     <>
       <div className='image-slider-container'>
         <ImageSlider imageStyle='cover' delay={4000}>
-          <img src={img1} alt='Respawn Robotics at 2022 Rocket City Regional' />
-          <img src={img2} alt='Tempest' />
-          <img src={img3} alt='Our Human Player After Sinking a Shot' />
-          <img src={img4} alt='Respawn Robotics Showcasing Tempest at Wildwood Elementary' />
-          <img src={img5} alt='Talking to the Kids About Mechatronics as a Career Field' />
-          <img src={img6} alt="Team 325's Pit at 2022 Greater Pittsburgh Regional" />
-          <img src={img7} alt='Students Learning from Mentor' />
+          <img src={img1} alt='Drive team at Miami Valley Regional' />
+          <img src={img2} alt='After winning with alliance partner 1787' />
+          <img src={img3} alt='2023 Robot Bentley' />
+          <img src={img4} alt='Posing to Blair' />
+          <img src={img5} alt='Miami Valley Regional Pit' />
+          <img src={img6} alt='Cheering on 325 at Miami Valley Regional' />
+          <img src={img7} alt='Cheering on 325 at Smoky Mountains Regional' />
+          <img src={img8} alt='2023 Pit Crew' />
+          <img src={img9} alt='Respawn Robotics at Wright Patt Airbase' />
         </ImageSlider>
       </div>
       <div className='our-mission-container'>
